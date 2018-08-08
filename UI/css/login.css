@@ -3,7 +3,7 @@
     margin-left: 20px;
     margin-right: 20px;
     padding: 20px 0;
-    height: 320px !important;
+    /* height: 320px !important; */
     margin-top: 10%;
 }
 
@@ -20,4 +20,10 @@
     margin-right: 20px;
     margin-top: -40px;
     padding: 20px 0;
+}
+
+.header-text {
+    text-align: center;
+    color: white;
+    font-weight: 700;
 }

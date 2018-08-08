@@ -68,6 +68,10 @@ a {
     margin-left: 47px;
     margin-right: 47px;
 }
+
+.hatch .form-container .form-group {
+    padding-bottom: 38px;
+}
 /* ./general */
 .logo {
     margin-top: -11px;
