@@ -12,3 +12,7 @@
 .text-primary {
     color: rebeccapurple;
 }
+
+.text-white {
+    color: white !important;
+}

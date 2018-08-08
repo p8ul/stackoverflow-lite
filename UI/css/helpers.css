@@ -20,6 +20,12 @@
 .mt--5 {
     margin-top: -5px !important;
 }
+.mt-20 {
+    margin-top: 20px;
+}
+.mt-100 {
+    margin-top: 65px;
+}
 
 .p-0 {
     padding: 0px !important;
@@ -34,10 +40,6 @@
 }
 .pl-15 {
     padding-left: 30px;
-}
-
-.mt-100 {
-    margin-top: 65px;
 }
 
 .column {
