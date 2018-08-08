@@ -1,0 +1,14 @@
+.bg-orange {
+    background-color: #fa5903;
+    color: #FFFFFF;
+}
+.clearfix {
+    clear: both;
+}
+.bg-primary {
+    background-color: rebeccapurple;
+    color: #FFFFFF;
+}
+.text-primary {
+    color: rebeccapurple;
+}
