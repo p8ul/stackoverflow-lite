@@ -4,6 +4,7 @@
 .mega-text {
     font-size: 35px;
     font-weight: 900;
+    margin: 35px;
 }
 .pull-right {
     float: right !important;
