@@ -1,0 +1,26 @@
+.col-2 {
+    width: 15.33333333% !important;
+    height: 100%;
+    float: left;
+}
+
+.col-4 {
+    width: 33.33333333% !important;
+    height: 100%;
+    float: left;
+}
+
+.col-6 {
+    width: 50% !important;
+    height: 100%;
+    float: left;
+}
+.col-10 {
+    width: 84% !important;
+    height: 100%;
+    float: left;
+}
+
+.full-height {
+    height: 920px;
+}

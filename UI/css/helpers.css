@@ -1,0 +1,45 @@
+.text-center {
+    text-align: center;
+}
+.mega-text {
+    font-size: 35px;
+    font-weight: 900;
+}
+.pull-right {
+    float: right !important;
+}
+.pull-left {
+    float: left !important;
+}
+.header-primary {
+    background-color: #9c27b0;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46);
+}
+
+.mt--5 {
+    margin-top: -5px !important;
+}
+
+.p-0 {
+    padding: 0px !important;
+}
+
+.p-15 {
+    padding: 15px !important;
+}
+
+.pr-15 {
+    padding-right: 30px;
+}
+.pl-15 {
+    padding-left: 30px;
+}
+
+.mt-100 {
+    margin-top: 65px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
