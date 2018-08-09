@@ -1,6 +1,9 @@
 
 @import 'login.css';
+@import 'questions.css';
 @import 'card.css';
+@import 'panel.css';
+@import 'table.css';
 @import 'helpers.css';
 @import 'buttons.css';
 @import 'media.css';
@@ -25,6 +28,11 @@ a {
 .wrapper {
     margin-left: 128px;
     margin-right: 128px;  
+}
+.main-wrapper {
+    margin-top: 54px;
+    width: 100%;
+    height: 100%;
 }
 
 .full-span {
@@ -95,6 +103,18 @@ a {
     /* background-color: #9c27b0; */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46);
 }
+.navbar-primary-outline {
+    border-bottom-width: 1px;
+    border-bottom-color: #D2D2D2;
+    border-bottom-style: solid;
+}
+
+.bb {
+    border-bottom-width: 1px;
+    border-bottom-color: #D2D2D2;
+    border-bottom-style: solid;
+    width: 100%;
+}
 .navbar {    
     color: #000000;
     padding: 10px 0; 
@@ -110,7 +130,7 @@ a {
 .navbar-fixed-top {
     position: fixed;
     z-index: 1030;
-    width: 85%;
+    width: 80%;
 }
 
 .nav {
@@ -141,21 +161,28 @@ a {
 }
 
 .sidebar-items .nav > li {
-    padding: 9px;
+    padding: 18px;
     color: rgba(95, 90, 90, 0.856)
 }
 
 .sidebar-items .nav .active {
-    padding: 3px;
+    padding: 18px;
     color: black;
-    border: 5px solid red;
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-left-color: red;
     border-bottom-color: rgba(255, 255, 255, 0.35);
     border-bottom-style: solid;
-    border-bottom-width: 9px;
-    border-top: 0;
+    border-top-width: 15px;
+    border-top-color: transparent;
     border-bottom: 0;
     border-right: 0;
-    box-shadow: 10px 0px 090px 0px rgba(0, 0, 0, 0.14), 0 1px 0px -5px rgba(156, 39, 176, 0.46);
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition: all 150ms ease 0s;
+    -o-transition: all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+    /* box-shadow: 10px 0px 090px 0px rgba(0, 0, 0, 0.14), 0 1px 0px -5px rgba(156, 39, 176, 0.46); */
 }
 
 .icon {

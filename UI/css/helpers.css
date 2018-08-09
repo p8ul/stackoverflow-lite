@@ -26,6 +26,9 @@
 .mt-100 {
     margin-top: 65px;
 }
+.m-35 {
+    margin: 35px !important;
+}
 
 .p-0 {
     padding: 0px !important;

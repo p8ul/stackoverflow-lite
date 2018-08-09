@@ -9,8 +9,18 @@
     background-color: rebeccapurple;
     color: #FFFFFF;
 }
+.bg-white {
+    background-color: white;
+}
+.bg-whitesmoke {
+    background-color: whitesmoke;
+}
 .text-primary {
     color: rebeccapurple;
+}
+
+.text-grey {
+    color: grey;
 }
 
 .text-white {

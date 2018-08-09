@@ -4,7 +4,11 @@
     height: 100%;
     float: left;
 }
-
+.col-3 {
+    width: 20.33333333% !important;
+    height: 100%;
+    float: left;
+}
 .col-4 {
     width: 33.33333333% !important;
     height: 100%;
@@ -17,7 +21,7 @@
     float: left;
 }
 .col-10 {
-    width: 84% !important;
+    width: 74% !important;
     height: 100%;
     float: left;
 }
