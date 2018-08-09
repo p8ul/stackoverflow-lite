@@ -3,6 +3,10 @@
     padding: 12px;
 }
 
+.sidebar {
+    z-index: 1130;
+}
+
 .sidebar-items__nav {
     padding-left: 0px;
     
@@ -14,6 +18,10 @@
     list-style: none;
     padding-left: 32px;
     
+}
+
+.sidebar-items__nav > li > a {
+    color: rgba(95, 90, 90, 0.856);    
 }
 
 .sidebar-items__nav--active {

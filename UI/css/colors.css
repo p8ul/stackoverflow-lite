@@ -13,14 +13,14 @@
     background-color: white;
 }
 .bg-whitesmoke {
-    background-color: whitesmoke;
+    background-color: whitesmoke !important;
 }
 .text-primary {
-    color: rebeccapurple;
+    color: rebeccapurple !important;
 }
 
 .text-grey {
-    color: grey;
+    color: grey !important;
 }
 
 .text-white {
@@ -29,5 +29,5 @@
 
 
 .active-text {
-    color: rebeccapurple;
+    color: rebeccapurple !important;
 }

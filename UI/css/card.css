@@ -15,3 +15,8 @@
     line-height: 1.55em;
     font-weight: 700;
 }
+
+.card-image {
+    width: 100%;
+    margin-left: 27px;
+}
