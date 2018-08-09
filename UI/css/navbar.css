@@ -1,7 +1,7 @@
 /** navigation bar */
 .navbar-primary {
     /* background-color: #9c27b0; */
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46);
+    box-shadow: 1px 4px 2px 0px rgba(0, 0, 0, 0.14), 0 1px 12px -5px rgba(156, 39, 176, 0.46);
 }
 .navbar-primary-outline {
     border-bottom-width: 1px;

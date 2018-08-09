@@ -37,6 +37,10 @@ a {
     height: 100%;
 }
 
+.content-wrapper {
+    padding-top: 23px;
+}
+
 .full-span {
     margin-top: 35px;
 }
@@ -174,6 +178,19 @@ textarea {
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
     border-top: 20px solid grey;
+}
+
+.shadow-primary {
+    /* background-color: #9c27b0; */
+    box-shadow: 1px 4px 2px 0px rgba(0, 0, 0, 0.14), 0 1px 12px -5px rgba(156, 39, 176, 0.46);
+}
+
+.flex-wrapper {
+    /* text-align: center; */
+    /* display: flex; */
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 23px;
 }
 
 

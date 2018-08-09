@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile - Stackoverflow lite</title>
+    <link rel="stylesheet" href="./css/styles.css">    
+</head>
+<body>
+    <div class="main">
+        <!-- sidebar -->
+        <div class="sidebar col-3 navbar-primary full-height">
+            <!-- logo -->
+            <div>
+                <a href="#">
+                    <img class="fadeIn sidebar__logo-backend" src="./assets/img/logo.png" alt="logo">
+                </a>
+            </div>
+            <!-- ./logo -->
+            <div class="sidebar-items">
+                <ul class="sidebar-items__nav nav column">
+                    <li class="">
+                        <a href="questions.html">
+                            <img class="icon" src="./assets/img/question-mark.svg" />
+                            <span class="sidebar-items__text">Questions</span>
+                        </a>                        
+                    </li>
+                    <li class="">
+                        <a>
+                            <img class="icon" src="./assets/img/price-tag.svg" />
+                            <span class="sidebar-items__text">Tags</span>
+                        </a>                        
+                    </li>
+                    <li >
+                        <a href="ask.html">
+                            <img class="icon" src="./assets/img/thumbs-up.svg" />                            
+                            <span class="sidebar-items__text">Ask Question</span>
+                       </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img class="icon" src="./assets/img/megaphone.svg" />
+                            <span class="sidebar-items__text">Badges</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-items__nav--active">
+                        <a  class="active-text">
+                            <img class="icon" src="./assets/img/user.svg" />                            
+                            <span class="sidebar-items__text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ./sidebar -->
+        <div class="body-wrapper col-10 ">
+            <!-- navbar -->
+            <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+                    <div class="container">
+                        <div class="pull-left">
+                            <ul class="nav text-center">
+                                <li>
+                                    <img class="icon" src="./assets/img/list.svg" />                                        
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <img class="icon input-icon fadeIn" src="./assets/img/loupe.svg" />
+                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search..">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="nav">
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="floating">Try Premium account</a>
+                                </li>
+                                
+                                <li>                                
+                                    <a href="index.html" class="btn btn-round mt--5 bg-orange">
+                                        Log out
+                                    </a>                                
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <!-- ./navbar -->
+            
+            <!-- list -->
+            <div class="clearfix"></div>
+            <div class="main-wrapper">
+               <div class="container">
+                   <div class="content-wrapper">
+                       <div class="flex-wrapper">
+                            <!-- statistics widget -->
+                            <div class="statistics">
+                                <div class="statistics__card shadow-primary bg-dark-blue">
+                                    <div class="statistics__card__title pull-left">
+                                        All Questions
+                                    </div>
+                                    <img class="statistics__card__icon pull-right hatch" src="assets/img/question-mark.svg" />
+                                    <div class=""></div>
+                                    <div class="statistics__card__value">89</div>
+                                </div>
+                            </div>
+                            <!-- ./ statistics -->
+
+                            <!-- statistics widget -->
+                            <div class="statistics">
+                                    <div class="statistics__card shadow-primary bg-white">
+                                        <div class="statistics__card__title pull-left">
+                                            All Answers
+                                        </div>
+                                        <img class="statistics__card__icon pull-right hatch" src="assets/img/checklist-on-a-paper-with-a-pencil.svg" />
+                                        <div class=""></div>
+                                        <div class="statistics__card__value">89</div>
+                                    </div>
+                            </div>
+                            <!-- ./ statistics -->
+
+                            <!-- statistics widget -->
+                            <div class="statistics">
+                                    <div class="statistics__card shadow-primary bg-light-blue">
+                                        <div class="statistics__card__title pull-left">
+                                            All Votes
+                                        </div>
+                                        <img class="hatch statistics__card__icon pull-right" src="assets/img/thumbs-up.svg" />
+                                        <div class=""></div>
+                                        <div class="statistics__card__value">109</div>
+                                    </div>
+                            </div>
+                            <!-- ./ statistics -->
+                       </div>
+                   </div>
+
+                   <!-- popular questions -->
+                   <div class="col-6">
+                        <div class="panel shadow-primary">
+                            <div class="panel__heading" >
+                                <div class="panel__heading__title hatch text-primary">
+                                    Popular Questions
+                                </div>                                                        
+                            </div>
+                            <div class="panel__body m-20">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table__header shadow-primary bg-primary r-6">
+                                            <th>Answers</th>
+                                            <th>Question</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="table__tag">8</div>
+                                            </td>
+                                            <td>
+                                                How do you implement a Stack and a Queue in JavaScript?
+                                            </td>
+                                            <td>
+                                                1/12/2017
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="table__tag">7</div>
+                                            </td>
+                                            <td>
+                                                How do you implement a Stack and a Queue in JavaScript?
+                                            </td>
+                                            <td>
+                                                1/2/2018
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>                                    
+                            </div>
+                        </div>
+                   </div> 
+                   <!-- ./popular -->
+                   <!-- recent questinos -->
+                   <div class="col-6">
+                        <div class="panel shadow-primary">
+                            <div class="panel__heading" >
+                                <div class="panel__heading__title hatch text-primary">
+                                    Recent Questions
+                                </div>                                                        
+                            </div>
+                            <div class="panel__body m-20">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table__header shadow-primary bg-primary r-6">
+                                            <th>Answers</th>
+                                            <th>Question</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="table__tag">7</div>
+                                            </td>
+                                            <td>
+                                                How do you implement a Stack and a Queue in JavaScript?
+                                            </td>
+                                            <td>
+                                                1/2/2018
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="table__tag">8</div>
+                                            </td>
+                                            <td>
+                                                How do you implement a Stack and a Queue in JavaScript?
+                                            </td>
+                                            <td>
+                                                1/12/2017
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>                                     
+                            </div>
+                        </div>
+                   </div>
+                   <!-- ./recent -->
+                                     
+               </div>
+            </div>
+            <!-- ./list -->
+        </div>
+
+    </div>
+</body>
+
+<script src="./js/main.js"></script>
+</html>
