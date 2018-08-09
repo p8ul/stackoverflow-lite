@@ -21,6 +21,17 @@
 .btn .btn-round {
     border-radius: 30px;
 }
+
+.btn-badge {
+    border-radius: 50px;
+}
+.button-group {
+    margin-left: 35px !important;
+}
+
+.btn-link {
+    box-shadow: none;
+}
 .btn-block {
     width: 73%;
 }
