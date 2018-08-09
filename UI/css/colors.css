@@ -26,3 +26,8 @@
 .text-white {
     color: white !important;
 }
+
+
+.active-text {
+    color: rebeccapurple;
+}

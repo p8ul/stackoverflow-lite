@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Stackoverflow lite - UI</title>
+    <title>Question &amp; answers - Stackoverflow lite</title>
     <link rel="stylesheet" href="./css/styles.css">    
 </head>
 <body>
@@ -97,40 +97,46 @@
                <div class="container">
                     <div class="panel bg-white">
                         <div class="panel__heading bb" >
-                            <div class="mega-text stretchRight">Top Question</div>
-                            <div class='button-group'>
-                                <button class="hatch btn btn-badge bg-orange">
-                                    recent
-                                </button>
-                                <button class="hatch btn btn-badge btn-link">
-                                    featured
-                                </button>
-                            </div>                       
+                            <div class="mega-text hatch text-primary">How do you implement a Stack and a Queue in JavaScript?</div>
+                                                 
                         </div>
                         <div class="panel__body m-35">
                             <!-- question -->
                             <div class="question-list-item">
-                                <div class="col-6">
-                                    <h2>
-                                        <a class="text-primary" href="question_answers.html">
-                                            Qsub disregarded memory limit
-                                        </a>
-                                    </h6>
+                                <div class="col-10">
+                                    <p>
+                                        1. Getting the right order while printing the MRO of class D but not geting the constructor
+                                        call of class C.
+                                        Question: why not printing <b>C constructor </b> after <b>A constructor</b>
+                                        in the given code below ?
+                                    </p>
+                                    <pre class="language-markup">
+                                            stack.push(2);       // stack is now [2]
+                                            stack.push(5);       // stack is now [2, 5]
+                                            var i = stack.pop(); // stack is now [2]
+                                            alert(i);            // displays 5
+                                            
+                                            var queue = [];
+                                            queue.push(2);         // queue is now [2]
+                                            queue.push(5);         // queue is now [2, 5]
+                                            var i = queue.shift(); // queue is now [5]
+                                            alert(i);              // displays 2
+                                    </pre>
+                                    <h5 class="text-grey">Modified 1 min ago <span class="text-primary"> P8ul</span></h5>
                                     <button class="btn btn-badge btn-link">
                                         JQuery
                                     </button>
                                     <button class="btn btn-badge btn-link">
                                         Rust
                                     </button>
-                                    <h5 class="text-grey">Modified 1 min ago <span class="text-primary"> P8ul</span></h5>
                                 </div> 
                                 <!-- right icons  -->
-                                <div class="col-6">
+                                <div class="col-3">
                                     <h4>&nbsp;</h4>
                                     <table class="text-center">
                                         <tr>
                                             <td>0</td>
-                                            <td>7</td>
+                                            <td>1</td>
                                             <td>13</td>
                                         </tr>
                                         <tr>
@@ -155,49 +161,66 @@
                             </div>
                             <!-- ./question -->
                             <div class="clearfix bb"></div>
-                             <!-- question -->
+                            <div class="question__comments ml-40 mt--5">
+                                    <div class="clearfix bb"></div>
+                                      <h4 class="text-bold">Comments</h4>
+                                    <div class="clearfix bb"></div>
+                                    I can't explain it so i don't post an answer, but the way to solve it is to <br/>change
+                                    <code>class D(B,C):</code> to <code>class D(C)</code>
+                                    <div class="clearfix bb"></div>
+                                    <span class="text-grey">Add a comment</span>
+                                    <textarea class="comment-box" placeholder="Comment here..."></textarea>
+                            </div>
+                             <!-- Answers -->
                              <div class="question-list-item">
-                                    <div class="col-6">
-                                        <h2 class="text-primary">Javascript rotates element => trying to set..</h6>
-                                        <button class="btn btn-badge btn-link">
-                                            JQuery
-                                        </button>
-                                        <button class="btn btn-badge btn-link">
-                                            Rust
-                                        </button>
+                                    <div class="answer">
+                                        <h2 class="text-primary">1. Answer</h6>
+                                        <div class="clearfix bb"></div>                                        
                                         <h5 class="text-grey">Modified 1 min ago <span class="text-primary"> P8ul</span></h5>
-                                    </div> 
-                                    <!-- right icons  -->
-                                    <div class="col-6">
-                                        <h4>&nbsp;</h4>
-                                        <table class="text-center">
-                                            <tr>
-                                                <td>0</td>
-                                                <td>7</td>
-                                                <td>13</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Votes</td>
-                                                <td>Answers</td>
-                                                <td>Views</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img class="icon hatch floating" src="./assets/img/thumbs-up.svg" />
-                                                </td>
-                                                <td>
-                                                    <img class="icon fadeIn" src="./assets/img/se.png" />
-                                                </td>
-                                                <td>
-                                                    <img class="icon hatch" src="./assets/img/eye-open.svg" />
-                                                </td>
-                                            </tr>
-                                        </table>
                                     </div>
-                                    <!-- ./right icons -->
                                 </div>
-                                <!-- ./question -->
                                 <div class="clearfix bb"></div>
+                                <!-- answer -->
+                                <div class="answer__item">
+                                    <div class="answer__item_vote pull-left">
+                                        <div class="arrow-up"></div>
+                                        <div class="text-center text-bold">7</div>
+                                        <div class="arrow-down"></div>
+                                    </div>
+                                    <!-- answer body -->
+                                    <div class="answer__item_body pull-left">
+                                        <p>
+                                            <p>
+                                                1. Getting the right order while printing the MRO of class D but not geting the constructor
+                                                call of class C.
+                                                Question: why not printing <b>C constructor </b> after <b>A constructor</b>
+                                                in the given code below ?
+                                            </p>
+                                            <pre class="language-markup">
+                                                stack.push(2);       // stack is now [2]
+                                                stack.push(5);
+                                            </pre>
+                                        </p>
+                                    </div>
+                                    <!-- ./body -->
+                                    <div class="question__comments ml-40 mt--5">
+                                            <div class="clearfix bb"></div>
+                                              <h4 class="text-bold">Comments</h4>
+                                            <div class="clearfix bb"></div>
+                                            I can't explain it so i don't post an answer, but the way to solve it is to <br/>change
+                                            <code>class D(B,C):</code> to <code>class D(C)</code>
+                                            <div class="clearfix bb"></div>
+                                            <span class="text-grey">Add a comment</span>
+                                            <textarea class="comment-box" placeholder="Comment here..."></textarea>
+                                    </div>
+                                </div>                               
+                                <!-- ./answer -->
+
+                                <!-- post answer -->
+                                <div class="mega-text text-primary">Your Answer</div>
+                                <textarea class="comment-box" placeholder="Answer here..."></textarea>
+                                <button class="btn bg-primary btn-round floating pull-right">Add answer</button>
+                                <!-- ./post answer -->
                         </div>
                     </div>
                </div>

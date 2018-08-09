@@ -9,6 +9,8 @@
 @import 'media.css';
 @import 'colors.css';
 @import 'animations.css';
+@import 'navbar.css';
+@import 'sidebar.css';
 
 /** general styles */
 body {
@@ -80,14 +82,62 @@ a {
 .hatch .form-container .form-group {
     padding-bottom: 38px;
 }
+
+
+textarea {
+    margin-top: 10px;
+    /* margin-left: 50px; */
+    width: 500px;
+    /* height: 100px; */
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+    border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+    border-image: none;
+    border-radius: 6px 6px 6px 6px;
+    border-style: none solid solid none;
+    border-width: medium 1px 1px medium;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+    color: #555555;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    padding: 5px 8px;
+    transition: background-color 0.2s ease 0s;
+  }
+  
+  
+  textarea:focus {
+      background: none repeat scroll 0 0 #FFFFFF;
+      outline-width: 0;
+  }
+.language-markup {
+    overflow: auto;
+    position: relative;
+    border-left-width: 3px;
+    white-space:normal;
+    border-left-color: #2196F3;
+    background-color: #fdfdfd;
+    background-image: -webkit-linear-gradient(transparent 50%, rgba(25, 118, 210, .025) 50%);
+    background-image: -moz-linear-gradient(transparent 50%, rgba(25, 118, 210, .025) 50%);
+    background-image: -ms-linear-gradient(transparent 50%, rgba(25, 118, 210, .025) 50%);
+    background-image: -o-linear-gradient(transparent 50%, rgba(25, 118, 210, .025) 50%);
+    background-image: linear-gradient(transparent 50%, rgba(25, 118, 210, .025) 50%);
+    background-size: 3em 3em;
+    background-origin: content-box;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    word-break: normal;
+    line-height: 1.5;
+    direction: ltr;
+}
 /* ./general */
 .logo {
     margin-top: -11px;
 }
-.logo-backend {
-    width: 175px;
-    padding: 12px;
-}
+
 /* title */
 .title {
     font-weight: 800;
@@ -97,92 +147,6 @@ a {
     font-weight: 400;
     text-align: center;
     color: "#9946d7";
-}
-/** navigation bar */
-.navbar-primary {
-    /* background-color: #9c27b0; */
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46);
-}
-.navbar-primary-outline {
-    border-bottom-width: 1px;
-    border-bottom-color: #D2D2D2;
-    border-bottom-style: solid;
-}
-
-.bb {
-    border-bottom-width: 1px;
-    border-bottom-color: #D2D2D2;
-    border-bottom-style: solid;
-    width: 100%;
-}
-.navbar {    
-    color: #000000;
-    padding: 10px 0; 
-    min-height: 50px;
-    margin-bottom: 20px;   
-    -webkit-transition: all 150ms ease 0s;
-    -moz-transition: all 150ms ease 0s;
-    -o-transition: all 150ms ease 0s;
-    -ms-transition: all 150ms ease 0s;
-    transition: all 150ms ease 0s;
-}
-
-.navbar-fixed-top {
-    position: fixed;
-    z-index: 1030;
-    width: 80%;
-}
-
-.nav {
-    color: #000000;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.nav > li {
-    float: left;
-    color: '#ffff';
-    padding-left: 32px;
-}
-
-.navbar .nav > li > a {
-    color: inherit;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-weight: 700;
-    font-size: 12px;
-    text-transform: uppercase;
-    border-radius: 3px;
-    line-height: 20px;
-}
-
-.sidebar-items .nav > li {
-    padding: 18px;
-    color: rgba(95, 90, 90, 0.856)
-}
-
-.sidebar-items .nav .active {
-    padding: 18px;
-    color: black;
-    border-left-width: 5px;
-    border-left-style: solid;
-    border-left-color: red;
-    border-bottom-color: rgba(255, 255, 255, 0.35);
-    border-bottom-style: solid;
-    border-top-width: 15px;
-    border-top-color: transparent;
-    border-bottom: 0;
-    border-right: 0;
-    -webkit-transition: all 150ms ease 0s;
-    -moz-transition: all 150ms ease 0s;
-    -o-transition: all 150ms ease 0s;
-    -ms-transition: all 150ms ease 0s;
-    transition: all 150ms ease 0s;
-    /* box-shadow: 10px 0px 090px 0px rgba(0, 0, 0, 0.14), 0 1px 0px -5px rgba(156, 39, 176, 0.46); */
 }
 
 .icon {
@@ -194,6 +158,22 @@ a {
     margin-left: 0px;
     position: absolute;
     margin-top: 5px;
+}
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;    
+    border-bottom: 20px solid grey;
+}
+  
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid grey;
 }
 
 
