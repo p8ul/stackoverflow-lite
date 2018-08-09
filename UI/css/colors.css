@@ -1,9 +1,6 @@
 .bg-orange {
     background-color: #fa5903;
-    color: #FFFFFF;
-}
-.clearfix {
-    clear: both;
+    color: #FFFFFF !important;
 }
 .bg-primary {
     background-color: rebeccapurple;
@@ -11,6 +8,20 @@
 }
 .bg-white {
     background-color: white;
+    color: black
+}
+.bg-light-blue {
+    background-color: #f4f8fb;
+    color: #fa5903 !important;
+}
+
+.bg-dark-blue {
+    background-color: #f4f8fb;
+    color: #fa5903 !important;
+}
+
+.bg-black {
+    background-color: rgb(51, 49, 49);
 }
 .bg-whitesmoke {
     background-color: whitesmoke !important;
@@ -27,7 +38,12 @@
     color: white !important;
 }
 
+.text-orange {
+    color: #fa5903 !important;
+}
+
 
 .active-text {
     color: rebeccapurple !important;
+    font-weight: bold;
 }
