@@ -3,14 +3,6 @@
 ## Project Overview
 StackOverflow-lite is a platform where people can ask questions and provide answers.
 
-[![forthebadge](http://forthebadge.com/badges/uses-badges.svg)](http://forthebadge.com)
-
-[![forthebadge](http://forthebadge.com/badges/uses-css.svg)](http://forthebadge.com)
-
-[![forthebadge](http://forthebadge.com/badges/uses-git.svg)](http://forthebadge.com)
-
-[![forthebadge](http://forthebadge.com/badges/uses-html.svg)](http://forthebadge.com)
-
 ## Required Features
     1. Users can create an account and log in.
     2. Users can post questions.
@@ -21,12 +13,12 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
 
 # Challenge 1 - Create UI Templates
 **[Complete UI Pages](https://redux.js.org/basics)**
-    1. Signup and signin pages
-    2. Questoins list page
-    3. View questions and Answers page
-    4. Post question page
-    5. User profile page
-    6. Host UI template on github pages **[UI TEMPLATE](https://redux.js.org/basics)**
+    * Signup and signin pages
+    * Questoins list page
+    * View questions and Answers page
+    * Post question page
+    * User profile page
+    * Host UI template on github pages **[UI TEMPLATE](https://redux.js.org/basics)**
 
 ## Installation
 
