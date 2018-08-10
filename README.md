@@ -13,6 +13,7 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
 
 # Challenge 1 - Create UI Templates
 **[Complete UI Pages](https://redux.js.org/basics)**
+
     * Signup and signin pages
     * Questoins list page
     * View questions and Answers page
