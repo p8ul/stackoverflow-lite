@@ -12,7 +12,7 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
     6. Users can accept an answer out of all the answers to his/her queston as they preferred answer
 
 # Challenge 1 - Create UI Templates
-**[Complete UI Pages](https://redux.js.org/basics)**
+**[Complete UI Pages](https://p8ul.github.io/stackoverflow-lite/UI/)**
 
     * Signup and signin pages
     * Questoins list page
