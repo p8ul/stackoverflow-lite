@@ -70,3 +70,7 @@
 .r-6 {
     border-radius: 6px;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
