@@ -19,7 +19,7 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
     * View questions and Answers page
     * Post question page
     * User profile page
-    * Host UI template on github pages **[UI TEMPLATE](https://redux.js.org/basics)**
+    * Host UI template on github pages 
 
 ## Installation
 
