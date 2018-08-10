@@ -83,6 +83,10 @@ a {
     margin-right: 47px;
 }
 
+.form-group, .mobi-hide {
+    margin-left: 7px; 
+}
+
 .hatch .form-container .form-group {
     padding-bottom: 38px;
 }
