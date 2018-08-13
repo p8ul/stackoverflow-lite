@@ -1,12 +1,12 @@
 #################
-#### imports ####
+# imports 
 #################
 
 from flask import render_template, Blueprint, \
     request, flash, redirect, url_for
 
 ################
-#### config ####
+# config
 ################
 
 home_blueprint = Blueprint(
@@ -15,7 +15,7 @@ home_blueprint = Blueprint(
 )  
 
 ################
-#### routes ####
+# routes 
 ################
 
 
@@ -24,9 +24,3 @@ home_blueprint = Blueprint(
 def home():
     error = None
     return render_template('index.html', error=error)
-
-
-@home_blueprint.route('/welcome')
-def welcome():
-    return render_template('welcome.html')
-
