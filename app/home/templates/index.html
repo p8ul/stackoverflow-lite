@@ -1,0 +1,53 @@
+{% extends 'base_frontend.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="wrapper">
+        <div class="col-6 mt-100 hatch">
+            <h1 class="title">Ask The Experts</h1>
+            <p>
+                There's no doubt that Tesla is delighted with the interest, but the data also raises a few questions. How long will it take for Tesla to fulfill all those extra orders?
+            </p>
+            <div class="pull-left pr-15">
+                <button class="btn btn-primary bg-orange p-15">
+                    Expore
+                </button>
+            </div>
+            <div class="pull-left pl-15">
+                <button class="btn btn-primary btn-outline p-15">
+                    How it works
+                </button>
+            </div>
+
+        </div>
+        <div class="col-4 pull-right">
+            <h4 class="text-primary header-title">Join our community</h4>
+            <form class="form-container" action="#">
+                <div class="form-group">
+                    <input class="stretchRight input-control" type='text' placeholder="USERNAME">
+                </div>
+                <div class="form-group">
+                    <input class="stretchRight input-control" type='email' placeholder="EMAIL">
+                </div>
+                <div class="form-group">
+                    <input class="stretchRight input-control" type='password' placeholder="PASSWORD">
+                </div>
+                <div class="form-group">
+                    <button class="floating btn btn-primary bg-orange p-15 btn-block">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+</div>
+<!-- ./container -->
+<div class="clearfix"></div>
+<div class="full-span bg-primary p-15 text-center">
+    <div class="mega-text stretchLeft">Ask A Question</div>
+    <p class="stretchLeft">
+        You can ask a question / post on our community by providing all the required details.
+    </p>
+</div>
+{% endblock %}
