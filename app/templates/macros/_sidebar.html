@@ -1,0 +1,45 @@
+{% macro render_sidebar() %}
+<div class="sidebar col-3 navbar-primary full-height mobi-hide">
+    <!-- logo -->
+    <div>
+        <a href="#">
+            <img class="fadeIn sidebar__logo-backend" src="./assets/img/logo.png" alt="logo">
+        </a>
+    </div>
+    <!-- ./logo -->
+    <div class="sidebar-items">
+        <ul class="sidebar-items__nav nav column">
+            <li class="sidebar-items__nav--active">
+                <a class="active-text">
+                    <img class="icon" src="./assets/img/question-mark.svg" />
+                    <span class="sidebar-items__text">Questions</span>
+                </a>
+            </li>
+            <li class="">
+                <a>
+                    <img class="icon" src="./assets/img/price-tag.svg" />
+                    <span class="sidebar-items__text">Tags</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="ask.html">
+                    <img class="icon" src="./assets/img/thumbs-up.svg" />
+                    <span class="sidebar-items__text">Ask Question</span>
+               </a>
+            </li>
+            <li>
+                <a>
+                    <img class="icon" src="./assets/img/megaphone.svg" />
+                    <span class="sidebar-items__text">Badges</span>
+                </a>
+            </li>
+            <li>
+                <a href="profile.html">
+                    <img class="icon" src="./assets/img/user.svg" />
+                    <span class="sidebar-items__text">Profile</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endmacro %}
