@@ -70,7 +70,7 @@ $ pytest
 ```
 ### Users API endpoints
 
-``
+```
 /api/v1/users
 /api/v1/users/1
 ```
