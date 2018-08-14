@@ -30,8 +30,18 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
 
 ```
 git clone https://github.com/p8ul/stackoverflow-lite
+
+git clone https://github.com/p8ul/stackoverflow-lite.git
+cd stackoverflow-lite
+virtualenv venv
+. venv/bin/activate
+pip install -r requirements.txt
+python manage.py runserver
 ```
-Navigate to UI folder and run index.html
+## Testing
+``` 
+$ pytest
+```
  
  # Challenge 2 - Create UI Templates
  **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
@@ -50,3 +60,17 @@ Navigate to UI folder and run index.html
     - Integrate test coverage reporting (e.g. Coveralls) with badge in the ​ ReadMe. 
     - Obtain CI badges (e.g. from Code Climate and Coveralls) and add to ​ ReadMe . ​  
     - Ensure the app gets hosted on Heroku. 
+
+## Api Endpoints
+### Questions API endpoints
+```
+/api/v1/questions
+/api/v1/questions/1
+/api/v1/questions/1/answer
+```
+### Users API endpoints
+
+``
+/api/v1/users
+/api/v1/users/1
+```
