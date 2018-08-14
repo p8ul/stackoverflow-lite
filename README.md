@@ -25,9 +25,25 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
 
 ## Installation
 
-# To install the stable version:
+### To install the stable version:
 
 ```
 git clone https://github.com/p8ul/stackoverflow-lite
 ```
 Navigate to UI folder and run index.html
+ 
+ # Challenge 2 - Create UI Templates
+    - user stories to setup and test API endpoints
+        Get all questions. 
+        Get a question
+        Post a question. 
+        Update a question
+        Post an answer to a question. 
+    - Setup the Flask server side of the application
+    - Setup pytest python test framework 
+    - Version your API using url versioning starting, with the letter “v”
+    - Write tests for the API endpoints
+    - Integrate ​ TravisCI​ for Continuous Integration in your repository (with ​ ReadMe ​ badge). 
+    - Integrate test coverage reporting (e.g. Coveralls) with badge in the ​ ReadMe. 
+    - Obtain CI badges (e.g. from Code Climate and Coveralls) and add to ​ ReadMe . ​  
+    - Ensure the app gets hosted on Heroku. 
