@@ -8,4 +8,4 @@ app = create_app("config.BaseConfig")
 
 if __name__ == "__main__":
     app = create_app("config.BaseConfig")
-    app.run(debug=True)
+    app.run(debug=False)
