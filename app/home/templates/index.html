@@ -1,12 +1,12 @@
 {% extends 'base_frontend.html' %}
 
 {% block body %}
-<div class="container header-bg">
-    <div class="wrapper">
-        <div class="col-6 mt-">
+<div class="container headerbg">
+    <div class="wrappers">
+        <div class="col-5 mt-">
             <h1 class="title">Questions API endpoints</h1>
             <!-- link -->
-            <div class="card p-15 cursor-pointer mb-0" onclick="window.location.href='/api/v1/questions'">
+            <div class="card p-15  mb-0" >
                 <div class="pull-left">
                     [<b class="text-primary">GET</b>]Fetch all questions 
                 </div>
@@ -16,7 +16,7 @@
             </div>
             <!-- ./link -->
             <!-- link -->
-            <div class="card p-15 cursor-pointer mb-0" onclick="window.location.href='/api/v1/questions'">
+            <div class="card p-15  mb-0" >
                 <div class="pull-left">
                     [<b class="text-primary">GET</b>]Fetch a specific question  
                 </div>
@@ -26,7 +26,7 @@
             </div>
             <!-- ./link -->
             <!-- link -->
-            <div class="card p-15 cursor-pointer mb-0" onclick="window.location.href='/api/v1/questions'">
+            <div class="card p-15  mb-0" >
                 <div class="pull-left">
                     <b class="text-primary">POST</b> /questions   
                 </div>
@@ -36,7 +36,7 @@
             </div>
             <!-- ./link -->
             <!-- link -->
-            <div class="card p-15 cursor-pointer mb-0" onclick="window.location.href='/api/v1/questions'">
+            <div class="card p-15  mb-0" >
                 <div class="pull-left">
                     <b class="text-primary">PUT</b> /questions   
                 </div>
@@ -45,9 +45,79 @@
                 </div>                
             </div>
             <!-- ./link -->
+             <!-- link -->
+             <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    <b class="text-primary">DELETE</b> /questions   
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/questions/1">/api/v1/questions/1</a>
+                </div>                
+            </div>
+            <!-- ./link -->
+            <!-- link -->
+            <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    <b class="text-primary">POST</b> /question answer   
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/questions/1/answer">/api/v1/questions/1/answer</a>
+                </div>                
+            </div>
+            <!-- ./link -->
         </div>
-        <div class="col-6 pull-right">
-            
+        <div class="col-5 pull-right">
+            <h1 class="title">Users API endpoints</h1>
+            <!-- link -->
+            <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    [<b class="text-primary">GET</b>]Fetch all users 
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/users">/api/v1/users</a>
+                </div>                
+            </div>
+            <!-- ./link -->
+            <!-- link -->
+            <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    [<b class="text-primary">GET</b>]Fetch a specific question  
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/users/1">/api/v1/users/1</a>
+                </div>                
+            </div>
+            <!-- ./link -->
+            <!-- link -->
+            <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    <b class="text-primary">POST</b> /users   
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/users">/api/v1/users</a>
+                </div>                
+            </div>
+            <!-- ./link -->
+            <!-- link -->
+            <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    <b class="text-primary">PUT</b> /users   
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/users">/api/v1/users</a>
+                </div>                
+            </div>
+            <!-- ./link -->
+             <!-- link -->
+             <div class="card p-15  mb-0" >
+                <div class="pull-left">
+                    <b class="text-primary">DELETE</b> /users   
+                </div>
+                <div class="pull-right hatch">
+                    <a href="/api/v1/users/1">/api/v1/users/1</a>
+                </div>                
+            </div>
+            <!-- ./link -->
         </div>
     </div>
     <!-- ./wrapper -->

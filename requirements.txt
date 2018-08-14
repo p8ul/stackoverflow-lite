@@ -26,12 +26,11 @@ MarkupSafe==1.0
 mccabe==0.6.1
 more-itertools==4.3.0
 pathlib2==2.3.2
-# pkg-resources==0.0.0
 pluggy==0.7.1
 py==1.5.4
 pylint==2.1.1
 pytest==3.7.1
-python-coveralls==2.9.1
+pytest-cov==2.5.1
 python-dateutil==2.7.3
 python-editor==1.0.3
 pytz==2018.5

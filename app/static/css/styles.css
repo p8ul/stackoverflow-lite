@@ -91,6 +91,10 @@ a {
     padding-bottom: 38px;
 }
 
+.wrappers {
+    width: 94%;
+}
+
 
 textarea {
     margin-top: 10px;

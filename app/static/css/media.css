@@ -14,7 +14,11 @@
     height: 100%;
     float: left;
 }
-
+.col-5 {
+    width: 40% !important;
+    height: 100%;
+    float: left;
+}
 .col-6 {
     width: 50% !important;
     height: 100%;
