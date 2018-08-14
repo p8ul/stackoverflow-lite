@@ -1,0 +1,29 @@
+
+/* Table */
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-right: 1px solid grey;
+    margin: 13px;
+}
+.table__header {
+    padding: 12px 20px;
+    line-height: 1.5384616;
+    vertical-align: top;
+    border-bottom: 1px solid grey;    
+}
+tr {
+    vertical-align: top;
+    border-bottom: 1px solid grey;   
+}
+
+td {
+    padding: 6px 6px;
+}
+
+.table__tag {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    text-align: center;
+}

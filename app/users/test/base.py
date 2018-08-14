@@ -1,8 +1,3 @@
-### APIs Testing
-
-# Author: P8ul Kinuthia
-# https://github.com/p8ul
-
 import unittest
 import pytest
 
@@ -10,7 +5,7 @@ from ... import create_app
 app = create_app("config.TestConfig")
 
 
-""" Base Test case class, initialize variables and settings """
+# @pytest.fixture
 class BaseTestCase(unittest.TestCase):
     """A base test case."""
 

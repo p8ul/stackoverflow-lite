@@ -4,7 +4,6 @@
 # https://github.com/p8ul
 
 """
-
     This class will act as a table in a Database (Inspired by MongoDB)
     Has relevant getters, setters & mutation methods
     Methods:
@@ -27,11 +26,6 @@
         update(instance_id, title)
             :param instance_id: :int Id of instance to be edited
             :param title: :string New title used to replace original title
-        answer(instance_id, answer=None)
-            :param instance_id: :int Id of instance to be edited
-            :param answer :string Answer to a question
-            :returns answer from the argument and created_at timestamp
-
         delete(instance_id)
             :param instance_id :int
             destroys instance data from class data variable
@@ -45,19 +39,11 @@ class Table:
         self.data = [
             {
                 'id': 1,
-                'title': 'Test data',
-                'body': 'qwertyu asdfg asdfg',
-                'user': 'p4ul',
+                'username': 'p4ul',
                 'email': 'pkinuthia10@gmail.com',
+                'password': 'sds3@#SDF#SFSDF##@',
                 'created_at': self.now(),
-                'tags': ['Rust', 'Python'],
-                'answers': [
-                    {
-                        'answer': 'Sample Answer',
-                        'user': 'P8ul',
-                        'created_at': self.now(),
-                    },
-                ]
+                'badges': ['Teacher', 'Reviewer'],
             }
         ]
 
@@ -76,8 +62,9 @@ class Table:
             self.delete(instance_id)
         else:
             return None
-        item['title'] = data.get('title') if data.get('title') else item.get('title')
-        item['body'] = data.get('body') if data.get('body') else item.get('body')
+        item['username'] = data.get('username') if data.get('username') else item.get('username')
+        item['email'] = data.get('email') if data.get('email') else item.get('email')
+        item['password'] = data.get('password') if data.get('password') else item.get('password')
         self.data.append(item)
         return item
 
@@ -91,31 +78,12 @@ class Table:
             return True
         return False
 
-    def answer(self, instance_id=None, answer=None):
-        if instance_id and answer:
-            for i in range(len(self.data)):
-                if self.data[i].get('id') == int(instance_id):
-                    answer = {
-                        'answer': answer,
-                        'created_at': self.now()
-                    }
-                    self.data[i]['answers'].append(answer)
-                    break
-        try:
-            if not answer.get('created_at'):
-                return None
-        except Exception as e:
-            # log e
-            print(e)
-            return None
-        return answer
-
     def save(self, data):
         new_entry = dict()
-        new_entry['title'] = str(data.get('title'))
-        new_entry['body'] = str(data.get('body'))
-        new_entry['user'] = str(data.get('user'))
-        new_entry['answers'] = []
+        new_entry['email'] = str(data.get('email'))
+        new_entry['username'] = str(data.get('username'))
+        new_entry['password'] = str(data.get('password'))
+        new_entry['badges'] = []
         new_entry['created_at'] = self.now()
 
         """ Ensure table id column value is unique """

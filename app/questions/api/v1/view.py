@@ -1,3 +1,8 @@
+### APIs Resources
+
+# Author: P8ul Kinuthia
+# https://github.com/p8ul
+
 from flask_restful import Resource, Api
 from flask import Blueprint, request
 from ...models import Table

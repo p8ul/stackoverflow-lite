@@ -1,0 +1,22 @@
+.question-list-item {
+    /* border-bottom-width: 1px;
+    border-bottom-color: #D2D2D2;
+    border-bottom-style: solid;
+    width: 100%;   */
+}
+
+.answer__item {
+    margin-top: 15px;
+}
+.answer__item_vote {
+    height: 100%;
+    width: 50px;
+}
+
+.answer__item_body {
+    width: 80%
+}
+
+.comment-box {
+    width: 100%
+}
