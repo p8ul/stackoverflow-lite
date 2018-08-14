@@ -1,6 +1,7 @@
 # BUILD A PRODUCT: StackOverflow-lite
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://p8ul.github.io/stackoverflow-lite/UI/)
 [![Build Status](https://travis-ci.org/p8ul/stackoverflow-lite.svg?branch=master)](https://travis-ci.org/p8ul/stackoverflow-lite)
+[![Coverage Status](https://coveralls.io/repos/github/p8ul/stackoverflow-lite/badge.svg?branch=challenge2)](https://coveralls.io/github/p8ul/stackoverflow-lite?branch=challenge2)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 ## Project Overview
 StackOverflow-lite is a platform where people can ask questions and provide answers.
