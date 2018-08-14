@@ -4,15 +4,11 @@ from .base import BaseTestCase
 
 class FlaskTestCase(BaseTestCase):
 
-    def test(self):
-        x = "this"
-        assert 'h' in x
-
     """ Test List questions api """
     def test_list_questions(self):
         response = self.client.get('/api/v1/questions/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()['status'], 'success')
+        assert response.status_code == 200
+        assert response.get_json()['status'] == 'success'
 
     """ Test retrieve questions api """
     def test_retrieve_question(self):
