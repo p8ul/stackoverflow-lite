@@ -1,6 +1,6 @@
 # BUILD A PRODUCT: StackOverflow-lite
 [![Build Status](https://travis-ci.org/p8ul/stackoverflow-lite.svg?branch=challenge2)](https://travis-ci.org/p8ul/stackoverflow-lite)
-[![Coverage Status](https://coveralls.io/repos/github/p8ul/stackoverflow-lite/badge.svg?branch=challenge2)](https://coveralls.io/github/p8ul/stackoverflow-lite?branch=challenge2)
+[![Coverage Status](https://coveralls.io/repos/github/p8ul/stackoverflow-lite/badge.svg?branch=B%2Fhome)](https://coveralls.io/github/p8ul/stackoverflow-lite?branch=B%2Fhome)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1338baa03482bfc84be9/maintainability)](https://codeclimate.com/github/p8ul/stackoverflow-lite/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/1338baa03482bfc84be9/test_coverage)](https://codeclimate.com/github/p8ul/stackoverflow-lite/test_coverage)
 ## Project Overview
