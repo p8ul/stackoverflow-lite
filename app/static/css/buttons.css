@@ -1,0 +1,41 @@
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 5px 30px;
+    margin: 10px 1px;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow, transform;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 2px 0 rgba(233, 30, 99, 0.14), 0 3px 1px -2px rgba(233, 30, 99, 0.2), 0 1px 5px 0 rgba(233, 30, 99, 0.12);
+}
+
+.btn-primary:hover{
+    box-shadow: 0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2);
+}
+
+.btn .btn-round {
+    border-radius: 30px;
+}
+
+.btn-badge {
+    border-radius: 50px;
+}
+.button-group {
+    margin-left: 35px !important;
+}
+
+.btn-link {
+    box-shadow: none;
+}
+.btn-block {
+    width: 73%;
+}
+
+.btn-outline {
+    border-color: '#fa5903';
+}

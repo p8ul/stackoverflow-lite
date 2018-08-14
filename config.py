@@ -1,3 +1,8 @@
+### Configuration file
+
+# Author: P8ul Kinuthia
+# https://github.com/p8ul
+
 import os
 
 

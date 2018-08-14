@@ -1,0 +1,114 @@
+
+.col-2 {
+    width: 15.33333333% !important;
+    height: 100%;
+    float: left;
+}
+.col-3 {
+    width: 20.33333333% !important;
+    height: 100%;
+    float: left;
+}
+.col-4 {
+    width: 33.33333333% !important;
+    height: 100%;
+    float: left;
+}
+
+.col-6 {
+    width: 50% !important;
+    height: 100%;
+    float: left;
+}
+.col-10 {
+    width: 74% !important;
+    height: 100%;
+    float: left;
+}
+
+.full-height {
+    height: 920px;
+}
+
+/*------------------------------------------
+  Responsive Grid Media Queries - 1280, 1024, 768, 480
+   1280-1024   - desktop (default grid)
+   1024-768    - tablet landscape
+   768-480     - tablet 
+   480-less    - phone landscape & smaller
+--------------------------------------------*/
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+ }
+ 
+@media all and (min-width: 768px) and (max-width: 1024px) { 
+    .wrapper {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .card-signup {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+ 
+@media all and (min-width: 480px) and (max-width: 768px) { 
+    .col-6, .col-10, .col-2, .col-4 {
+        width: 100% !important;
+    }
+
+    .wrapper {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .nav > li {
+        padding-left: 28px !important;
+    }
+    .card-signup {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .logo, .mobi-hide {
+        display: none;
+    }
+    .navbar-fixed-top {
+        width: 98% !important;
+    }
+    .navbar .nav > li > a {
+        padding-top: 11px;
+        padding-bottom: 4px !important;
+    }
+}
+ 
+@media all and (max-width: 480px) {
+    body {
+        /* background-color: red; */
+    }
+    .logo, .mobi-hide {
+        display: none;
+    }
+
+    .col-6, .col-10, .col-2, .col-4 {
+        width: 100% !important;
+    }
+
+    .wrapper {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .nav > li {
+        padding-left: 11px !important;
+    }
+    .card-signup {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .navbar-fixed-top {
+        width: 98% !important;
+    }
+    .navbar .nav > li > a {
+        padding-top: 11px;
+        padding-bottom: 4px !important;
+    }
+
+ }

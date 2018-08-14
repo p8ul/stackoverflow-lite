@@ -1,0 +1,29 @@
+.card-signup {
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px 0;
+    /* height: 320px !important; */
+    margin-top: 10%;
+}
+
+.header-bg {
+    background-image: url('../img/unnamed.png');
+    background-size: cover;
+    background-position: top center;
+    min-height: 100vh;
+    height: auto;
+}
+
+.header {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -40px;
+    padding: 20px 0;
+}
+
+.header-text {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+}
