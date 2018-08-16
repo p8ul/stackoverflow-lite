@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
 from ...models import Table
+from ....utils import jwt_required, encode_auth_token
 
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -18,12 +19,12 @@ class RegisterAPI(MethodView):
         if not user:
             try:
                 user = Table.save(data=post_data)
-                # :TODO generate the auth token
+                # generate the auth token
+                auth_token = encode_auth_token(user.get('id')).decode()
                 response_object = {
                     'status': 'success',
                     'message': 'Successfully registered.',
-                    'results': user,
-                    'auth_token': 'TO_GENERATE_LATER_AUTH_TOKEN'
+                    'auth_token': auth_token
                 }
                 return make_response(jsonify(response_object)), 201
             except Exception as e:
@@ -49,11 +50,9 @@ class LoginAPI(MethodView):
         try:
             # fetch the user data
             user = Table.filter_by(email=post_data.get('email'))
-            print(user)
-            print('*0'*234)
             if len(user) >= 1 and post_data.get('password'):
                 if str(user[0][3]) == str(post_data.get('password')):
-                    auth_token = "TO_GENERATE_LATER_AUTH_TOKEN"
+                    auth_token = encode_auth_token(user[0][0])
                 else:
                     response_object = {
                         'status': 'fail',
@@ -65,7 +64,7 @@ class LoginAPI(MethodView):
                         response_object = {
                             'status': 'success',
                             'message': 'Successfully logged in.',
-                            'auth_token': auth_token
+                            'auth_token': auth_token.decode()
                         }
                         return make_response(jsonify(response_object)), 200
                 except Exception as e:
