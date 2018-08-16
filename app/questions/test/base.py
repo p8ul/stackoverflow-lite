@@ -1,16 +1,14 @@
-### APIs Testing
+# APIs Testing
 
-# Author: P8ul Kinuthia
+# Author: P8ul
 # https://github.com/p8ul
 
 import unittest
-import pytest
 
 from ... import create_app
 app = create_app("config.TestConfig")
 
 
-""" Base Test case class, initialize variables and settings """
 class BaseTestCase(unittest.TestCase):
     """A base test case."""
 

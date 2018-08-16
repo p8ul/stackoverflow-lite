@@ -27,7 +27,9 @@ mccabe==0.6.1
 more-itertools==4.3.0
 pathlib2==2.3.2
 pluggy==0.7.1
+psycopg2==2.7.5
 py==1.5.4
+PyJWT==1.4.2
 pylint==2.1.1
 pytest==3.7.1
 pytest-cov==2.5.1

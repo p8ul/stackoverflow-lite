@@ -11,7 +11,7 @@ class BaseConfig(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SQLALCHEMY_DATABASE_URI = "postgresql://blog:blog@127.0.0.1:5432/blog"
+    SQLALCHEMY_DATABASE_URI = "postgresql://stack:stack@127.0.0.1:5432/stack"
     DEBUG = True
     SECRET_KEY = '\xbf\xb0\x11\xb1\xcd\xf9\xba\x8bp\x0c...'
 
