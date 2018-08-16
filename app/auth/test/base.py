@@ -1,11 +1,9 @@
 import unittest
-import pytest
 
 from ... import create_app
 app = create_app("config.TestConfig")
 
 
-# @pytest.fixture
 class BaseTestCase(unittest.TestCase):
     """A base test case."""
 
@@ -16,6 +14,11 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         # method to invoke before each test.
         self.client = app.test_client()
+        self.data = {
+            'username': 'Paul',
+            'email': 'pkinuthia10@gmail.com',
+            'password': 'password'
+        }
 
     def tearDown(self):
         # method to invoke after each test.
