@@ -1,7 +1,7 @@
 import psycopg2
 import psycopg2.extras
 
-from .initial import migrations
+from .initial1 import migrations
 from config import BaseConfig
 from ..utils import db_config
 
