@@ -73,5 +73,5 @@ create_tables_commands = (
 )
 
 
-migrations = drop_tables_commands + create_tables_commands
-# migrations = create_tables_commands
+# migrations = drop_tables_commands + create_tables_commands
+migrations = create_tables_commands

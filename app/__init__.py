@@ -27,11 +27,11 @@ def create_app(config_filename):
 
 def configure_blueprints(app):
     """Configure blueprints in views."""
-    from app.questions.api.v1.view import api
+    from app.questions.api.v1.view import question_blueprint
     from .home.views import home_blueprint
     from .auth.api.v1.view import auth_blueprint
 
-    for bp in [api, auth_blueprint, home_blueprint]:
+    for bp in [question_blueprint, auth_blueprint, home_blueprint]:
         app.register_blueprint(bp)
 
 

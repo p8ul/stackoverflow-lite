@@ -1,11 +1,11 @@
-### Custom Model
+# Custom Model
 
-# Author: P8ul Kinuthia
+# Author: P8ul
 # https://github.com/p8ul
 
 """
 
-    This class will act as a table in a Database (Inspired by MongoDB)
+    This class will connect to a Database and perform crud actions
     Has relevant getters, setters & mutation methods
     Methods:
         __init__()
@@ -37,98 +37,66 @@
             destroys instance data from class data variable
 
 """
+import psycopg2
+import psycopg2.extensions
 from datetime import datetime
+from config import BaseConfig
+from ..utils import db_config
 
 
-class Table:
+class ModelTable:
     def __init__(self):
-        self.data = [
-            {
-                'id': 1,
-                'title': 'Test data',
-                'body': 'qwertyu asdfg asdfg',
-                'user': 'p4ul',
-                'email': 'pkinuthia10@gmail.com',
-                'created_at': self.now(),
-                'tags': ['Rust', 'Python'],
-                'answers': [
-                    {
-                        'answer': 'Sample Answer',
-                        'user': 'P8ul',
-                        'created_at': self.now(),
-                    },
-                ]
-            }
-        ]
-
-    def query(self):
-        return self.data
-
-    def filter_by(self, instance_id):
-        # filter by instance by id
-        item_ = next((item for item in self.data if item.get('id') == int(instance_id)), {})
-        return item_
-
-    def update(self, instance_id, data=None):
-        item = self.filter_by(instance_id)
-        if item:
-            # remove found instance
-            self.delete(instance_id)
-        else:
-            return None
-        item['title'] = data.get('title') if data.get('title') else item.get('title')
-        item['body'] = data.get('body') if data.get('body') else item.get('body')
-        self.data.append(item)
-        return item
-
-    def delete(self, instance_id):
-        for i in range(len(self.data)):
-            if self.data[i].get('id') == int(instance_id):
-                self.data.pop(i)
-                instance_id = None
-                break
-        if not instance_id:
-            return True
-        return False
-
-    def answer(self, instance_id=None, answer=None):
-        if instance_id and answer:
-            for i in range(len(self.data)):
-                if self.data[i].get('id') == int(instance_id):
-                    answer = {
-                        'answer': answer,
-                        'created_at': self.now()
-                    }
-                    self.data[i]['answers'].append(answer)
-                    break
-        try:
-            if not answer.get('created_at'):
-                return None
-        except Exception as e:
-            # log e
-            print(e)
-            return None
-        return answer
+        self.config = db_config(BaseConfig.SQLALCHEMY_DATABASE_URI)
+        self.table = 'questions'
 
     def save(self, data):
-        new_entry = dict()
-        new_entry['title'] = str(data.get('title'))
-        new_entry['body'] = str(data.get('body'))
-        new_entry['user'] = str(data.get('user'))
-        new_entry['answers'] = []
-        new_entry['created_at'] = self.now()
-
-        """ Ensure table id column value is unique """
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
-            new_entry['id'] = int(self.data[-1].get('id')) + 1
-        except Exception as e:
-            new_entry['id'] = 1
-            print(e)
-        self.data.append(new_entry)
-        return new_entry
+            cur.execute(
+                """
+                INSERT INTO questions(title, body, user_id)
+                values(
+                    '""" + data.get('title') + """',
+                    '""" + data.get('body') + """',
+                    '""" + data.get('user') + """'
+                )
+                """
+            )
 
-    def now(self):
-        return datetime.now().isoformat()
+            con.commit()
+        except Exception as e:
+            print(e)
+            return None
+        con.close()
+        return data
+
+    def query(self):
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=psycopg2.extensions.cursor)
+        cur.execute('select * from {}'.format(self.table))
+        queryset_list = cur.fetchall()
+        con.close()
+        return queryset_list
+
+    def filter_by(self, instance_id=None, user_id=None):
+        filter_column = 'question_id' if instance_id else 'user_id'
+        filter_value = instance_id if instance_id else user_id
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("select * from {} WHERE {}= '{}'".format(self.table, filter_column, filter_value))
+        queryset_list = cur.fetchall()
+        con.close()
+        return queryset_list
+
+    def update(self, instance_id, data=None):
+        pass
+
+    def delete(self, instance_id):
+        pass
+
+
+Table = ModelTable()
 
 
 
