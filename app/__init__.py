@@ -4,6 +4,7 @@
 # https://github.com/p8ul
 
 from flask import Flask
+from .migrations.db import db
 
 
 def create_app(config_filename):
@@ -18,6 +19,9 @@ def create_app(config_filename):
     # register our blueprints
     configure_blueprints(app)
 
+    # register extensions
+    configure_extensions()
+
     return app
 
 
@@ -29,6 +33,10 @@ def configure_blueprints(app):
 
     for bp in [api, user_api, home_blueprint]:
         app.register_blueprint(bp)
+
+
+def configure_extensions():
+    db.test()
 
 
 if __name__ == "__main__":
