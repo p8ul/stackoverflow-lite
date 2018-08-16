@@ -18,9 +18,13 @@ Table = Table()
 class ListRetrieveAPIView(Resource):
     def get(self, question_id=None):
         if question_id:
-            response = Table.filter_by(int(question_id))
-            if not response:
-                return {"status": "error", "data": "Question Not Found"}, 404
+            try:
+                response = Table.filter_by(int(question_id))
+                if not response:
+                    return {"status": "error", "data": "Question Not Found"}, 404
+            except Exception as e:
+                print(e) # :TODO log error
+                return {"status": "error", "data": "Question Not Found. Please provide a valid question ID"}, 404
         else:
             response = [instance for instance in Table.query()]
         return {"status": "success", "data": response}, 200
