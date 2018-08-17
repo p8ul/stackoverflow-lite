@@ -86,7 +86,7 @@ class ListAPIView(MethodView):
             return (jsonify(response_object)), 200
 
         response_object = {
-            'results': Table.query(),
+            'results': Table.query(request.args.get('q')),
             'status': 'success'
         }
         return (jsonify(response_object)), 200

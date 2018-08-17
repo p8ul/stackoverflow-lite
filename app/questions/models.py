@@ -49,25 +49,46 @@ class ModelTable:
         con.close()
         return data
 
-    def query(self):
+    def query(self, q):
         """
         Query the data in question table
         :return: list: query set list
         """
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
-        cur.execute(
-            """
-            SELECT
-               *,
-               ( 
-                select count(*) from answers 
-                where answers.question_id=questions.question_id
-                ) as answers_count
-            FROM 
-                questions
-            """
-        )
+        if not q:
+            cur.execute(
+                """
+                SELECT
+                   *,
+                   ( 
+                    select count(*) from answers 
+                    where answers.question_id=questions.question_id
+                    ) as answers_count
+                FROM 
+                    questions
+                """
+            )
+        else:
+            cur.execute(
+                """
+                SELECT
+                   *,
+                   ( 
+                    select count(*) from answers 
+                    where answers.question_id=questions.question_id
+                    ) as answers_count
+                FROM 
+                    questions
+                WHERE
+                    body LIKE 
+                    '%""" + q + """%'
+                OR
+                    title LIKE 
+                    '%""" + q + """%'
+                
+                """
+            )
         queryset_list = cur.fetchall()
         con.close()
         return queryset_list
