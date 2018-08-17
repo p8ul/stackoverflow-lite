@@ -16,6 +16,12 @@ drop_tables_commands = (
     """,
 )
 
+drop_answers = (
+    """
+    DROP TABLE IF EXISTS answers CASCADE
+    """,
+)
+
 create_tables_commands = (
     """
     CREATE TABLE IF NOT EXISTS users(
@@ -43,7 +49,7 @@ create_tables_commands = (
         answer_id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
         question_id INTEGER NOT NULL,
-        body VARCHAR(255) NOT NULL,
+        answer_body TEXT NOT NULL,
         accepted bool DEFAULT false,
         created_at timestamp with time zone DEFAULT now(),
         FOREIGN KEY (question_id)
@@ -74,4 +80,5 @@ create_tables_commands = (
 
 
 # migrations = drop_tables_commands + create_tables_commands
+# migrations = drop_answers + create_tables_commands
 migrations = create_tables_commands

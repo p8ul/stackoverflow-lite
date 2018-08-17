@@ -86,7 +86,8 @@ class LoginAPI(MethodView):
 
 
 class UserListAPI(MethodView):
-    """User List Api Resource"""
+    """ User List Api Resource """
+    @jwt_required
     def get(self, user_id=None):
         if user_id:
             user = Table.filter_by(email=None, user_id=user_id)

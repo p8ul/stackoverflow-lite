@@ -20,7 +20,7 @@
             Queries all the data (dict) stored in the class data variable
             :returns dictionary
 
-        filter_by(instance_id=None)
+        filter_by(instance_id)
             :param instance_id :int Id of instance to be edited
             Filters class data by id
 
@@ -47,19 +47,19 @@ from ..utils import db_config
 class ModelTable:
     def __init__(self):
         self.config = db_config(BaseConfig.SQLALCHEMY_DATABASE_URI)
-        self.table = 'questions'
+        self.table = 'answers'
 
-    def save(self, data):
+    def save(self, question_id, data):
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
             cur.execute(
                 """
-                INSERT INTO questions(title, body, user_id)
+                INSERT INTO answers (user_id, answer_body, question_id)
                 values(
-                    '""" + data.get('title') + """',
-                    '""" + data.get('body') + """',
-                    '""" + data.get('user') + """'
+                    '""" + data.get('user_id') + """',
+                    '""" + data.get('answer_body') + """',
+                    '""" + question_id + """'
                 )
                 """
             )
@@ -67,7 +67,6 @@ class ModelTable:
             con.commit()
         except Exception as e:
             print(e)
-            con.close()
             return None
         con.close()
         return data
@@ -75,66 +74,47 @@ class ModelTable:
     def query(self):
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
-        cur.execute(
-            """
-            SELECT
-               *,
-               ( 
-                select count(*) from answers 
-                where answers.question_id=questions.question_id
-                ) as answers_count
-            FROM 
-                questions
-            """
-        )
+        cur.execute('select * from {}'.format(self.table))
         queryset_list = cur.fetchall()
         con.close()
         return queryset_list
 
-    def filter_by(self, instance_id=None):
+    def filter_by(self, instance_id=None, user_id=None):
+        filter_column = 'question_id' if instance_id else 'user_id'
+        filter_value = instance_id if instance_id else user_id
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("select * from {} WHERE {}= '{}'".format(self.table, filter_column, filter_value))
+        queryset_list = cur.fetchall()
+        con.close()
+        return queryset_list
+
+    def update(self, question_id, answer_id, data=None):
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
-        cur2 = con.cursor(cursor_factory=RealDictCursor)
-        cur.execute(
-            """
-            select * from questions
-            WHERE questions.question_id=""" + instance_id + """
-            ORDER BY questions.created_at
-            """
-        )
-        questions_queryset_list = cur.fetchall()
-        cur2.execute(
-            """
-            select * from answers
-            WHERE answers.question_id=""" + instance_id + """
-            """
-        )
-        answers_queryset_list = cur2.fetchall()
-        result = {
-            'question': questions_queryset_list,
-            'answers': answers_queryset_list
-        }
-        con.close()
-        return result
-
-    def update(self, instance_id, data=None):
-        pass
-
-    def delete(self, instance_id):
         try:
-            exist = self.filter_by(instance_id)
-            if not len(exist) > 0:
-                return 404
-            con = psycopg2.connect(**self.config)
-            cur = con.cursor(cursor_factory=RealDictCursor)
-            cur.execute("DELETE from {} WHERE {}= '{}'".format(self.table, 'question_id', instance_id))
+            cur.execute(
+                """
+                UPDATE answers SET 
+                body='""" + data.get('body') + """',
+                accepted='""" + data.get('accepted') + """'
+                WHERE 
+                answer_id=""" + answer_id + """
+                """
+            )
+
             con.commit()
         except Exception as e:
             print(e)
-            con.close()
-            return False
+            return None
         con.close()
-        return True
+        return data
+
+    def delete(self, instance_id):
+        pass
 
 
 Table = ModelTable()
+
+
+

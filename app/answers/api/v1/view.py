@@ -8,18 +8,36 @@ from flask.views import MethodView
 from ...models import Table
 from ....utils import jwt_required
 
-question_blueprint = Blueprint('questions', __name__)
+answers_blueprint = Blueprint('answers', __name__)
 
 
 class CreateAPIView(MethodView):
+    """ Update Instance api resource """
+
+    @jwt_required
+    def put(self, question_id=None, answer_id=None):
+        data = request.get_json(force=True)
+        response = Table.update(question_id, answer_id, data)
+        if not response:
+            response_object = {
+                'status': 'fail',
+                'message': response
+            }
+            return make_response(jsonify(response_object)), 400
+        response_object = {
+            'status': 'success',
+            'message': response
+        }
+        return make_response(jsonify(response_object)), 201
+
     """
     Create API Resource
     """
     @jwt_required
-    def post(self):
+    def post(self, question_id=None):
         # get the post data
         post_data = request.get_json(force=True)
-        instance = Table.save(data=post_data)
+        instance = Table.save(str(question_id), data=post_data)
         if instance:
             response_object = {
                 'status': 'success',
@@ -31,29 +49,7 @@ class CreateAPIView(MethodView):
             'status': 'fail',
             'message': 'Some error occurred. Please try again.'
         }
-        return make_response(jsonify(response_object)), 401
-
-    """ DELETE QUESTION """
-    @jwt_required
-    def delete(self, question_id=None):
-        response = Table.delete(question_id)
-        if response == 404:
-            response_object = {
-                'status': 'fail',
-                'message': 'Some error occurred. Question Not Found!.'
-            }
-            return make_response(jsonify(response_object)), 404
-        if not response:
-            response_object = {
-                'status': 'fail',
-                'message': 'Some error occurred. Please try again.'
-            }
-            return make_response(jsonify(response_object)), 400
-        response_object = {
-            'status': 'success',
-            'message': 'Question deleted successfully'
-        }
-        return make_response(jsonify(response_object)), 200
+        return make_response(jsonify(response_object)), 400
 
 
 class ListAPIView(MethodView):
@@ -61,15 +57,16 @@ class ListAPIView(MethodView):
     List API Resource
     """
     @jwt_required
-    def get(self, instance_id=None):
+    def get(self, instance_id=None, user_id=None):
         if instance_id:
             query = {
-                'instance_id': instance_id
+                'instance_id': instance_id,
+                'user_id': user_id
             }
             results = Table.filter_by(**query)
             if len(results) < 1:
                 response_object = {
-                    'results': 'Question not found',
+                    'results': 'Instance not found',
                     'status': 'error'
                 }
                 return make_response(jsonify(response_object)), 404
@@ -91,26 +88,27 @@ create_view = CreateAPIView.as_view('create_api')
 list_view = ListAPIView.as_view('list_api')
 
 # Add Rules for API Endpoints
-question_blueprint.add_url_rule(
-    '/api/v1/questions/',
+answers_blueprint.add_url_rule(
+    '/api/v1/questions/<int:question_id>/answers',
     view_func=create_view,
     methods=['POST']
 )
 
-question_blueprint.add_url_rule(
-    '/api/v1/questions/<string:question_id>',
+# Add Rules for API Endpoints
+answers_blueprint.add_url_rule(
+    '/api/v1/questions/<string:question_id>/answers/<string:answer_id>',
     view_func=create_view,
-    methods=['DELETE']
+    methods=['PUT']
 )
 
-question_blueprint.add_url_rule(
-    '/api/v1/questions/',
+answers_blueprint.add_url_rule(
+    '/api/v1/questions/answers',
     view_func=list_view,
     methods=['GET']
 )
 
-question_blueprint.add_url_rule(
-    '/api/v1/questions/<string:instance_id>',
-    view_func=list_view,
-    methods=['GET']
-)
+# answers_blueprint.add_url_rule(
+#     '/api/v1/questions/<int:instance_id>',
+#     view_func=list_view,
+#     methods=['GET']
+# )
