@@ -1,6 +1,6 @@
-### Flask app
+# Flask app
 
-# Author: P8ul Kinuthia
+# Author: P8ul
 # https://github.com/p8ul
 
 from app import create_app

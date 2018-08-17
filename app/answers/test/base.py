@@ -6,7 +6,6 @@ app = create_app("config.TestConfig")
 
 class BaseTestCase(unittest.TestCase):
     """A base test case."""
-
     def create_app(self):
         app.config.from_object('config.TestConfig')
         return app

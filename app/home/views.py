@@ -2,8 +2,7 @@
 # imports 
 #################
 
-from flask import render_template, Blueprint, \
-    request, flash, redirect, url_for
+from flask import render_template, Blueprint
 
 ################
 # config
@@ -20,7 +19,7 @@ home_blueprint = Blueprint(
 
 
 # use decorators to link the function to a url
-@home_blueprint.route('/', methods=['GET', 'POST'])
+@home_blueprint.route('/home', methods=['GET', 'POST'])
 def home():
     error = None
     return render_template('index.html', error=error)

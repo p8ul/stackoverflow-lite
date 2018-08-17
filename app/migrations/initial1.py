@@ -16,6 +16,24 @@ drop_tables_commands = (
     """,
 )
 
+drop_answers = (
+    """
+    DROP TABLE IF EXISTS answers CASCADE
+    """,
+)
+
+drop_votes = (
+    """
+    DROP TABLE IF EXISTS votes CASCADE
+    """,
+)
+
+drop_comments = (
+    """
+    DROP TABLE IF EXISTS comments CASCADE
+    """,
+)
+
 create_tables_commands = (
     """
     CREATE TABLE IF NOT EXISTS users(
@@ -43,7 +61,7 @@ create_tables_commands = (
         answer_id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
         question_id INTEGER NOT NULL,
-        body VARCHAR(255) NOT NULL,
+        answer_body TEXT NOT NULL,
         accepted bool DEFAULT false,
         created_at timestamp with time zone DEFAULT now(),
         FOREIGN KEY (question_id)
@@ -59,8 +77,22 @@ create_tables_commands = (
        comment_id SERIAL PRIMARY KEY,
        answer_id  INTEGER NOT NULL,
        user_id INTEGER NOT NULL,
-       body VARCHAR(255) NOT NULL,
-       accepted bool DEFAULT false,
+       comment_body VARCHAR(255) NOT NULL,
+       created_at timestamp with time zone DEFAULT now(),
+       FOREIGN KEY (answer_id)
+           REFERENCES  answers (answer_id)
+           ON UPDATE CASCADE ON DELETE CASCADE,
+       FOREIGN KEY (user_id)
+           REFERENCES users (user_id)
+           ON UPDATE CASCADE ON DELETE CASCADE            
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS votes (
+       vote_id SERIAL PRIMARY KEY,
+       answer_id  INTEGER NOT NULL,
+       user_id INTEGER NOT NULL,
+       vote bool DEFAULT false,
        created_at timestamp with time zone DEFAULT now(),
        FOREIGN KEY (answer_id)
            REFERENCES  answers (answer_id)
@@ -73,5 +105,8 @@ create_tables_commands = (
 )
 
 
-migrations = drop_tables_commands + create_tables_commands
+# migrations = drop_tables_commands + create_tables_commands
+# migrations = drop_answers + create_tables_commands
+# migrations = drop_votes + create_tables_commands
 # migrations = create_tables_commands
+migrations = drop_comments + create_tables_commands
