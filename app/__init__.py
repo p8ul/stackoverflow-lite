@@ -1,6 +1,6 @@
-### Fask create app
+# Flask create app
 
-# Author: P8ul Kinuthia
+# Author: P8ul
 # https://github.com/p8ul
 
 from flask import Flask
@@ -26,16 +26,18 @@ def create_app(config_filename):
 
 
 def configure_blueprints(app):
-    """Configure blueprints in views."""
+    """Configure blueprints ."""
     from app.questions.api.v1.view import question_blueprint
     from .home.views import home_blueprint
     from .auth.api.v1.view import auth_blueprint
     from .answers.api.v1.view import answers_blueprint
+    from .votes.api.v1.view import votes_blueprint
 
     app_blueprints = [
         answers_blueprint,
         question_blueprint,
         auth_blueprint,
+        votes_blueprint,
         home_blueprint
     ]
 
