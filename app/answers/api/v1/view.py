@@ -21,7 +21,7 @@ class CreateAPIView(MethodView):
         if not response:
             response_object = {
                 'status': 'fail',
-                'message': response
+                'message': 'Please provide correct answer and question id'
             }
             return make_response(jsonify(response_object)), 400
         response_object = {
@@ -37,11 +37,11 @@ class CreateAPIView(MethodView):
     def post(self, question_id=None):
         # get the post data
         post_data = request.get_json(force=True)
-        instance = Table.save(str(question_id), data=post_data)
-        if instance:
+        response = Table.save(str(question_id), data=post_data)
+        if response:
             response_object = {
                 'status': 'success',
-                'message': instance
+                'message': response
             }
             return make_response(jsonify(response_object)), 201
 
@@ -83,9 +83,31 @@ class ListAPIView(MethodView):
         return (jsonify(response_object)), 200
 
 
+class VoteAPIView(MethodView):
+    """ Update Instance api resource """
+
+    @jwt_required
+    def post(self, answer_id=None):
+        post_data = request.get_json(force=True)
+        response = Table.vote(str(answer_id), data=post_data)
+        if response:
+            response_object = {
+                'status': 'success',
+                'message': 'Your vote was successful'
+            }
+            return make_response(jsonify(response_object)), 201
+
+        response_object = {
+            'status': 'fail',
+            'message': 'Some error occurred. Please try again.'
+        }
+        return make_response(jsonify(response_object)), 400
+
+
 # Define the API resources
 create_view = CreateAPIView.as_view('create_api')
 list_view = ListAPIView.as_view('list_api')
+vote_view = VoteAPIView.as_view('vote_api')
 
 # Add Rules for API Endpoints
 answers_blueprint.add_url_rule(
@@ -94,7 +116,12 @@ answers_blueprint.add_url_rule(
     methods=['POST']
 )
 
-# Add Rules for API Endpoints
+answers_blueprint.add_url_rule(
+    '/api/v1/questions/answers/vote/<string:answer_id>',
+    view_func=vote_view,
+    methods=['POST']
+)
+
 answers_blueprint.add_url_rule(
     '/api/v1/questions/<string:question_id>/answers/<string:answer_id>',
     view_func=create_view,
@@ -106,9 +133,3 @@ answers_blueprint.add_url_rule(
     view_func=list_view,
     methods=['GET']
 )
-
-# answers_blueprint.add_url_rule(
-#     '/api/v1/questions/<int:instance_id>',
-#     view_func=list_view,
-#     methods=['GET']
-# )

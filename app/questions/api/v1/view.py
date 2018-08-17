@@ -67,6 +67,12 @@ class ListAPIView(MethodView):
                 'instance_id': instance_id
             }
             results = Table.filter_by(**query)
+            if not results:
+                response_object = {
+                    'status': 'fail',
+                    'message': 'Bad request.'
+                }
+                return make_response(jsonify(response_object)), 400
             if len(results) < 1:
                 response_object = {
                     'results': 'Question not found',

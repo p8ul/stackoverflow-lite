@@ -92,28 +92,33 @@ class ModelTable:
         return queryset_list
 
     def filter_by(self, instance_id=None):
-        con = psycopg2.connect(**self.config)
-        cur = con.cursor(cursor_factory=RealDictCursor)
-        cur2 = con.cursor(cursor_factory=RealDictCursor)
-        cur.execute(
-            """
-            select * from questions
-            WHERE questions.question_id=""" + instance_id + """
-            ORDER BY questions.created_at
-            """
-        )
-        questions_queryset_list = cur.fetchall()
-        cur2.execute(
-            """
-            select * from answers
-            WHERE answers.question_id=""" + instance_id + """
-            """
-        )
-        answers_queryset_list = cur2.fetchall()
-        result = {
-            'question': questions_queryset_list,
-            'answers': answers_queryset_list
-        }
+        try:
+            con = psycopg2.connect(**self.config)
+            cur = con.cursor(cursor_factory=RealDictCursor)
+            cur2 = con.cursor(cursor_factory=RealDictCursor)
+            cur.execute(
+                """
+                select * from questions
+                WHERE questions.question_id=""" + instance_id + """
+                ORDER BY questions.created_at
+                """
+            )
+            questions_queryset_list = cur.fetchall()
+            cur2.execute(
+                """
+                select * from answers
+                WHERE answers.question_id=""" + instance_id + """
+                """
+            )
+            answers_queryset_list = cur2.fetchall()
+            result = {
+                'question': questions_queryset_list,
+                'answers': answers_queryset_list
+            }
+        except Exception as e:
+            print(e)
+            con.close()
+            return False
         con.close()
         return result
 

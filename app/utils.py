@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from functools import wraps
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, session
 import datetime
 import jwt
 
@@ -57,6 +57,7 @@ def decode_auth_token(auth_token):
     """
     try:
         payload = jwt.decode(auth_token, 'SECRET_KEY', algorithm='HS256')
+        session['user_id'] = payload.get('sub')
         return payload['sub']
     except jwt.ExpiredSignatureError:
         return 'Token Signature expired. Please log in again.'
