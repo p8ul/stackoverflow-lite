@@ -28,6 +28,12 @@ drop_votes = (
     """,
 )
 
+drop_comments = (
+    """
+    DROP TABLE IF EXISTS comments CASCADE
+    """,
+)
+
 create_tables_commands = (
     """
     CREATE TABLE IF NOT EXISTS users(
@@ -71,8 +77,7 @@ create_tables_commands = (
        comment_id SERIAL PRIMARY KEY,
        answer_id  INTEGER NOT NULL,
        user_id INTEGER NOT NULL,
-       body VARCHAR(255) NOT NULL,
-       accepted bool DEFAULT false,
+       comment_body VARCHAR(255) NOT NULL,
        created_at timestamp with time zone DEFAULT now(),
        FOREIGN KEY (answer_id)
            REFERENCES  answers (answer_id)
@@ -103,4 +108,5 @@ create_tables_commands = (
 # migrations = drop_tables_commands + create_tables_commands
 # migrations = drop_answers + create_tables_commands
 # migrations = drop_votes + create_tables_commands
-migrations = create_tables_commands
+# migrations = create_tables_commands
+migrations = drop_comments + create_tables_commands
