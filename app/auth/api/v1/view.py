@@ -24,6 +24,7 @@ class RegisterAPI(MethodView):
                 response_object = {
                     'status': 'success',
                     'message': 'Successfully registered.',
+                    'id': user.get('id'),
                     'auth_token': auth_token
                 }
                 return make_response(jsonify(response_object)), 201
@@ -40,6 +41,15 @@ class RegisterAPI(MethodView):
                 'message': 'User already exists. Please Log in.',
             }
             return make_response(jsonify(response_object)), 202
+
+    def delete(self, user_id=None):
+        post_data = request.get_json(force=True)
+        Table.delete(user_id, post_data)
+        response_object = {
+            'status': 'success',
+            'message': 'User deleted successfully.',
+        }
+        return make_response(jsonify(response_object)), 200
 
 
 class LoginAPI(MethodView):
@@ -63,6 +73,7 @@ class LoginAPI(MethodView):
                     if auth_token:
                         response_object = {
                             'status': 'success',
+                            'id': user[0][0],
                             'message': 'Successfully logged in.',
                             'auth_token': auth_token.decode()
                         }
@@ -129,6 +140,13 @@ auth_blueprint.add_url_rule(
     '/api/v1/auth/signup',
     view_func=registration_view,
     methods=['POST']
+)
+
+# Add Rules for API Endpoints
+auth_blueprint.add_url_rule(
+    '/api/v1/auth/delete',
+    view_func=registration_view,
+    methods=['DELETE']
 )
 auth_blueprint.add_url_rule(
     '/api/v1/auth/login',

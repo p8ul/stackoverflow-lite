@@ -57,8 +57,25 @@ class ModelTable:
     def update(self, instance_id, data=None):
         pass
 
-    def delete(self, instance_id):
-        pass
+    def delete(self, instance_id, data=None):
+        try:
+            con = psycopg2.connect(**self.config)
+            cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+            cur.execute(
+                """
+                    DELETE FROM 
+                        users 
+                    WHERE
+                        email='""" + data.get('email') + """'
+                """
+            )
+            con.commit()
+            con.close()
+        except Exception as e:
+            print(e)
+            con.close()
+        return True
 
     def save(self, data):
         con = psycopg2.connect(**self.config)

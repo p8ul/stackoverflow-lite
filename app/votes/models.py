@@ -28,12 +28,7 @@ class ModelTable:
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur.execute(
-            """
-            SELECT 
-                user_id, vote_id
-            FROM
-                votes               
-            WHERE 
+            """ SELECT user_id, vote_id FROM votes WHERE 
                 answer_id=""" + answer_id + """
             AND 
                 user_id=""" + str(session.get('user_id')) + """
@@ -112,6 +107,9 @@ class ModelTable:
         return self.create_vote(answer_id, data)
 
     def delete(self, instance_id):
+        pass
+
+    def save(self):
         pass
 
 
