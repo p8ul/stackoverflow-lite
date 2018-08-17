@@ -18,17 +18,32 @@ class CreateAPIView(MethodView):
     def put(self, question_id=None, answer_id=None):
         data = request.get_json(force=True)
         response = Table.update(question_id, answer_id, data)
-        if not response:
+        if response == 200:
+            response_object = {
+                'status': 'success',
+                'message': 'Update successful'
+            }
+            return make_response(jsonify(response_object)), 200
+        if response == 302:
             response_object = {
                 'status': 'fail',
                 'message': 'Please provide correct answer and question id'
             }
             return make_response(jsonify(response_object)), 400
-        response_object = {
-            'status': 'success',
-            'message': response
-        }
-        return make_response(jsonify(response_object)), 201
+        if response == 203:
+            response_object = {
+                'status': 'fail',
+                'message': 'Unauthorized request.'
+            }
+            return make_response(jsonify(response_object)), 401
+
+        else:
+            response_object = {
+                'status': 'fail',
+                'message': 'Please provide correct answer and question id'
+            }
+            return make_response(jsonify(response_object)), 400
+
 
     """
     Create API Resource
@@ -47,7 +62,7 @@ class CreateAPIView(MethodView):
 
         response_object = {
             'status': 'fail',
-            'message': 'Some error occurred. Please try again.'
+            'message': 'Unknown question id. Try a different id.'
         }
         return make_response(jsonify(response_object)), 400
 
