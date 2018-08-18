@@ -1,0 +1,7 @@
+version: "1"
+plugins:
+  duplication:
+    enabled: true
+    checks:
+      Similar code:
+        enabled: false
