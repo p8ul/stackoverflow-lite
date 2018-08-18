@@ -108,5 +108,5 @@ create_tables_commands = (
 # migrations = drop_tables_commands + create_tables_commands
 # migrations = drop_answers + create_tables_commands
 # migrations = drop_votes + create_tables_commands
-# migrations = create_tables_commands
-migrations = drop_comments + create_tables_commands
+migrations = create_tables_commands
+# migrations = drop_comments + create_tables_commands

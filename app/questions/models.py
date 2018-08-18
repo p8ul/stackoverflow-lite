@@ -6,7 +6,6 @@
 """
     This class will connect to a Database and perform crud actions
     Has relevant getters, setters & mutation methods
-    Methods:
 """
 import psycopg2
 import psycopg2.extensions
@@ -168,17 +167,40 @@ class ModelTable:
     def update(self, instance_id, data=None):
         pass
 
+    def record_exists(self, question_id=None):
+        """
+        checks whether a question was asked by the user
+        :param question_id: string: question id
+        :return: bool: False if record is not found else True
+        """
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        cur.execute(
+            """ SELECT question_id, user_id FROM questions WHERE 
+                    question_id=""" + question_id + """
+                AND 
+                    user_id=""" + str(session.get('user_id')) + """
+            """
+        )
+        queryset_list = cur.fetchall()
+        con.close()
+        if len(queryset_list) < 1:
+            return False
+        return True
+
     def delete(self, instance_id):
         """
         Delete a table records
         :param instance_id: string: question id
         :return: bool
         """
+        con = psycopg2.connect(**self.config)
         try:
-            exist = self.filter_by(instance_id)
+            exist = self.filter_by(instance_id)['question']
             if not len(exist) > 0:
                 return 404
-            con = psycopg2.connect(**self.config)
+            if not self.record_exists(instance_id):
+                return 401
             cur = con.cursor(cursor_factory=RealDictCursor)
             cur.execute("DELETE from {} WHERE {}= '{}'".format(self.table, 'question_id', instance_id))
             con.commit()

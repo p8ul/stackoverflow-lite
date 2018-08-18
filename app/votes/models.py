@@ -27,17 +27,22 @@ class ModelTable:
         """
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
-        cur.execute(
-            """ SELECT user_id, vote_id FROM votes WHERE 
-                answer_id=""" + answer_id + """
-            AND 
-                user_id=""" + str(session.get('user_id')) + """
-            """
-        )
-        queryset_list = cur.fetchall()
-        if len(queryset_list) < 1:
+        try:
+            cur.execute(
+                """ SELECT user_id, vote_id FROM votes WHERE 
+                    answer_id=""" + answer_id + """
+                AND 
+                    user_id=""" + str(session.get('user_id')) + """
+                """
+            )
+            queryset_list = cur.fetchall()
+            con.close()
+            if len(queryset_list) < 1:
+                return False
+            return True
+        except:
+            con.close()
             return False
-        return True
 
     def create_vote(self, answer_id=None, data=None):
         """

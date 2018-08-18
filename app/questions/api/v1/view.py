@@ -37,6 +37,13 @@ class CreateAPIView(MethodView):
     @jwt_required
     def delete(self, question_id=None):
         response = Table.delete(question_id)
+        if response == 401:
+            response_object = {
+                'status': 'fail',
+                'message': 'Authorized, You cannot delete this question!.'
+            }
+            return make_response(jsonify(response_object)), 401
+
         if response == 404:
             response_object = {
                 'status': 'fail',
