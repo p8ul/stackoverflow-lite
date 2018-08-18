@@ -1,9 +1,63 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://stackoverflow-paul.herokuapp.com/api/v1
 
 # Stack overflow lite
 
 Polls is a simple API allowing consumers to view polls and vote in them.
+
+## Sign up Collection [/auth/signup]
+
+### Signup [POST]
+
+Sign's in a new user
+
++ Request (application/json)
+
+        {
+            "username": "Paul",
+            "email": "pkinuthia10@gmail.com",
+            "password": "12345"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+    + Body
+
+            {
+                "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ2OTE4OTksImlhdCI6MTUzNDYwNTQ2OSwic3ViIjpudWxsfQ.dYtvvpJDFdYanDtnFzOPMNtMv-D5hXiiEWRQgSykF9o",
+                "id": null,
+                "message": "Successfully registered.",
+                "status": "success"
+            }
+   
+## Login Collection [/auth/login]
+
+### Login [POST]
+
+You can login and get authorization Token
+
++ Request (application/json)
+
+        {
+            "email": "pkinuthia10@gmail.com",
+            "password": "12345"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+    + Body
+
+            {
+              "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ2OTIzOTEsImlhdCI6MTUzNDYwNTk2MSwic3ViIjoyfQ.dqBrg3hFWltp4nQ5bA1tJs9vJi2uoowetaAJqIwkEbM",
+              "id": 2,
+              "message": "Successfully logged in.",
+              "status": "success"
+            }
+   
 
 ## Questions Collection [/questions]
 
