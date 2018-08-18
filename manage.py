@@ -4,7 +4,7 @@
 # https://github.com/p8ul
 
 from app import create_app
-app = create_app("config.BaseConfig")
+app = create_app("config.ProductionConfig")
 
 if __name__ == "__main__":
     app = create_app("config.BaseConfig")

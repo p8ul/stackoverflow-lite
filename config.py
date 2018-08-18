@@ -29,4 +29,5 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = "postgres://tvhuxucdtigrin:fc7e1f53efe5f81b6a6d3dacad8f79605cd0973d0ae5efa5ac29b3976b48f938@ec2-54-83-13-119.compute-1.amazonaws.com:5432/d393cevo034f77"
 
