@@ -25,9 +25,9 @@ class ModelTable:
         :param answer_id: Answer foreign key
         :return: True if vote exist else False
         """
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=RealDictCursor)
         try:
-            con = psycopg2.connect(**self.config)
-            cur = con.cursor(cursor_factory=RealDictCursor)
             cur.execute(
                 """ SELECT user_id, vote_id FROM votes WHERE 
                     answer_id=""" + answer_id + """
@@ -36,10 +36,12 @@ class ModelTable:
                 """
             )
             queryset_list = cur.fetchall()
+            con.close()
             if len(queryset_list) < 1:
                 return False
             return True
         except:
+            con.close()
             return False
 
     def create_vote(self, answer_id=None, data=None):
