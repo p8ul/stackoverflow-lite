@@ -38,10 +38,8 @@ class ApiDocumentGen:
     def process_requests(self, request):
         url = urlparse(request.get('url'))
         path = url.path.replace(self.api_version, '')
-        self.domain = url
-        method = request.get('method')
-        name = request.get('name')
-        description = request.get('description')
+        self.domain, description = url, request.get('description')
+        method, name = request.get('method'), request.get('name')
         content_type = 'application/json'
         collection_name = '## ' + name + ' [' + path + ']\n'
         title = '### ' + name + ' [' + method + ']'
@@ -53,16 +51,12 @@ class ApiDocumentGen:
         doc.write(title + '\n')
         doc.write(description + '\n\n')
         if method == "POST":
-            doc.write(req + '\n')
-            doc.write('\n')
+            doc.write(req + '\n\n')
             json_data = json.loads(request.get('rawModeData'))
             json.dump(json_data, doc, indent=8, sort_keys=True, ensure_ascii=False)
-            doc.write('\n')
-            doc.write('\n\n')
+            doc.write('\n\n\n')
 
-        doc.write(resp + '\n')
-        doc.write('\n')
-        doc.write('\n')
+        doc.write(resp + '\n\n\n')
         doc.close()
 
     def get_url_info(self):

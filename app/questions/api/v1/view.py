@@ -59,8 +59,7 @@ class CreateAPIView(MethodView):
     @jwt_required
     def delete(self, question_id=None):
         data = dict()
-        data['user_id'] = session.get('user_id')
-        data['question_id'] = question_id
+        data['user_id'], data['question_id'] = session.get('user_id'), question_id
         response = Table(data).delete()
         if response == 401:
             response_object = {
@@ -68,12 +67,8 @@ class CreateAPIView(MethodView):
                 'message': 'Unauthorized, You cannot delete this question!.'
             }
             return make_response(jsonify(response_object)), 401
-
         if response == 404:
-            response_object = {
-                'status': 'fail',
-                'message': 'Some error occurred. Question Not Found!.'
-            }
+            response_object = {'status': 'fail', 'message': 'Some error occurred. Question Not Found!.'}
             return make_response(jsonify(response_object)), 404
         if not response:
             response_object = {
@@ -120,7 +115,7 @@ class UserQuestionsListAPIView(MethodView):
     """
     List API Resource
     """
-    # @jwt_required
+    @jwt_required
     def get(self, user):
         data = {'user_id': session.get('user_id')}
         results = Table(data).filter_by_user()
