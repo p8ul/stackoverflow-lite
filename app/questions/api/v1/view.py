@@ -88,13 +88,12 @@ class ListAPIView(MethodView):
     @jwt_required
     def get(self, instance_id=None, user_id=None):
         data = dict()
-        data['question_id'] = instance_id
-        data['user_id'] = session.get('user_id')
+        data['question_id'], data['user_id'] = instance_id, session.get('user_id')
         if user_id:
             results = Table({}).filter_by_user()
             if results:
                 response_object = {'results': results, 'status': 'success'}
-                return (jsonify(response_object)), 200
+                return make_response(jsonify(response_object)), 200
         if instance_id:
             results = Table(data).filter_by()
             if not results:
@@ -104,7 +103,7 @@ class ListAPIView(MethodView):
                 response_object = {'results': 'Question not found', 'status': 'error'}
                 return make_response(jsonify(response_object)), 404
             response_object = {'results': results, 'status': 'success'}
-            return (jsonify(response_object)), 200
+            return make_response(jsonify(response_object)), 200
         response_object = {
             'results': Table({'q': request.args.get('q')}).query(), 'status': 'success'
         }
