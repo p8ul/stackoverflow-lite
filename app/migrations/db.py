@@ -14,7 +14,6 @@ class Database:
     def test(self):
         con = psycopg2.connect(**self.config)
         con.autocommit = True
-
         cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("select * from pg_database where datname = %(database_name)s", {'database_name': self.database})
         databases = cur.fetchall()
@@ -31,4 +30,4 @@ class Database:
         con.close()
 
 
-db = Database(BaseConfig.SQLALCHEMY_DATABASE_URI)
+db = Database(BaseConfig.DATABASE_URI)

@@ -4,36 +4,26 @@
 # https://github.com/p8ul
 
 """
-    This class will act as a table in a Database (Inspired by MongoDB)
+    This class will act as a table in a Database
     Has relevant getters, setters & mutation methods
-    Methods:
-        __init__()
-            Initializes default class data/Methods
-
-        save(title=None)
-            Takes in a title and save it in the class data variable
-            Generates unique id for each instance
-            :returns saved object (dict)
-
-        query()
-            Queries all the data (dict) stored in the class data variable
-            :returns dictionary
-
-        filter_by(email, user_id)
-            :param user_id :int Id of instance to be edited
-            Filters class data by id
-
 """
 import psycopg2
 import psycopg2.extras
+from psycopg2.extras import RealDictCursor
+from flask_bcrypt import Bcrypt
 from config import BaseConfig
 from ..utils import db_config
 
 
-class ModelTable:
-    def __init__(self):
-        self.config = db_config(BaseConfig.SQLALCHEMY_DATABASE_URI)
-        self.table = 'users'
+class Table:
+    def __init__(self, data={}):
+        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.table, self.email = 'users', data.get('email')
+        self.username = data.get('username')
+        self.user_id = data.get('user_id')
+        self.b_crypt = Bcrypt()
+        if data.get('password'):
+            self.password = self.b_crypt.generate_password_hash(data.get('password')).decode('utf-8')
 
     def query(self):
         con = psycopg2.connect(**self.config)
@@ -43,57 +33,54 @@ class ModelTable:
         con.close()
         return [item for item in queryset_list]
 
-    def filter_by(self, email=None, user_id=None):
-        # filter user by email or id
-        filter_column = 'user_id' if user_id else 'email'
-        filter_value = user_id if user_id else email
-        con = psycopg2.connect(**self.config)
-        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute("select * from {} WHERE {}='{}'".format(self.table, filter_column, filter_value))
-        queryset_list = cur.fetchall()
+    def filter_by(self):
+        con, queryset_list = psycopg2.connect(**self.config), None
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        try:
+            cur.execute("select * from {} WHERE user_id='{}'".format(self.table, self.user_id))
+            queryset_list = cur.fetchall()
+        except Exception as e:
+            print(e)
         con.close()
         return queryset_list
 
-    def update(self, instance_id, data=None):
+    def filter_by_email(self):
+        con, queryset_list = psycopg2.connect(**self.config), None
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        try:
+            cur.execute("select * from {} WHERE email='{}'".format(self.table, self.email))
+            queryset_list = cur.fetchall()
+        except Exception as e:
+            print(e)
+        con.close()
+        return queryset_list
+
+    def update(self):
         pass
 
-    def delete(self, instance_id, data=None):
+    def delete(self):
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
-            con = psycopg2.connect(**self.config)
-            cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-            cur.execute(
-                """
-                    DELETE FROM 
-                        users 
-                    WHERE
-                        email='""" + data.get('email') + """'
-                """
-            )
+            query = "DELETE FROM users WHERE email=%s"
+            cur.execute(query, self.email)
             con.commit()
             con.close()
         except Exception as e:
             print(e)
             con.close()
+            return False
         return True
 
-    def save(self, data):
-        con = psycopg2.connect(**self.config)
-        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-        cur.execute(
-            """
-            INSERT INTO users (username, email, password)
-            values(
-                '""" + data.get('username') + """',
-                '""" + data.get('email') + """',
-                '""" + data.get('password') + """'
-            )
-            """
-        )
-        con.commit()
+    def save(self):
+        con, response = psycopg2.connect(**self.config), None
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        try:
+            query = "INSERT INTO users (username, email, password) values(%s, %s, %s) RETURNING *"
+            cur.execute(query, (self.username, self.email, self.password))
+            con.commit()
+            response = cur.fetchone()
+        except Exception as e:
+            print(e)
         con.close()
-        return data
-
-
-Table = ModelTable()
+        return response

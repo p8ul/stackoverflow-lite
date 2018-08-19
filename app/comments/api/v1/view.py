@@ -11,8 +11,9 @@ class ListAPIView(MethodView):
 
     @jwt_required
     def post(self, answer_id=None):
-        post_data = request.get_json(force=True)
-        response = Table.save(answer_id, data=post_data)
+        data = request.get_json(force=True)
+        data['answer_id'] = answer_id
+        response = Table(data).save()
         if response:
             response_object = {
                 'status': 'success',

@@ -27,7 +27,7 @@ def create_app(config_filename):
 
 def configure_blueprints(app):
     """Configure blueprints ."""
-    from app.questions.api.v1.view import question_blueprint
+    from .questions.api.v1.view import question_blueprint
     from .home.views import home_blueprint
     from .auth.api.v1.view import auth_blueprint
     from .answers.api.v1.view import answers_blueprint

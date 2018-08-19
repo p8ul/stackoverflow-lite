@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
 from ...models import Table
 from ....utils import jwt_required
@@ -11,8 +11,10 @@ class VoteAPIView(MethodView):
 
     @jwt_required
     def post(self, answer_id=None):
-        post_data = request.get_json(force=True)
-        response = Table.vote(str(answer_id), data=post_data)
+        data = request.get_json(force=True)
+        data['answer_id'] = answer_id
+        data['user_id'] = session.get('user_id')
+        response = Table(data).vote()
         if response:
             response_object = {
                 'status': 'success',

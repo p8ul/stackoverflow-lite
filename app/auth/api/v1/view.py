@@ -1,53 +1,57 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
+from flask_bcrypt import Bcrypt
 from ...models import Table
 from ....utils import jwt_required, encode_auth_token
+from ...validatons import validate_user_details
 
+# globals b_crypt
+b_crypt = Bcrypt()
 auth_blueprint = Blueprint('auth', __name__)
 
 
 class RegisterAPI(MethodView):
-    """
-    User Signup API Resource
-    """
-
+    """ User Signup API Resource """
     def post(self):
         # get the post data
-        post_data = request.get_json(force=True)
+        data = request.get_json(force=True)
+        data['user_id'] = session.get('user_id')
         # check if user already exists
-        user = Table.filter_by(post_data.get('email'))
+        errors = validate_user_details(data)
+        if len(errors) > 0:
+            response_object = {
+                'status': 'fail', 'errors': errors
+            }
+            return make_response(jsonify(response_object)), 401
+        user = Table(data).filter_by_email()
         if not user:
             try:
-                user = Table.save(data=post_data)
-                # generate the auth token
+                user = Table(data).save()
                 auth_token = encode_auth_token(user.get('id')).decode()
                 response_object = {
                     'status': 'success',
                     'message': 'Successfully registered.',
-                    'id': user.get('id'),
-                    'auth_token': auth_token
+                    'id': user.get('id'), 'auth_token': auth_token
                 }
                 return make_response(jsonify(response_object)), 201
             except Exception as e:
                 print(e)
                 response_object = {
-                    'status': 'fail',
-                    'message': 'Some error occurred. Please try again.'
+                    'status': 'fail', 'message': 'Some error occurred. Please try again.'
                 }
                 return make_response(jsonify(response_object)), 401
         else:
             response_object = {
-                'status': 'fail',
-                'message': 'User already exists. Please Log in.',
+                'status': 'fail', 'message': 'User already exists. Please Log in.',
             }
             return make_response(jsonify(response_object)), 202
 
     def delete(self, user_id=None):
-        post_data = request.get_json(force=True)
-        Table.delete(user_id, post_data)
+        data = request.get_json(force=True)
+        data['user_id'] = user_id
+        Table(data).delete()
         response_object = {
-            'status': 'success',
-            'message': 'User deleted successfully.',
+            'status': 'success', 'message': 'User deleted successfully.',
         }
         return make_response(jsonify(response_object)), 200
 
@@ -55,44 +59,32 @@ class RegisterAPI(MethodView):
 class LoginAPI(MethodView):
     """ User Login API Resource """
     def post(self):
-        # get the post data
-        post_data = request.get_json(force=True)
+        data = request.get_json(force=True)
+        data['user_id'] = session.get('user_id')
         try:
-            # fetch the user data
-            user = Table.filter_by(email=post_data.get('email'))
-            if len(user) >= 1 and post_data.get('password'):
-                if str(user[0][3]) == str(post_data.get('password')):
-                    auth_token = encode_auth_token(user[0][0])
+            user = Table(data).filter_by_email()
+            if len(user) >= 1 and data.get('password'):
+                if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
+                    auth_token = encode_auth_token(user[0].get('user_id'))
                 else:
-                    response_object = {
-                        'status': 'fail',
-                        'message': 'Password or email do not match.'
-                    }
+                    response_object = {'status': 'fail', 'message': 'Password or email do not match.'}
                     return make_response(jsonify(response_object)), 401
                 try:
                     if auth_token:
                         response_object = {
-                            'status': 'success',
-                            'id': user[0][0],
+                            'status': 'success', 'id': user[0].get('user_id'),
                             'message': 'Successfully logged in.',
                             'auth_token': auth_token.decode()
                         }
                         return make_response(jsonify(response_object)), 200
                 except Exception as e:
-                    print(e)
                     return {"message": 'Error decoding token'}, 401
             else:
-                response_object = {
-                    'status': 'fail',
-                    'message': 'User does not exist.'
-                }
+                response_object = {'status': 'fail', 'message': 'User does not exist.'}
                 return make_response(jsonify(response_object)), 404
         except Exception as e:
             print(e)
-            response_object = {
-                'status': 'fail',
-                'message': 'Try again'
-            }
+            response_object = {'status': 'fail', 'message': 'Try again'}
             return make_response(jsonify(response_object)), 500
 
 
@@ -101,7 +93,7 @@ class UserListAPI(MethodView):
     @jwt_required
     def get(self, user_id=None):
         if user_id:
-            user = Table.filter_by(email=None, user_id=user_id)
+            user = Table({"user_id": user_id}).filter_by()
             if len(user) < 1:
                 response_object = {
                     'results': 'User not found',
@@ -115,7 +107,7 @@ class UserListAPI(MethodView):
             return (jsonify(response_object)), 200
 
         response_object = {
-            'results': Table.query(),
+            'results': Table().query(),
             'status': 'success'
         }
         return (jsonify(response_object)), 200

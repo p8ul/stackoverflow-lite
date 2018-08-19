@@ -1,0 +1,214 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:5000/api/v1
+
+# Stackoverflow-lite
+
+## Users: List users [/auth/users]
+
+
+### Users: List users [GET]
+
+
++ Response 201 (application/json)
+
+
+## Comments:  Create a comment [/questions/answers/comment/3]
+
+
+### Comments:  Create a comment [POST]
+Comment on an answer
+
++ Request (application/json)
+
+{
+        "comment_body": "This is a big deal"
+}
+
+
++ Response 201 (application/json)
+
+
+## User: Login [/auth/login]
+
+
+### User: Login [POST]
+
+
++ Request (application/json)
+
+{
+        "email": "sky@Jhames.com",
+        "password": "sdsdfsdf9s0d9fs09sf",
+        "username": "sky"
+}
+
+
++ Response 201 (application/json)
+
+
+## Users: Update user information [/auth/users/1]
+
+
+### Users: Update user information [PUT]
+
+
++ Response 201 (application/json)
+
+
+## Users: Retrieve single user [/auth/users/12]
+
+
+### Users: Retrieve single user [GET]
+
+
++ Response 201 (application/json)
+
+
+## Answers: Retrieve an answer [/questions/answers/6]
+
+
+### Answers: Retrieve an answer [GET]
+Retrieve a single answer
+
++ Response 201 (application/json)
+
+
+## Question: Create Instance [/questions/]
+
+
+### Question: Create Instance [POST]
+Post request. Creates a new instance
+
++ Request (application/json)
+
+{
+        "body": "Body goes here",
+        "title": "Nues queset"
+}
+
+
++ Response 201 (application/json)
+
+
+## Votes: Upvote/Downvote [/questions/answers/vote/1]
+
+
+### Votes: Upvote/Downvote [POST]
+User can up vote or downvote an answer
+
++ Request (application/json)
+
+{
+        "vote": "true"
+}
+
+
++ Response 201 (application/json)
+
+
+## Answers: Post an answer [/questions/2/answers]
+
+
+### Answers: Post an answer [POST]
+Answer a question
+
++ Request (application/json)
+
+{
+        "answer_body": "I lovehjhh JKJK"
+}
+
+
++ Response 201 (application/json)
+
+
+## Question: Update question [/questions/1]
+
+
+### Question: Update question [PUT]
+UPdate/Edit a question
+
++ Response 201 (application/json)
+
+
+## Users: Create user [/auth/signup]
+
+
+### Users: Create user [POST]
+
+
++ Request (application/json)
+
+{
+        "email": "sky@Jhames.com",
+        "password": "sdsdfsdf9s0d9fs09sf",
+        "username": "sky"
+}
+
+
++ Response 201 (application/json)
+
+
+## Answer: List all answers [/questions/answers]
+
+
+### Answer: List all answers [GET]
+List all answers
+
++ Response 201 (application/json)
+
+
+## Answer:  Update answer [/questions/3/answers/1]
+
+
+### Answer:  Update answer [PUT]
+Update an answer
+
++ Response 201 (application/json)
+
+
+## Questions: User questions [/questions/user/1]
+
+
+### Questions: User questions [GET]
+List all questions asked by a user
+
++ Response 201 (application/json)
+
+
+## Question: Delete Question [/questions/3]
+
+
+### Question: Delete Question [DELETE]
+Delete Question
+
++ Response 201 (application/json)
+
+
+## Questions: Retrieve a question [/questions/124]
+
+
+### Questions: Retrieve a question [GET]
+
+
++ Response 201 (application/json)
+
+
+## Users: Delete user [/users/1/]
+
+
+### Users: Delete user [DELETE]
+
+
++ Response 201 (application/json)
+
+
+## Question: List questions [/questions]
+
+
+### Question: List questions [GET]
+List all questions
+
++ Response 201 (application/json)
+
+
