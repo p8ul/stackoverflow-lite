@@ -70,8 +70,8 @@ def db_config(database_uri):
     :param database_uri: database Configuration uri
     :return: database login information
     """
-    if os.environ.get('DATABASE_URI'):
-        database_uri = os.environ.get('DATABASE_URI')
+    if os.environ.get('DATABASE_URL'):
+        database_uri = os.environ.get('DATABASE_URL')
 
     result = urlparse(database_uri)
     config = {
