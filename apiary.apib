@@ -1,37 +1,38 @@
 FORMAT: 1A
-HOST: http://127.0.0.1:5000/api/v1
+HOST: https://stackoverflow-paul.herokuapp.com/api/v1
 
 # Stackoverflow-lite
 
-## Users: List users [/auth/users]
+Stackoverflow lite is a simple API allowing users to view post questions, answers and vote for them. You can view this documentation over at [Apiary](https://stackoverflowlite2.docs.apiary.io).
+## Sign up Collection [/auth/signup]
 
 
-### Users: List users [GET]
+### Users: Create user [POST]
+You may create your own account using this action. 
+It takes a JSON object containing a user email, password and username as profile and authorization details.
 
-
-+ Response 201 (application/json)
-
-
-## Comments:  Create a comment [/questions/answers/comment/3]
-
-
-### Comments:  Create a comment [POST]
-Comment on an answer
++ useraname (string) - User name
++ email (string) - A valid user email
++ password (string) - Strong login password
 
 + Request (application/json)
 
         {
-                "comment_body": "This is a big deal"
+                "email": "sky@Jhames.com",
+                "password": "sdsdfsdf9s0d9fs09sf",
+                "username": "sky"
         }
 
 
 + Response 201 (application/json)
 
-
-## User: Login [/auth/login]
+## Login [/auth/login]
 
 
 ### User: Login [POST]
+This action allows you to login and and get a JWT authorization token.
++ email: (required, string) - User email
++ password: (required, string) - User password
 
 
 + Request (application/json)
@@ -45,56 +46,79 @@ Comment on an answer
 
 + Response 201 (application/json)
 
+## Users Collection [/auth/users]
 
-## Users: Update user information [/auth/users/1]
-
-
-### Users: Update user information [PUT]
-
+### Users: List users [GET]
+This resource will list all users.
 
 + Response 201 (application/json)
 
-
-## Users: Retrieve single user [/auth/users/12]
+## User details [/auth/users/{user_id}]
 
 
 ### Users: Retrieve single user [GET]
-
-
-+ Response 201 (application/json)
-
-
-## Answers: Retrieve an answer [/questions/answers/6]
-
-
-### Answers: Retrieve an answer [GET]
-Retrieve a single answer
+This action allows you to retreive user details.
++ Parameters
+    + user_id: 1 (required, number) - ID of user you want details displayed
+    
 
 + Response 201 (application/json)
 
+## Question: Create Question [/questions/]
 
-## Question: Create Instance [/questions/]
 
+### Question: Create Question [POST]
+You may create your own question using this action. It takes a JSON object containing a question title and body.
 
-### Question: Create Instance [POST]
-Post request. Creates a new instance
++ title (string) - The question title
++ body (string) - Question description body
 
 + Request (application/json)
-
+        
         {
-                "body": "Body goes here",
-                "title": "Nues queset"
+                "title": "What was your question title",
+                "body": "What was your question body What was your question body"
+                
         }
 
++ Response 201 (application/json)
+
+## Question: Update question [/questions/1]
+
+
+### Question: Update question [PUT]
+User can update a question using this action. It takes a JSON object containing a question title and body.
+
++ title (string) - The question title
++ body (string) - Question description body
 
 + Response 201 (application/json)
 
 
-## Votes: Upvote/Downvote [/questions/answers/vote/1]
+
+## Answers: Retrieve an answer [/questions/answers/{answer_id}]
+
+### Answers: Retrieve an answer [GET]
+This action allows you to retreive a single answer details.
++ Parameters
+    + answer_id: 1 (required, number) - ID of answer you to display
+
++ Response 201 (application/json)
+
+
+## Votes: Upvote/Downvote [/questions/answers/vote/{answer_id}]
 
 
 ### Votes: Upvote/Downvote [POST]
-User can up vote or downvote an answer
+A Vote object has the following attributes:
+
++ user_id: - Voters user id
++ created_at - An ISO8601 date when the question was published.
++ vote - Boolean: True to upvote / False to down vote
+
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+
 
 + Request (application/json)
 
@@ -106,44 +130,25 @@ User can up vote or downvote an answer
 + Response 201 (application/json)
 
 
-## Answers: Post an answer [/questions/2/answers]
+## Answers: Post an answer [/questions/{question_id}/answers]
 
 
 ### Answers: Post an answer [POST]
-Answer a question
+This action will allow you to post an answer to the specified question
 
-+ Request (application/json)
+A Question object has the following attributes:
 
-        {
-                "answer_body": "I lovehjhh JKJK"
-        }
++ answer_body - Answer descriptive body
 
-
-+ Response 201 (application/json)
-
-
-## Question: Update question [/questions/1]
-
-
-### Question: Update question [PUT]
-UPdate/Edit a question
-
-+ Response 201 (application/json)
-
-
-## Users: Create user [/auth/signup]
-
-
-### Users: Create user [POST]
++ Parameters
+    + question_id: 1 (required, number) - ID of the Question in form of an integer
 
 
 + Request (application/json)
 
-        {
-                "email": "sky@Jhames.com",
-                "password": "sdsdfsdf9s0d9fs09sf",
-                "username": "sky"
-        }
+            {
+                    "answer_body": "I lovehjhh JKJK"
+            }
 
 
 + Response 201 (application/json)
@@ -153,60 +158,37 @@ UPdate/Edit a question
 
 
 ### Answer: List all answers [GET]
-List all answers
+You may ist all answers using this action.
 
 + Response 201 (application/json)
 
 
-## Answer:  Update answer [/questions/3/answers/1]
+## Answer:  Update answer [/questions/{question_id}/answers/{answer_id}]
 
 
 ### Answer:  Update answer [PUT]
-Update an answer
-
-+ Response 201 (application/json)
-
-
-## Questions: User questions [/questions/user/1]
-
-
-### Questions: User questions [GET]
-List all questions asked by a user
-
-+ Response 201 (application/json)
-
-
-## Question: Delete Question [/questions/3]
-
-
-### Question: Delete Question [DELETE]
-Delete Question
-
-+ Response 201 (application/json)
-
-
-## Questions: Retrieve a question [/questions/124]
-
-
-### Questions: Retrieve a question [GET]
+This action will Update an answer
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
 
 
 + Response 201 (application/json)
 
 
-## Users: Delete user [/users/1/]
+## Comments collection [/questions/answers/comment/{answer_id}]
 
 
-### Users: Delete user [DELETE]
+### Comments:  Create a comment [POST]
+
+A Comment object has the following attributes:
+
++ user_id: - Commenting user id
++ created_at - An ISO8601 date when the question was published.
++ comment_body - String: Comment description
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
 
 
-+ Response 201 (application/json)
-
-
-## Question: List questions [/questions]
-
-
-### Question: List questions [GET]
-List all questions
++ Request (application/json)
 
 + Response 201 (application/json)
