@@ -52,14 +52,14 @@ You can login and get authorization Token
     + Body
 
             {
-              "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ2OTIzOTEsImlhdCI6MTUzNDYwNTk2MSwic3ViIjoyfQ.dqBrg3hFWltp4nQ5bA1tJs9vJi2uoowetaAJqIwkEbM",
+              "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MDkyMzksImlhdCI6MTUzNDYyMjgwOSwic3ViIjoyfQ.Wc23q6AN3XoeRr_JXX8yRqUvQ3vwObzyVIyIvXJxI8o",
               "id": 2,
               "message": "Successfully logged in.",
               "status": "success"
             }
    
 
-## Questions Collection [/questions]
+## Questions Collection [/questions/]
 
 ### List All Questions [GET]
 
@@ -96,13 +96,8 @@ form of choices.
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "title": "Favourite programming language?",
+            "body": "Hello Favourite programming language?"
         }
 
 + Response 201 (application/json)
