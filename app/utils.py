@@ -1,16 +1,16 @@
 from urllib.parse import urlparse
-
+import datetime
+import os
+import re
 from functools import wraps
 from flask import request, make_response, jsonify, session
-import datetime
 import jwt
 
 
 def jwt_required(f):
-    """
-    Ensure jwt token is provided and valid
-    :param f: function to decorated
-    :return: decorated function
+    """ Ensure jwt token is provided and valid
+        :param f: function to decorated
+        :return: decorated function
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -38,7 +38,7 @@ def encode_auth_token(user_id):
     :TODO add secret key to app configuration
     """
     payload = {
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=30),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=31, seconds=30),
         'iat': datetime.datetime.utcnow(),
         'sub': user_id
     }
@@ -50,14 +50,13 @@ def encode_auth_token(user_id):
 
 
 def decode_auth_token(auth_token):
-    """
-    Validates the auth token
+    """ Validates the auth token
     :param auth_token:
     :return: integer|string
     """
     try:
         payload = jwt.decode(auth_token, 'SECRET_KEY', algorithm='HS256')
-        session['user_id'] = payload.get('sub')
+        session['user_id'] = str(payload.get('sub'))
         return payload['sub']
     except jwt.ExpiredSignatureError:
         return 'Token Signature expired. Please log in again.'
@@ -65,14 +64,16 @@ def decode_auth_token(auth_token):
         return 'Invalid token. Please log in again.'
 
 
-def db_config(config_file):
-    """
-    This function extracts postgres url
+def db_config(database_uri):
+    """ This function extracts postgres url
     and return database login information
-    :param config_file: Configuration file
+    :param database_uri: database Configuration uri
     :return: database login information
     """
-    result = urlparse(config_file)
+    if os.environ.get('DATABASE_URI'):
+        database_uri = os.environ.get('DATABASE_URI')
+
+    result = urlparse(database_uri)
     config = {
         'database': result.path[1:],
         'user': result.username,
@@ -82,3 +83,6 @@ def db_config(config_file):
     return config
 
 
+def valid_email(email):
+    """  Validate email """
+    return re.match(r'^.+@([?)[a-zA-Z0-9-.])+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$', email)

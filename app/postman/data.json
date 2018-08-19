@@ -1,0 +1,520 @@
+{
+	"id": "9cd5484b-e08f-4557-91fa-7ff411ae36e2",
+	"name": "Stackoverflow-lite",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"fa832817-1e72-4223-aa82-36e86f6aae26",
+		"7ac20723-0dec-4e53-95c2-684a46f3949f",
+		"95dd9436-d931-4354-88d4-9acaa1cf92bd",
+		"e467aa8b-fe4e-43e1-80a2-7f24869c5b1a",
+		"f3ad5fd7-8547-4fac-9cb8-a0d24cfd019a",
+		"ca7e1089-a3aa-4d45-8002-19716360e6ea",
+		"0ba72fb5-b871-43d7-8eb7-61fd3a308663",
+		"1fa44e91-88e2-4a9d-adf1-91bbf374af86",
+		"b00ff201-e343-4043-998d-6d8b07bd71e3",
+		"342fcab2-a59d-4520-9886-1cc9b4c943d2",
+		"3316e33a-5e63-4324-ba6b-995352f6d264",
+		"f64dac2d-4f51-40e6-8a16-7d68c2148d4b",
+		"8f07e507-e677-4a7a-a248-c1e0a3525d3b",
+		"ba53fc34-5eb8-4e9e-9145-613997e0dfd5",
+		"bd6b79b8-27f3-43b9-88b7-79a565de388f",
+		"5d6fd9cf-e46d-44e9-ade2-61d2fd1ec7f9",
+		"7c5cc7ad-920b-45ce-a4cf-c6c4124731b1",
+		"1acb2a78-dd14-499e-bf66-be8e61e7aa4c"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "0ba72fb5-b871-43d7-8eb7-61fd3a308663",
+			"name": "Users: List users",
+			"url": "http://127.0.0.1:5000/api/v1/auth/users",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJpYXQiOjE1MzQ2NjI0MDIsImV4cCI6MTUzNzM0MDgzMn0.5Ir5av92wC2mFptnj8V1KVRxOkjWweHI47twx9EAAts"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "1acb2a78-dd14-499e-bf66-be8e61e7aa4c",
+			"name": "Comments:  Create a comment",
+			"url": "http://127.0.0.1:5000/api/v1/questions/answers/comment/3",
+			"description": "Comment on an answer",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"comment_body\": \"This is a big deal\"}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "1fa44e91-88e2-4a9d-adf1-91bbf374af86",
+			"name": "User: Login",
+			"url": "http://127.0.0.1:5000/api/v1/auth/login",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\"username\": \"sky\",\n\"email\": \"sky@Jhames.com\",\n\"password\": \"sdsdfsdf9s0d9fs09sf\" }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "3316e33a-5e63-4324-ba6b-995352f6d264",
+			"name": "Users: Update user information",
+			"url": "http://127.0.0.1:5000/api/v1/auth/users/1",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\"username\": \"Users\",\n\"email\": \"sdfs@sdfs.com\",\n\"password\": \"sdsdfsdf9s0d9fs09sf\" }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "342fcab2-a59d-4520-9886-1cc9b4c943d2",
+			"name": "Users: Retrieve single user",
+			"url": "http://127.0.0.1:5000/api/v1/auth/users/12",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJpYXQiOjE1MzQ2NjI0MDIsImV4cCI6MTUzNzM0MDgzMn0.5Ir5av92wC2mFptnj8V1KVRxOkjWweHI47twx9EAAts"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "5d6fd9cf-e46d-44e9-ade2-61d2fd1ec7f9",
+			"name": "Answers: Retrieve an answer",
+			"url": "http://127.0.0.1:5000/api/v1/questions/answers/6",
+			"description": "Retrieve a single answer",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "7ac20723-0dec-4e53-95c2-684a46f3949f",
+			"name": "Question: Create Instance",
+			"url": "http://127.0.0.1:5000/api/v1/questions/",
+			"description": "Post request. Creates a new instance",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "title",
+					"value": "hjhhjhjhjh",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJpYXQiOjE1MzQ2NjI0MDIsImV4cCI6MTUzNzM0MDgzMn0.5Ir5av92wC2mFptnj8V1KVRxOkjWweHI47twx9EAAts"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"title\": \"Nues queset\",\n\t\"body\": \"Body goes here\"\n}",
+			"headers": "title: hjhhjhjhjh\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "7c5cc7ad-920b-45ce-a4cf-c6c4124731b1",
+			"name": "Votes: Upvote/Downvote",
+			"url": "http://127.0.0.1:5000/api/v1/questions/answers/vote/1",
+			"description": "User can up vote or downvote an answer",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"vote\": \"true\"}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "8f07e507-e677-4a7a-a248-c1e0a3525d3b",
+			"name": "Answers: Post an answer",
+			"url": "http://127.0.0.1:5000/api/v1/questions/2/answers",
+			"description": "Answer a question",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"answer_body\": \"I lovehjhh JKJK\"}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "95dd9436-d931-4354-88d4-9acaa1cf92bd",
+			"name": "Question: Update question",
+			"url": "http://127.0.0.1:5000/api/v1/questions/1",
+			"description": "UPdate/Edit a question",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				]
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"title\": \"New sdfsdftitle\" }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "b00ff201-e343-4043-998d-6d8b07bd71e3",
+			"name": "Users: Create user",
+			"url": "http://127.0.0.1:5000/api/v1/auth/signup",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzQ2MjE3MjAsInN1YiI6bnVsbCwiZXhwIjoxNTM0NzA4MTUwfQ.OMpZFKQDueMSE7dZhWIyzAxSKmHii6fsB3lD6B_NvS4",
+						"type": "string"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\"username\": \"sky\",\n\"email\": \"sky@Jhames.com\",\n\"password\": \"sdsdfsdf9s0d9fs09sf\" }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ba53fc34-5eb8-4e9e-9145-613997e0dfd5",
+			"name": "Answer: List all answers",
+			"url": "http://127.0.0.1:5000/api/v1/questions/answers",
+			"description": "List all answers",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "bd6b79b8-27f3-43b9-88b7-79a565de388f",
+			"name": "Answer:  Update answer",
+			"url": "http://127.0.0.1:5000/api/v1/questions/3/answers/1",
+			"description": "Update an answer",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJpYXQiOjE1MzQ2NjI0MDIsImV4cCI6MTUzNzM0MDgzMn0.5Ir5av92wC2mFptnj8V1KVRxOkjWweHI47twx9EAAts"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"body\": \"i asdasda programming\", \"user_id\": \"1\",\n  \"accepted\": \"true\"\n\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ca7e1089-a3aa-4d45-8002-19716360e6ea",
+			"name": "Questions: User questions",
+			"url": "http://127.0.0.1:5000/api/v1/questions/user/1",
+			"description": "List all questions asked by a user",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJpYXQiOjE1MzQ2NjI0MDIsImV4cCI6MTUzNzM0MDgzMn0.5Ir5av92wC2mFptnj8V1KVRxOkjWweHI47twx9EAAts"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "e467aa8b-fe4e-43e1-80a2-7f24869c5b1a",
+			"name": "Question: Delete Question",
+			"url": "http://127.0.0.1:5000/api/v1/questions/3",
+			"description": "Delete Question",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "f3ad5fd7-8547-4fac-9cb8-a0d24cfd019a",
+			"name": "Questions: Retrieve a question",
+			"url": "http://127.0.0.1:5000/api/v1/questions/124",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\"user\": \"sfsdfsdf\"}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "f64dac2d-4f51-40e6-8a16-7d68c2148d4b",
+			"name": "Users: Delete user",
+			"url": "http://127.0.0.1:5000/api/v1/users/1/",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "fa832817-1e72-4223-aa82-36e86f6aae26",
+			"name": "Question: List questions",
+			"url": "http://127.0.0.1:5000/api/v1/questions",
+			"description": "List all questions",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzQ3MzcxMzgsImlhdCI6MTUzNDY1MDcwOCwic3ViIjoyfQ.OWBsauF3hT1arjcR2QnWBr_X3w90Qjfku1Gf2XlOH5Q"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
