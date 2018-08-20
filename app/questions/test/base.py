@@ -21,7 +21,11 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         # method to invoke before each test.
         self.client = app.test_client()
+        self.data = {
+            'title': 'Test title',
+            'body': 'Test body',
+            'user': 'p8ul'
+        }
+        response = self.client.post('/api/v1/questions/', json=self.data)
+        self.question_id = str(response.get_json()['data'][0]['id'])
 
-    def tearDown(self):
-        # method to invoke after each test.
-        pass
