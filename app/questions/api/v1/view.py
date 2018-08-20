@@ -3,42 +3,14 @@
 
 from flask_restful import Resource, Api
 from flask import Blueprint, request
-from ...models import Table
-
+from ...models import Question, Answer
 api = Blueprint('api', __name__, url_prefix='/api/v1')
 api_wrap = Api(api)
 
 """ Create an instance of a Question `table` (Class) """
 
-question = Table()
 global data
 data = []
-
-
-def filter_by(instance_id):
-    # filter by instance by id
-    item_ = next((item for item in data if item.get('id') == int(instance_id)), {})
-    return item_
-
-
-def create_answer(question_id=None, answer=None):
-    if question_id and answer:
-        result = False
-        for i in range(len(data)):
-            if data[i].get('id') == int(question_id):
-                answer = {
-                    'answer': answer
-                }
-                data[i]['answers'].append(answer)
-                result = True
-                break
-        return result
-
-
-def add_question(question):
-    question['id'] = len(data) + 1
-    data.append(question)
-
 
 
 class ListRetrieveAPIView(Resource):
@@ -57,10 +29,10 @@ class ListRetrieveAPIView(Resource):
 
     def post(self, question_id=None):
         json_data = request.get_json(force=True)
-        question = Table(json_data)
-        answer = json_data.get('answer')
-        if question_id and answer:
-            response = create_answer(question_id, answer)
+        question = Question(json_data)
+        answer = Answer(json_data)
+        if question_id and answer.answer:
+            response = create_answer(question_id, answer.answer)
             if not response:
                 return {"status": "error", "data": "Question Not Found"}, 404
         else:
@@ -77,3 +49,27 @@ api_wrap.add_resource(
     '/questions/<string:question_id>/answer/',
     '/questions/<int:question_id>'
 )
+
+def filter_by(instance_id):
+    # filter by instance by id
+    item_ = next((item for item in data if item.get('id') == int(instance_id)), {})
+    return item_
+
+
+def create_answer(question_id=None, answer=None):
+    if question_id:
+        result = False
+        for i in range(len(data)):
+            if data[i].get('id') == int(question_id):
+                answer = {'answer': answer}
+                data[i]['answers'].append(answer)
+                result = True
+                break
+        return result
+
+
+def add_question(question):
+    question['id'] = len(data) + 1
+    question['answers'] = []
+    data.append(question)
+
