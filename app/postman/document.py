@@ -50,11 +50,14 @@ class ApiDocumentGen:
         doc.write(collection_name + '\n\n')
         doc.write(title + '\n')
         doc.write(description + '\n\n')
-        if method == "POST":
-            doc.write(req + '\n\n')
-            json_data = json.loads(request.get('rawModeData'))
-            json.dump(json_data, doc, indent=8, sort_keys=True, ensure_ascii=False)
-            doc.write('\n\n\n')
+        try:
+            if method == "POST":
+                doc.write(req + '\n\n')
+                json_data = json.loads(request.get('rawModeData'))
+                json.dump(json_data, doc, indent=8, sort_keys=True, ensure_ascii=False)
+                doc.write('\n\n\n')
+        except:
+            pass
 
         doc.write(resp + '\n\n\n')
         doc.close()

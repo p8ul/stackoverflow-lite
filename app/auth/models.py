@@ -27,7 +27,7 @@ class Table:
 
     def query(self):
         con = psycopg2.connect(**self.config)
-        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur = con.cursor(cursor_factory=RealDictCursor)
         cur.execute("select * from {}".format(self.table))
         queryset_list = cur.fetchall()
         con.close()

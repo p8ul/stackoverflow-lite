@@ -33,6 +33,7 @@ def configure_blueprints(app):
     from .answers.api.v1.view import answers_blueprint
     from .votes.api.v1.view import votes_blueprint
     from .comments.api.v1.view import comments_blueprint
+    from .users.api.v1.view import users_blueprint
 
     app_blueprints = [
         answers_blueprint,
@@ -40,7 +41,8 @@ def configure_blueprints(app):
         auth_blueprint,
         votes_blueprint,
         comments_blueprint,
-        home_blueprint
+        home_blueprint,
+        users_blueprint
     ]
 
     for bp in app_blueprints:

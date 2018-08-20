@@ -86,14 +86,9 @@ class CreateAPIView(MethodView):
 class ListAPIView(MethodView):
     """ List API Resource """
     @jwt_required
-    def get(self, instance_id=None, user_id=None):
+    def get(self, instance_id=None):
         data = dict()
         data['question_id'], data['user_id'] = instance_id, session.get('user_id')
-        if user_id:
-            results = Table({}).filter_by_user()
-            if results:
-                response_object = {'results': results, 'status': 'success'}
-                return make_response(jsonify(response_object)), 200
         if instance_id:
             results = Table(data).filter_by()
             if not results:
@@ -110,26 +105,9 @@ class ListAPIView(MethodView):
         return (jsonify(response_object)), 200
 
 
-class UserQuestionsListAPIView(MethodView):
-    """
-    List API Resource
-    """
-    @jwt_required
-    def get(self, user):
-        data = {'user_id': session.get('user_id')}
-        results = Table(data).filter_by_user()
-        if results:
-            response_object = {'results': results, 'status': 'success'}
-            return (jsonify(response_object)), 200
-
-        response_object = {'results': 'Bad Request'}
-        return (jsonify(response_object)), 400
-
-
 # Define the API resources
 create_view = CreateAPIView.as_view('create_api')
 list_view = ListAPIView.as_view('list_api')
-user_questions_list_view = ListAPIView.as_view('user_questions_api')
 
 # Add Rules for API Endpoints
 question_blueprint.add_url_rule(
@@ -156,14 +134,3 @@ question_blueprint.add_url_rule(
     methods=['GET']
 )
 
-question_blueprint.add_url_rule(
-    '/api/v1/questions/user/<string:user_id>',
-    view_func=user_questions_list_view,
-    methods=['GET']
-)
-
-question_blueprint.add_url_rule(
-    '/api/v1/questions/<string:instance_id>',
-    view_func=list_view,
-    methods=['GET']
-)
