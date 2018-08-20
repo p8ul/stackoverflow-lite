@@ -5,7 +5,6 @@ from ...models import Table
 from ....utils import jwt_required, encode_auth_token
 from ...validatons import validate_user_details
 
-# globals b_crypt
 b_crypt = Bcrypt()
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -16,6 +15,7 @@ class RegisterAPI(MethodView):
         # get the post data
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
+        data['user'] = Table(data).filter_by_email()
         # check if user already exists
         errors = validate_user_details(data)
         if len(errors) > 0:
@@ -23,28 +23,21 @@ class RegisterAPI(MethodView):
                 'status': 'fail', 'errors': errors
             }
             return make_response(jsonify(response_object)), 401
-        user = Table(data).filter_by_email()
-        if not user:
-            try:
-                user = Table(data).save()
-                auth_token = encode_auth_token(user.get('id')).decode()
-                response_object = {
-                    'status': 'success',
-                    'message': 'Successfully registered.',
-                    'id': user.get('id'), 'auth_token': auth_token
-                }
-                return make_response(jsonify(response_object)), 201
-            except Exception as e:
-                print(e)
-                response_object = {
-                    'status': 'fail', 'message': 'Some error occurred. Please try again.'
-                }
-                return make_response(jsonify(response_object)), 401
-        else:
+        try:
+            user = Table(data).save()
+            auth_token = encode_auth_token(user.get('id')).decode()
             response_object = {
-                'status': 'fail', 'message': 'User already exists. Please Log in.',
+                'status': 'success',
+                'message': 'Successfully registered.',
+                'id': user.get('id'), 'auth_token': auth_token
             }
-            return make_response(jsonify(response_object)), 202
+            return make_response(jsonify(response_object)), 201
+        except Exception as e:
+            print(e)
+            response_object = {
+                'status': 'fail', 'message': 'Some error occurred. Please try again.'
+            }
+            return make_response(jsonify(response_object)), 401
 
     def delete(self, user_id=None):
         data = request.get_json(force=True)
