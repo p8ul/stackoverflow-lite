@@ -25,9 +25,8 @@ def configure_blueprints(app):
     """Configure blueprints in views."""
     from app.questions.api.v1 import api
     from .home.views import home_blueprint
-    from app.users.api.v1 import api as user_api
 
-    for bp in [api, user_api, home_blueprint]:
+    for bp in [api, home_blueprint]:
         app.register_blueprint(bp)
 
 
