@@ -38,7 +38,7 @@ def encode_auth_token(user_id):
     :TODO add secret key to app configuration
     """
     payload = {
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=31, seconds=30),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=31, seconds=130),
         'iat': datetime.datetime.utcnow(),
         'sub': user_id
     }

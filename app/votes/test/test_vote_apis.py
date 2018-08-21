@@ -1,8 +1,3 @@
-# APIs Testing
-
-# Author: P8ul
-# https://github.com/p8ul
-
 import unittest
 from ...test.base import BaseTestCase
 

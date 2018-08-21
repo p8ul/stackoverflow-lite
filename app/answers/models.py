@@ -4,10 +4,9 @@
 # https://github.com/p8ul
 
 """
-    This class will connect to a Database and perform crud actions
-    Has relevant getters, setters & mutation methods
+    Answers ModelController
 """
-
+import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -15,7 +14,7 @@ from config import BaseConfig
 from ..utils import db_config
 
 
-class Table:
+class Answer:
     def __init__(self, data={}):
         self.config = db_config(BaseConfig.DATABASE_URI)
         self.table = 'answers'
@@ -24,6 +23,8 @@ class Table:
         self.answer_id = data.get('answer_id')
         self.accepted = data.get('accepted')
         self.user_id = data.get('user_id')
+        if os.environ.get('APP_SETTINGS') == 'TESTING':
+            self.config['database'] = BaseConfig.TEST_DB
 
     def save(self):
         """
