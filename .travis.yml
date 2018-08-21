@@ -8,10 +8,11 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 before_script:
+  - psql -c "CREATE DATABASE test;" -U postgres
   - psql -c "CREATE DATABASE stack;" -U postgres
   - psql -c "CREATE USER stack WITH PASSWORD 'stack';" -U postgres
 # command to run tests
 script: 
-  - py.test --cov=app
+  - python manage.py test
 after_success:
   - coveralls

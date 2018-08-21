@@ -5,6 +5,7 @@ import re
 from functools import wraps
 from flask import request, make_response, jsonify, session
 import jwt
+from config import BaseConfig
 
 
 def jwt_required(f):
@@ -80,6 +81,8 @@ def db_config(database_uri):
         'password': result.password,
         'host': result.hostname
     }
+    if os.environ.get('APP_SETTINGS') == 'TESTING':
+        config['database'] = BaseConfig.TEST_DB
     return config
 
 

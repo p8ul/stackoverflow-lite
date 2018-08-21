@@ -19,6 +19,7 @@ class Question:
         if os.environ.get('APP_SETTINGS') == 'TESTING':
             self.config['database'] = BaseConfig.TEST_DB
 
+
     def save(self):
         """ Create a question record in questions table
         :return: None or record values

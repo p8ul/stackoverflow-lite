@@ -17,6 +17,7 @@ class Vote:
         if os.environ.get('APP_SETTINGS') == 'TESTING':
             self.config['database'] = BaseConfig.TEST_DB
 
+
     def vote_exists(self):
         """
         Checks if vote for a particular answer
