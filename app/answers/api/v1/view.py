@@ -50,19 +50,13 @@ class CreateAPIView(MethodView):
 
     @jwt_required
     def post(self, question_id=None):
-        # get the post data
         data = request.get_json(force=True)
-        data['question_id'] = question_id
-        data['user_id'] = session.get('user_id')
+        data['question_id'], data['user_id'] = question_id, session.get('user_id')
         answer = Answer(data)
         response = answer.save()
         if response:
-            response_object = {
-                'status': 'success',
-                'message': response
-            }
+            response_object = {'status': 'success', 'message': response}
             return make_response(jsonify(response_object)), 201
-
         response_object = {
             'status': 'fail',
             'message': 'Unknown question id. Try a different id.'
