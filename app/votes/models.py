@@ -1,7 +1,6 @@
 """
     Votes model
 """
-import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -14,9 +13,6 @@ class Vote:
         self.config = db_config(BaseConfig.DATABASE_URI)
         self.table, self.answer_id = 'votes', data.get('answer_id')
         self.vote_value, self.user_id = data.get('vote'), data.get('user_id')
-        if os.environ.get('APP_SETTINGS') == 'TESTING':
-            self.config['database'] = BaseConfig.TEST_DB
-
 
     def vote_exists(self):
         """
