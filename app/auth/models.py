@@ -1,6 +1,5 @@
 
 """  Auth model """
-import os
 import psycopg2
 import psycopg2.extras
 from psycopg2.extras import RealDictCursor
@@ -18,8 +17,6 @@ class User:
         self.b_crypt = Bcrypt()
         if data.get('password'):
             self.password = self.b_crypt.generate_password_hash(data.get('password')).decode('utf-8')
-        if os.environ.get('APP_SETTINGS') == 'TESTING':
-            self.config['database'] = BaseConfig.TEST_DB
 
     def query(self):
         con = psycopg2.connect(**self.config)

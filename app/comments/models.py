@@ -1,7 +1,6 @@
 """
     Comments model
 """
-import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -17,8 +16,6 @@ class Comment:
         self.answer_id = data.get('answer_id')
         self.question_id = data.get('question_id')
         self.comment_body = data.get('comment_body')
-        if os.environ.get('APP_SETTINGS') == 'TESTING':
-            self.config['database'] = BaseConfig.TEST_DB
 
     def save(self):
         """
