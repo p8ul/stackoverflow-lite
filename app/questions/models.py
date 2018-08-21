@@ -1,6 +1,7 @@
 """
     Question Model
 """
+import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -15,6 +16,8 @@ class Question:
         self.body, self.q = data.get('body'), data.get('q')
         self.question_id = data.get('question_id')
         self.user_id = data.get('user_id')
+        if os.environ.get('APP_SETTINGS') == 'TESTING':
+            self.config['database'] = BaseConfig.TEST_DB
 
 
     def save(self):
