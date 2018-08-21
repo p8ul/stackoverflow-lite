@@ -1,12 +1,6 @@
-# Custom Model
 
-# Author: P8ul
-# https://github.com/p8ul
-
-"""
-    This class will act as a table in a Database
-    Has relevant getters, setters & mutation methods
-"""
+"""  Auth model """
+import os
 import psycopg2
 import psycopg2.extras
 from psycopg2.extras import RealDictCursor
@@ -15,7 +9,7 @@ from config import BaseConfig
 from ..utils import db_config
 
 
-class Table:
+class User:
     def __init__(self, data={}):
         self.config = db_config(BaseConfig.DATABASE_URI)
         self.table, self.email = 'users', data.get('email')
@@ -24,6 +18,8 @@ class Table:
         self.b_crypt = Bcrypt()
         if data.get('password'):
             self.password = self.b_crypt.generate_password_hash(data.get('password')).decode('utf-8')
+        if os.environ.get('APP_SETTINGS') == 'TESTING':
+            self.config['database'] = BaseConfig.TEST_DB
 
     def query(self):
         con = psycopg2.connect(**self.config)
@@ -56,7 +52,21 @@ class Table:
         return queryset_list
 
     def update(self):
-        pass
+        """
+        Update an user column
+        :return: bool:
+        """
+        con, result = psycopg2.connect(**self.config), True
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        try:
+            query = "UPDATE users SET email=%s, username=%s WHERE user_id=%s"
+            cur.execute(query, (self.email, self.username, self.user_id))
+            con.commit()
+        except Exception as e:
+            print(e)
+            result = False
+        con.close()
+        return result
 
     def delete(self):
         con = psycopg2.connect(**self.config)

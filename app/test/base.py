@@ -1,23 +1,21 @@
 import unittest
-
 from .. import create_app
+from config import BaseConfig
+
+
 app = create_app("config.TestConfig")
 
 
 class BaseTestCase(unittest.TestCase):
     """A base test case."""
 
-    def create_app(self):
-        app.config.from_object('config.TestConfig')
-        return app
-
     def setUp(self):
-        # method to invoke before each test.
         self.client = app.test_client()
         self.data = {
             'username': 'Paul',
             'email': 'pkinuthia10@gmail.com',
-            'password': 'password'
+            'password': 'password',
+            'database': BaseConfig.TEST_DB
         }
         """ Login to get a JWT token """
         self.client.post('/api/v1/auth/signup', json=self.data)

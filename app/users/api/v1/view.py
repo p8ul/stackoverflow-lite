@@ -1,6 +1,6 @@
-from flask import Blueprint, request, make_response, jsonify, session
+from flask import Blueprint, jsonify, session
 from flask.views import MethodView
-from ....questions.models import Table
+from ....questions.models import Question
 from ....utils import jwt_required
 
 users_blueprint = Blueprint('users', __name__)
@@ -12,7 +12,7 @@ class ListAPIView(MethodView):
     def get(self):
         data = {'user_id': session.get('user_id')}
         response_object = {
-            'results': Table(data).filter_by_user(),
+            'results': Question(data).filter_by_user(),
             'status': 'success'
         }
         return (jsonify(response_object)), 200

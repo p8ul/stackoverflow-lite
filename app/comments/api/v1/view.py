@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
-from ...models import Table
+from ...models import Comment
 from ....utils import jwt_required
 
 comments_blueprint = Blueprint('comments', __name__)
@@ -13,7 +13,7 @@ class ListAPIView(MethodView):
     def post(self, answer_id=None):
         data = request.get_json(force=True)
         data['answer_id'] = answer_id
-        response = Table(data).save()
+        response = Comment(data).save()
         if response:
             response_object = {
                 'status': 'success',

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
-from ...models import Table
+from ...models import Vote
 from ....utils import jwt_required
 
 votes_blueprint = Blueprint('votes', __name__)
@@ -14,7 +14,7 @@ class VoteAPIView(MethodView):
         data = request.get_json(force=True)
         data['answer_id'] = answer_id
         data['user_id'] = session.get('user_id')
-        response = Table(data).vote()
+        response = Vote(data).vote()
         if response:
             response_object = {
                 'status': 'success',

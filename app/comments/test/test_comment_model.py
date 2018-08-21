@@ -1,24 +1,19 @@
-# APIs Testing
-
-# Author: P8ul
-# https://github.com/p8ul
 
 import unittest
 from ...test.base import BaseTestCase
-from ..models import Table
+from ..models import Comment
 
-table = Table()
+comment = Comment()
 
 
 class FlaskTestCase(BaseTestCase):
 
-    """ Test votes model  """
-    def test_model_save(self):
-        query = table.save()
+    def test_model_save_normal(self):
+        query = comment.save()
         self.assertEqual(query, False)
 
     def test_model_init(self):
-        keys = table.config.keys()
+        keys = comment.config.keys()
         self.assertIn(list(keys)[0], ['password', 'user', 'database', 'host'])
         self.assertEqual(len(list(keys)), 4)
 

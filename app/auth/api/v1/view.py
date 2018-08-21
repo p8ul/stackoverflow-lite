@@ -1,7 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
 from flask_bcrypt import Bcrypt
-from ...models import Table
+from ...models import User
 from ....utils import jwt_required, encode_auth_token
 from ...validatons import validate_user_details
 
@@ -15,7 +15,7 @@ class RegisterAPI(MethodView):
         # get the post data
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
-        data['user'] = Table(data).filter_by_email()
+        data['user'] = User(data).filter_by_email()
         # check if user already exists
         errors = validate_user_details(data)
         if len(errors) > 0:
@@ -24,7 +24,7 @@ class RegisterAPI(MethodView):
             }
             return make_response(jsonify(response_object)), 401
         try:
-            user = Table(data).save()
+            user = User(data).save()
             auth_token = encode_auth_token(user.get('id')).decode()
             response_object = {
                 'status': 'success',
@@ -42,7 +42,7 @@ class RegisterAPI(MethodView):
     def delete(self, user_id=None):
         data = request.get_json(force=True)
         data['user_id'] = user_id
-        Table(data).delete()
+        User(data).delete()
         response_object = {
             'status': 'success', 'message': 'User deleted successfully.',
         }
@@ -55,7 +55,7 @@ class LoginAPI(MethodView):
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
         try:
-            user = Table(data).filter_by_email()
+            user = User(data).filter_by_email()
             if len(user) >= 1 and data.get('password'):
                 if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
                     auth_token = encode_auth_token(user[0].get('user_id'))
@@ -86,12 +86,12 @@ class UserListAPI(MethodView):
     @jwt_required
     def get(self, user_id=None):
         if user_id:
-            user = Table({"user_id": user_id}).filter_by()
-            if len(user) < 1:
-                response_object = {
-                    'results': 'User not found',
-                    'status': 'fail'
-                }
+            user = User({"user_id": user_id}).filter_by()
+            response_object = {'results': 'User not found', 'status': 'fail'}
+            try:
+                if len(user) < 1:
+                    return make_response(jsonify(response_object)), 404
+            except:
                 return make_response(jsonify(response_object)), 404
             response_object = {
                 'results': user,
@@ -100,7 +100,7 @@ class UserListAPI(MethodView):
             return (jsonify(response_object)), 200
 
         response_object = {
-            'results': Table().query(),
+            'results': User().query(),
             'status': 'success'
         }
         return (jsonify(response_object)), 200

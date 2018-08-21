@@ -1,10 +1,7 @@
 """
-    Author: P8ul
-    https://github.com/p8ul
-
-    This class will connect to a Database and perform crud actions
-    Has relevant getters, setters & mutation methods
+    Comments model
 """
+import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -13,13 +10,15 @@ from config import BaseConfig
 from ..utils import db_config
 
 
-class Table:
+class Comment:
     def __init__(self, data={}):
         self.config = db_config(BaseConfig.DATABASE_URI)
         self.table = 'comments'
         self.answer_id = data.get('answer_id')
         self.question_id = data.get('question_id')
         self.comment_body = data.get('comment_body')
+        if os.environ.get('APP_SETTINGS') == 'TESTING':
+            self.config['database'] = BaseConfig.TEST_DB
 
     def save(self):
         """

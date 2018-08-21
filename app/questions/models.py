@@ -1,12 +1,7 @@
-# Custom Model
-
-# Author: P8ul
-# https://github.com/p8ul
-
 """
-    This class will connect to a Database and perform crud actions
-    Has relevant getters, setters & mutation methods
+    Question Model
 """
+import os
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
@@ -14,13 +9,15 @@ from config import BaseConfig
 from ..utils import db_config
 
 
-class Table:
+class Question:
     def __init__(self, data={}):
         self.config = db_config(BaseConfig.DATABASE_URI)
         self.table, self.title = 'questions', data.get('title')
         self.body, self.q = data.get('body'), data.get('q')
         self.question_id = data.get('question_id')
         self.user_id = data.get('user_id')
+        if os.environ.get('APP_SETTINGS') == 'TESTING':
+            self.config['database'] = BaseConfig.TEST_DB
 
     def save(self):
         """ Create a question record in questions table
@@ -70,8 +67,8 @@ class Table:
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur2 = con.cursor(cursor_factory=RealDictCursor)
-        try:
 
+        try:
             query = """ SELECT * FROM questions WHERE questions.question_id=%s ORDER BY questions.created_at"""
             cur.execute(query % self.question_id)
             questions_queryset_list = cur.fetchall()
@@ -134,7 +131,7 @@ class Table:
             cur.execute(query, (self.question_id, self.user_id))
             queryset_list = cur.fetchall()
             con.close()
-            exists = True if len(queryset_list) > 1 else False
+            exists = True if len(queryset_list) >= 1 else False
         except Exception as e:
             print(e)
         return exists

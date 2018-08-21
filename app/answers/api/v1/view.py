@@ -5,7 +5,7 @@
 
 from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
-from ...models import Table
+from ...models import Answer
 from ....utils import jwt_required
 
 answers_blueprint = Blueprint('answers', __name__)
@@ -21,7 +21,7 @@ class CreateAPIView(MethodView):
         data['answer_id'] = answer_id
         data['user_id'] = session.get('user_id')
 
-        response = Table(data).update()
+        response = Answer(data).update()
         if response == 200:
             response_object = {
                 'status': 'success',
@@ -54,7 +54,7 @@ class CreateAPIView(MethodView):
         data = request.get_json(force=True)
         data['question_id'] = question_id
         data['user_id'] = session.get('user_id')
-        answer = Table(data)
+        answer = Answer(data)
         response = answer.save()
         if response:
             response_object = {
@@ -80,7 +80,7 @@ class ListAPIView(MethodView):
         data['answer_id'] = answer_id
         data['user_id'] = session.get('user_id')
         if answer_id:
-            results = Table(data).filter_by()
+            results = Answer(data).filter_by()
             if len(results) < 1:
                 response_object = {
                     'results': 'Answer not found', 'status': 'fail'
@@ -90,7 +90,7 @@ class ListAPIView(MethodView):
                 'results': results, 'status': 'success'
             }
             return (jsonify(response_object)), 200
-        response_object = {'results': Table(data).query(), 'status': 'success'}
+        response_object = {'results': Answer(data).query(), 'status': 'success'}
         return (jsonify(response_object)), 200
 
 

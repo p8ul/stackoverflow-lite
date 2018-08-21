@@ -50,7 +50,7 @@ def configure_blueprints(app):
 
 
 def configure_extensions():
-    db.test()
+    db.migrate()
 
 
 if __name__ == "__main__":

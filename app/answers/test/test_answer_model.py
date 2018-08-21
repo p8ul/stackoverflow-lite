@@ -1,56 +1,91 @@
-# APIs Testing
-
-# Author: P8ul
-# https://github.com/p8ul
-
 import unittest
 from ...test.base import BaseTestCase
-from ..models import Table
+from ..models import Answer
+from ...questions.models import Question
 
-table = Table()
+answer = Answer()
+question = Question()
 
 
 class FlaskTestCase(BaseTestCase):
 
-    """ Test question model  """
-    def test_question_model(self):
-        query = table.query()
+    def test_answer_query_normal(self):
+        """ Test retrieve all answers"""
+        query = answer.query()
         self.assertIsInstance(query, type([]))
 
-    def test_model_filter(self):
-        query = table.filter_by()
+    def test_answer_model_filter_unexpected(self):
+        """ Example: answer_id 'None' """
+        answer.answer_id = None
+        query = answer.filter_by()
         self.assertEqual(query, [])
 
-    def test_model_save(self):
-        query = table.save()
+    def test_answer_model_filter_normal(self):
+        """ Example: answer_id '1' """
+        answer.answer_id = 1
+        query = answer.filter_by()
+        self.assertEqual(query, [])
+
+    def test_answer_model_filter_edgecase(self):
+        """ Example: answer_id '[]' """
+        answer.answer_id = None
+        query = answer.filter_by()
+        self.assertEqual(query, [])
+
+    def test_model_save_unexpected(self):
+        """ Pass wrong json payload """
+        question.title, question.body = "Question title", "question body"
+        question.user_id = self.user_id
+        result_payload = question.save()
+        self.data['question_id'] = result_payload.get('question_id')
+
+        answer.question_id = self.data.get('question_id')
+        answer.answer_body = 'answer body'
+        answer.user_id = None
+        query = answer.save()
         self.assertEqual(query, None)
 
+    def test_model_save_normal(self):
+        question.title, question.body = "Question title", "question body"
+        question.user_id = self.user_id
+        result_payload = question.save()
+        self.data['question_id'] = result_payload.get('question_id')
+
+        answer.question_id = self.data.get('question_id')
+        answer.answer_body = 'answer body'
+        answer.user_id = self.user_id
+        query = answer.save()
+        self.data['answer_id'] = query.get('answer_id')
+        self.assertEqual(query.get('answer_body'), answer.answer_body)
+
     def test_model_update(self):
-        query = table.update()
+        answer.answer_body = 'Update body'
+        answer.answer_id = self.data.get('answer_id')
+        query = answer.update()
         self.assertEqual(query, 404)
 
     def test_model_delete(self):
-        query = table.delete()
+        query = answer.delete()
         self.assertEqual(query, None)
 
     def test_model_question_author(self):
-        query = table.question_author()
+        query = answer.question_author()
         self.assertEqual(query, False)
 
     def test_model_answer_author(self):
-        query = table.answer_author()
+        query = answer.answer_author()
         self.assertEqual(query, False)
 
     def test_model_accept(self):
-        query = table.update_accept_field()
+        query = answer.update_accept_field()
         self.assertEqual(query, True)
 
     def test_model_update_answer(self):
-        query = table.update_answer()
+        query = answer.update_answer()
         self.assertEqual(query, True)
 
     def test_model_init(self):
-        keys = table.config.keys()
+        keys = answer.config.keys()
         self.assertIn(list(keys)[0], ['password', 'user', 'database', 'host'])
         self.assertEqual(len(list(keys)), 4)
 

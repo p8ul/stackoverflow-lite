@@ -1,11 +1,6 @@
-# APIs Resources
-
-# Author: P8ul
-# https://github.com/p8ul
-
 from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
-from ...models import Table
+from ...models import Question
 from ....utils import jwt_required
 
 question_blueprint = Blueprint('questions', __name__)
@@ -16,11 +11,27 @@ class CreateAPIView(MethodView):
     Create API Resource
     """
     @jwt_required
+    def get(self, question_id):
+        response = Question({'question_id': question_id}).filter_by()
+        if not response:
+            response_object = {
+                'status': 'fail',
+                'results': 'Question Not found'
+            }
+            return make_response(jsonify(response_object)), 404
+
+        response_object = {
+            'status': 'success',
+            'results': response
+        }
+        return make_response(jsonify(response_object)), 200
+
+    @jwt_required
     def post(self):
         # get the post data
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
-        row = Table(data).save()
+        row = Question(data).save()
         if row:
             response_object = {
                 'status': 'success',
@@ -41,7 +52,7 @@ class CreateAPIView(MethodView):
         data = request.get_json(force=True)
         data['question_id'] = question_id
         data['user_id'] = session.get('user_id')
-        result = Table(data).update()
+        result = Question(data).update()
         if result:
             response_object = {
                 'status': 'success',
@@ -60,7 +71,7 @@ class CreateAPIView(MethodView):
     def delete(self, question_id=None):
         data = dict()
         data['user_id'], data['question_id'] = session.get('user_id'), question_id
-        response = Table(data).delete()
+        response = Question(data).delete()
         if response == 401:
             response_object = {
                 'status': 'fail',
@@ -86,21 +97,11 @@ class CreateAPIView(MethodView):
 class ListAPIView(MethodView):
     """ List API Resource """
     @jwt_required
-    def get(self, instance_id=None):
+    def get(self):
         data = dict()
-        data['question_id'], data['user_id'] = instance_id, session.get('user_id')
-        if instance_id:
-            results = Table(data).filter_by()
-            if not results:
-                response_object = {'status': 'fail', 'message': 'Bad request.'}
-                return make_response(jsonify(response_object)), 400
-            if len(results) < 1:
-                response_object = {'results': 'Question not found', 'status': 'error'}
-                return make_response(jsonify(response_object)), 404
-            response_object = {'results': results, 'status': 'success'}
-            return make_response(jsonify(response_object)), 200
+        data['user_id'] = session.get('user_id')
         response_object = {
-            'results': Table({'q': request.args.get('q')}).query(), 'status': 'success'
+            'results': Question({'q': request.args.get('q')}).query(), 'status': 'success'
         }
         return (jsonify(response_object)), 200
 
@@ -125,7 +126,7 @@ question_blueprint.add_url_rule(
 question_blueprint.add_url_rule(
     '/api/v1/questions/<string:question_id>',
     view_func=create_view,
-    methods=['PUT']
+    methods=['PUT', 'GET']
 )
 
 question_blueprint.add_url_rule(
