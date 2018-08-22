@@ -9,7 +9,6 @@ def create_app(config_filename):
         pass
 
     """ Basic Routes """
-
     # register our blueprints
     configure_blueprints(app)
 
