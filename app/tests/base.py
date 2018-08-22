@@ -17,4 +17,3 @@ class BaseTestCase(unittest.TestCase):
         }
         response = self.client.post('/api/v1/questions/', json=self.data)
         self.question_id = str(response.get_json()['data'][0]['id'])
-
