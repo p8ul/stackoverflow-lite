@@ -1,15 +1,10 @@
-# Author: P8ul Kinuthia
-# https://github.com/p8ul
-
 from flask_restful import Resource, Api
 from flask import Blueprint, request
-from ...models import Question, Answer
+from app.questions.models import Question, Answer
+
 api = Blueprint('api', __name__, url_prefix='/api/v1')
 api_wrap = Api(api)
 
-""" Create an instance of a Question `table` (Class) """
-
-global data
 data = []
 
 
@@ -21,7 +16,7 @@ class ListRetrieveAPIView(Resource):
                 if not response:
                     return {"status": "error", "data": "Question Not Found"}, 404
             except Exception as e:
-                print(e) # :TODO log error
+                print(e)  # :TODO log error
                 return {"status": "error", "data": "Question Not Found. Please provide a valid question ID"}, 404
         else:
             response = [instance for instance in data]
@@ -29,15 +24,28 @@ class ListRetrieveAPIView(Resource):
 
     def post(self, question_id=None):
         json_data = request.get_json(force=True)
-        question = Question(json_data)
-        answer = Answer(json_data)
+        try:
+            question = Question(json_data)
+        except Exception as e:
+            return {"status": "error", "message": "Bad request"}, 400
+        response = add_question(question.query())
+        if response:
+            return {"status": "success", "data": data}, 201
+        return {"status": "error", "message": "Bad request"}, 400
+
+
+class PostAPIView(Resource):
+    def post(self, question_id=None):
+        json_data = request.get_json(force=True)
+        try:
+            answer = Answer(json_data)
+        except:
+            return {"status": "error", "message": "Bad request"}, 400
         if question_id and answer.answer:
             response = create_answer(question_id, answer.answer)
             if not response:
                 return {"status": "error", "data": "Question Not Found"}, 404
-        else:
-            add_question(question.query())
-        return {"status": "success", "data": data}, 201
+        return {"status": "success", "data": json_data}, 201
 
 
 api_wrap.add_resource(
@@ -45,10 +53,15 @@ api_wrap.add_resource(
     '/questions/',
     '/questions/<string:question_id>',
     '/questions/<string:question_id>/',
-    '/questions/<string:question_id>/answer',
-    '/questions/<string:question_id>/answer/',
     '/questions/<int:question_id>'
 )
+
+api_wrap.add_resource(
+    PostAPIView,
+    '/questions/<string:question_id>/answer',
+    '/questions/<string:question_id>/answer/',
+)
+
 
 def filter_by(instance_id):
     # filter by instance by id
@@ -69,7 +82,10 @@ def create_answer(question_id=None, answer=None):
 
 
 def add_question(question):
-    question['id'] = len(data) + 1
-    question['answers'] = []
-    data.append(question)
+    if question.get('title') and question.get('body'):
+        question['id'] = len(data) + 1
+        question['answers'] = []
+        data.append(question)
+        return question
+    return False
 
