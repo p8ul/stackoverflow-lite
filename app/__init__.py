@@ -1,8 +1,3 @@
-### Fask create app
-
-# Author: P8ul Kinuthia
-# https://github.com/p8ul
-
 from flask import Flask
 
 
@@ -14,7 +9,6 @@ def create_app(config_filename):
         pass
 
     """ Basic Routes """
-
     # register our blueprints
     configure_blueprints(app)
 
@@ -23,7 +17,7 @@ def create_app(config_filename):
 
 def configure_blueprints(app):
     """ Configure blueprints in views."""
-    from .api.v1.questions.routes import api as questions_api
+    from .api.v1.routes import api as questions_api
     from .home.views import home_blueprint
 
     for bp in [questions_api, home_blueprint]:

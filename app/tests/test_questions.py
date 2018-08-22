@@ -31,7 +31,6 @@ class QuestionsTestCase(BaseTestCase):
         """ Send correct post json payload  """
         response = self.client.post('/api/v1/questions/', json=self.data)
         self.assertEqual(response.status_code, 201)
-        print(response.get_json())
 
 
 if __name__ == '__main__':
