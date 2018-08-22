@@ -45,6 +45,8 @@ $ pytest
  
  # Challenge 2 - Create UI Templates
  **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
+
+ **[PostMan Published collection](https://web.postman.co/collections/2215758-2951bbbf-7cf0-46cf-97dd-1b18375104b0?workspace=43f47149-032e-44cb-891a-a873a3c4e341#cdb2ba3a-ce26-434b-873f-6b5ef39b493b)**
  
     - user stories to setup and test API endpoints
         Get all questions. 
