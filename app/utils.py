@@ -72,8 +72,8 @@ def db_config(database_uri=None):
     :return: database login information
     """
     load_dotenv()
-    if os.environ.get('DATABASE_url'):
-        database_uri = os.environ.get('DATABASE_url')
+    if os.environ.get('DATABASE_URL'):
+        database_uri = os.environ.get('DATABASE_URL')
 
     result = urlparse(database_uri)
     config = {
