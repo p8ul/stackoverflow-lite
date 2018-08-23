@@ -81,8 +81,3 @@ class Vote:
             return self.update_vote()
         return self.create_vote()
 
-    def delete(self):
-        pass
-
-    def save(self):
-        pass
