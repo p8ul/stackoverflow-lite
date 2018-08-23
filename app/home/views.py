@@ -21,4 +21,3 @@ home_blueprint = Blueprint(
 @home_blueprint.route('/', methods=['GET', 'POST'])
 def home():
     return redirect("/api/v1/questions", code=302)
-    # return render_template('index.html', error=error)

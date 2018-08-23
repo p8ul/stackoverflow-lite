@@ -1,8 +1,3 @@
-# Flask create app
-
-# Author: P8ul
-# https://github.com/p8ul
-
 from flask import Flask
 from .migrations.db import db
 
@@ -14,8 +9,6 @@ def create_app(config_filename):
     with app.app_context():
         pass
 
-    """ Basic Routes """
-
     # register our blueprints
     configure_blueprints(app)
 
@@ -26,14 +19,14 @@ def create_app(config_filename):
 
 
 def configure_blueprints(app):
-    """Configure blueprints ."""
-    from .questions.api.v1.view import question_blueprint
+    """ Configure blueprints . """
+    from .api.v2.questions.routes import question_blueprint
     from .home.views import home_blueprint
-    from .auth.api.v1.view import auth_blueprint
-    from .answers.api.v1.view import answers_blueprint
-    from .votes.api.v1.view import votes_blueprint
-    from .comments.api.v1.view import comments_blueprint
-    from .users.api.v1.view import users_blueprint
+    from .api.v2.auth.routes import auth_blueprint
+    from .api.v2.answers.routes import answers_blueprint
+    from .api.v2.votes.routes import votes_blueprint
+    from .api.v2.comments.routes import comments_blueprint
+    from .api.v2.users.routes import users_blueprint
 
     app_blueprints = [
         answers_blueprint,

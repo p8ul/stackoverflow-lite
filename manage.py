@@ -2,6 +2,7 @@ from flask_script import Manager
 from app import create_app
 from app.migrations.db import db
 import pytest
+import py.test
 import os
 
 app = create_app("config.BaseConfig")
@@ -12,7 +13,8 @@ manager = Manager(app)
 def test():
     os.environ['APP_SETTINGS'] = 'TESTING'
     db.migrate_test_db()
-    pytest.main(['-v', '--cov=app', 'app/questions/test/test_questions_apis.py'])
+    py.test(['-v', '--cov-report', 'term-missing', '--cov=app', 'app/tests'])
+    os.environ['APP_SETTINGS'] = 'PRODUCTION'
     db.drop_test_database()
 
 
