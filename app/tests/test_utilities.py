@@ -1,7 +1,6 @@
 
 import unittest
 from app.tests.base import BaseTestCase
-from config import BaseConfig
 from ..utils import (
     encode_auth_token,
     db_config,
@@ -16,8 +15,8 @@ class UtilitiesTestCase(BaseTestCase):
         self.assertEqual(len(str(payload).split('.')), 3)
 
     def test_utils_base_config(self):
-        config = db_config(BaseConfig.TEST_DATABASE_URI)
-        self.assertIn(config.get('database'), [BaseConfig.TEST_DB, 'stack', 'test_db'])
+        config = db_config()
+        self.assertEqual(len(config.keys()), 4)
 
     def test_utils_valid_email_unexpected(self):
         valid = valid_email('invalid-email')

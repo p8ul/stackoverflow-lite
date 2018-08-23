@@ -7,8 +7,8 @@ from ..utils import db_config
 
 
 class Database:
-    def __init__(self, config):
-        self.config = db_config(config)
+    def __init__(self):
+        self.config = db_config()
         self.database = self.config.get('database')
 
     def migrate(self):
@@ -55,7 +55,7 @@ class Database:
 
     def drop_test_database(self):
         print('\n * Dropping test database \n')
-        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.config = db_config()
         con = psycopg2.connect(**self.config)
         con.autocommit = True
         cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -63,4 +63,4 @@ class Database:
         con.close()
 
 
-db = Database(BaseConfig.DATABASE_URI)
+db = Database()

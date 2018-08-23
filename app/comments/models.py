@@ -5,13 +5,12 @@ import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
 from flask import session
-from config import BaseConfig
 from ..utils import db_config
 
 
 class Comment:
     def __init__(self, data={}):
-        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.config = db_config()
         self.table = 'comments'
         self.answer_id = data.get('answer_id')
         self.question_id = data.get('question_id')

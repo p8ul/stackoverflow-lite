@@ -2,7 +2,7 @@
 # imports 
 #################
 
-from flask import Blueprint, redirect
+from flask import Blueprint, render_template
 ################
 # config
 ################
@@ -20,4 +20,5 @@ home_blueprint = Blueprint(
 # use decorators to link the function to a url
 @home_blueprint.route('/', methods=['GET', 'POST'])
 def home():
-    return redirect("/api/v1/questions", code=302)
+    return render_template('home.html')
+    # return redirect("/api/v1/questions", code=302)

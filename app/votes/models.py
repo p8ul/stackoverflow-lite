@@ -4,13 +4,12 @@
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
-from config import BaseConfig
 from ..utils import db_config
 
 
 class Vote:
     def __init__(self, data={}):
-        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.config = db_config()
         self.table, self.answer_id = 'votes', data.get('answer_id')
         self.vote_value, self.user_id = data.get('vote'), data.get('user_id')
 

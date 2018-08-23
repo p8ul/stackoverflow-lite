@@ -4,13 +4,12 @@
 import psycopg2
 import psycopg2.extensions
 from psycopg2.extras import RealDictCursor
-from config import BaseConfig
 from ..utils import db_config
 
 
 class Question:
     def __init__(self, data={}):
-        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.config = db_config()
         self.table, self.title = 'questions', data.get('title')
         self.body, self.q = data.get('body'), data.get('q')
         self.question_id = data.get('question_id')

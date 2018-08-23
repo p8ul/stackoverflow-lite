@@ -3,7 +3,7 @@ from .. import create_app
 from config import BaseConfig
 
 
-app = create_app("config.TestConfig")
+app = create_app("config.BaseConfig")
 
 
 class BaseTestCase(unittest.TestCase):

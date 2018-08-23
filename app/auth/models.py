@@ -4,13 +4,12 @@ import psycopg2
 import psycopg2.extras
 from psycopg2.extras import RealDictCursor
 from flask_bcrypt import Bcrypt
-from config import BaseConfig
 from ..utils import db_config
 
 
 class User:
     def __init__(self, data={}):
-        self.config = db_config(BaseConfig.DATABASE_URI)
+        self.config = db_config()
         self.table, self.email = 'users', data.get('email')
         self.username = data.get('username')
         self.user_id = data.get('user_id')
