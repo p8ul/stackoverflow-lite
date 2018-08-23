@@ -335,6 +335,18 @@ This action will Update an answer
 
 + Response 201 (application/json)
 
+        {
+            "message": "Update successful",
+            "status": "success"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "Please provide correct answer and question id",
+            "status": "fail"
+        }
+
 
 ## Comments collection [/questions/answers/comment/{answer_id}]
 
