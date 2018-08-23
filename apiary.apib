@@ -275,11 +275,30 @@ This action allows you to retreive a single answer details.
 
 + Response 201 (application/json)
 
+            {
+                "results": [
+                    {
+                        "accepted": false,
+                        "answer_body": "answer body",
+                        "answer_id": 57,
+                        "created_at": "Wed, 22 Aug 2018 19:59:41 GMT",
+                        "question_id": 103,
+                        "user_id": 2
+                    }
+                ],
+                "status": "success"
+            }
 
-## Votes: Upvote/Downvote [/questions/answers/vote/{answer_id}]
++ Response 404 (application/json)
 
+            {
+                "results": "Answer not found",
+                "status": "fail"
+            }
 
-### Votes: Upvote/Downvote [POST]
+## Votes: POST collections [/questions/answers/vote/{answer_id}]
+
+### Upvote/Downvote [POST]
 A Vote object has the following attributes:
 
 + user_id: - Voters user id
@@ -299,13 +318,16 @@ A Vote object has the following attributes:
 
 + Response 201 (application/json)
 
+        {
+            "message": "Your vote was successful",
+            "status": "success"
+        }
 
 
+## Answer PUT collections [/questions/{question_id}/answers/{answer_id}]
 
-## Answer:  Update answer [/questions/{question_id}/answers/{answer_id}]
 
-
-### Answer:  Update answer [PUT]
+### Update answer [PUT]
 This action will Update an answer
 + Parameters
     + answer_id: 1 (required, number) - ID of the answer in form of an integer
