@@ -57,12 +57,3 @@ or open .env file and copy your postgres database url
     $ pytest --cov=app
 ```
 
-## Api Endpoints
-### Questions API endpoints
-
-```
-
-/api/v1/questions
-/api/v1/questions/1
-/api/v1/questions/1/answer
-```
