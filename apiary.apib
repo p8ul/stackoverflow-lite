@@ -328,10 +328,19 @@ A Vote object has the following attributes:
 
 
 ### Update answer [PUT]
-This action will Update an answer
+This action will Update an answer.
+
++ answer_body: (required, string)
++ accepted  (bool)
 + Parameters
     + answer_id: 1 (required, number) - ID of the answer in form of an integer
 
++ Request (applicatino/json)
+
+        {
+            "answer_body": "i asdasda programming",
+            "accepted": "true"
+        }
 
 + Response 201 (application/json)
 
@@ -364,4 +373,20 @@ A Comment object has the following attributes:
 
 + Request (application/json)
 
+        {
+            "comment_body": "comment goes here"
+        }
+
 + Response 201 (application/json)
+
+        {
+            "message": "Your comment was successful",
+            "status": "success"
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Some error occurred. Please try again.",
+            "status": "fail"
+        }
