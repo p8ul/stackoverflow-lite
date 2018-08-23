@@ -20,10 +20,13 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
     - Users can view questions with the most answers.
 
 #  Complete Tasks
- **[Complete UI Pages](https://p8ul.github.io/stackoverflow-lite/UI/)**
- **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
- **[API End points documentation](https://stackoverflowlite2.docs.apiary.io/#reference)**
- **[Pivot tracker board](https://www.pivotaltracker.com/n/projects/2189597)**
+ > **[Complete UI Pages](https://p8ul.github.io/stackoverflow-lite/UI/)** 
+ 
+ > **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
+ 
+ >  **[API End points documentation](https://stackoverflowlite2.docs.apiary.io/#reference)**
+ 
+ >  **[Pivot tracker board](https://www.pivotaltracker.com/n/projects/2189597)**
 
 
 ## Installation
