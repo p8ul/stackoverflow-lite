@@ -11,9 +11,9 @@ Stackoverflow lite is a simple API allowing users to view post questions, answer
 You may create your own account using this action. 
 It takes a JSON object containing a user email, password and username as profile and authorization details.
 
-+ useraname (string) - User name
-+ email (string) - A valid user email
-+ password (string) - Strong login password
++ useraname (required, string) - User name
++ email (required, string) - A valid user email
++ password (required, string) - Strong login password
 
 + Request (application/json)
 
@@ -60,7 +60,21 @@ This action allows you to login and and get a JWT authorization token.
         }
 
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
+
+        {
+            "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzc2OTgxMDYsInN1YiI6MTQsImlhdCI6MTUzNTAxOTU3Nn0.zIy4KGCaIlHvBMbDmP0BCIHmrn43bN3O-PyiI1ZviY8",
+            "id": 14,
+            "message": "Successfully logged in.",
+            "status": "success"
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "message": "User does not exist.",
+            "status": "fail"
+        }
 
 ## Users Collection [/auth/users]
 
@@ -69,16 +83,47 @@ This resource will list all users.
 
 + Response 201 (application/json)
 
-## User details [/auth/users/{user_id}]
+        {
+          "results": [
+            {
+              "created_at": "Mon, 20 Aug 2018 06:39:39 GMT",
+              "email": "sky@Jhames.com",
+              "user_id": 14,
+              "username": "sky"
+            }
+          ],
+          "status": "success"
+        }
+
+## User get collection [/auth/users/{user_id}]
 
 
-### Users: Retrieve single user [GET]
+### Retrieve single user [GET]
 This action allows you to retreive user details.
 + Parameters
     + user_id: 1 (required, number) - ID of user you want details displayed
     
 
 + Response 201 (application/json)
+
+        {
+            "results": [
+                {
+                    "created_at": "Sun, 19 Aug 2018 18:20:08 GMT",
+                    "email": "joshua@j.com",
+                    "user_id": 12,
+                    "username": "p8ul"
+                }
+            ],
+            "status": "success"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "results": "User not found",
+            "status": "fail"
+        }
 
 ## Question: Create Question [/questions/]
 
