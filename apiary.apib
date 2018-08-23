@@ -26,6 +26,22 @@ It takes a JSON object containing a user email, password and username as profile
 
 + Response 201 (application/json)
 
+        {
+            "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzc3MDAwMTIsInN1YiI6bnVsbCwiaWF0IjoxNTM1MDIxNDgyfQ.Bu-tAvsHe1pzARSEwLm4RWIiaHW_LP1LBIvfiDoeowQ",
+            "id": 47,
+            "message": "Successfully registered.",
+            "status": "success"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "errors": {
+                "user_exist": "User already exists. Please Log in."
+            },
+            "status": "fail"
+        }
+
 ## Login [/auth/login]
 
 
@@ -48,7 +64,7 @@ This action allows you to login and and get a JWT authorization token.
 
 ## Users Collection [/auth/users]
 
-### Users: List users [GET]
+### List users [GET]
 This resource will list all users.
 
 + Response 201 (application/json)
