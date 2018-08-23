@@ -7,72 +7,53 @@
 StackOverflow-lite is a platform where people can ask questions and provide answers.
 
 ## Required Features
-    1. Users can create an account and log in.
-    2. Users can post questions.
-    3. Users can delete the questions they post
-    4. Users can post answers
-    5. Users can view the answers
-    6. Users can accept an answer out of all the answers to his/her queston as they preferred answer
+    - Users can create an account and log in.
+    - Users can post questions.
+    - Users can delete the questions they post
+    - Users can post answers
+    - Users can view the answers
+    - Users can accept an answer out of all the answers to his/her queston as they preferred answer
+    - Users can upvote or downvote an answer.
+    - Users can comment on an answer.
+    - Users can fetch all questions he/she has ever asked on the platform
+    - Users can search for questions on the platform
+    - Users can view questions with the most answers.
 
-# Challenge 1 - Create UI Templates
-**[Complete UI Pages](https://p8ul.github.io/stackoverflow-lite/UI/)**
+#  Complete Tasks
+ > **[Complete UI Pages](https://p8ul.github.io/stackoverflow-lite/UI/)** 
+ 
+ > **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
+ 
+ >  **[API End points documentation](https://stackoverflowlite2.docs.apiary.io/#reference)**
+ 
+ >  **[Pivot tracker board](https://www.pivotaltracker.com/n/projects/2189597)**
 
-    * Signup and signin pages
-    * Questoins list page
-    * View questions and Answers page
-    * Post question page
-    * User profile page
-    * Host UI template on github pages 
 
 ## Installation
 
-### To install the stable version:
-
 ```
-git clone https://github.com/p8ul/stackoverflow-lite
+    $ git clone https://github.com/p8ul/stackoverflow-lite
 
-git clone https://github.com/p8ul/stackoverflow-lite.git
-cd stackoverflow-lite
-virtualenv venv
-. venv/bin/activate
-pip install -r requirements.txt
-python manage.py runserver
+    $ git clone https://github.com/p8ul/stackoverflow-lite.git
+    $ cd stackoverflow-lite
+    $ virtualenv venv
+    $ . venv/bin/activate
+    $ pip install -r requirements.txt   
 ```
+## Running the application
+```
+    $ export DATABASE_URL="Your DATABASE_URL here"
+``` 
+or open .env file and copy your postgres database url
+```
+    #.env file
+    DATABASE_URL=postgresql://stack:stack@127.0.0.1:5432/stack
+    
+    $ python manage.py runserver
+```
+
 ## Testing
 ``` 
-$ pytest
+    $ pytest --cov=app
 ```
- 
- # Challenge 2 - Create UI Templates
- **[Deployed App Link](https://stackoverflow-paul.herokuapp.com/)**
 
- **[PostMan Published collection](https://web.postman.co/collections/2215758-2951bbbf-7cf0-46cf-97dd-1b18375104b0?workspace=43f47149-032e-44cb-891a-a873a3c4e341#cdb2ba3a-ce26-434b-873f-6b5ef39b493b)**
- 
-    - user stories to setup and test API endpoints
-        Get all questions. 
-        Get a question
-        Post a question. 
-        Update a question
-        Post an answer to a question. 
-    - Setup the Flask server side of the application
-    - Setup pytest python test framework 
-    - Version your API using url versioning starting, with the letter “v”
-    - Write tests for the API endpoints
-    - Integrate ​ TravisCI​ for Continuous Integration in your repository (with ​ ReadMe ​ badge). 
-    - Integrate test coverage reporting (e.g. Coveralls) with badge in the ​ ReadMe. 
-    - Obtain CI badges (e.g. from Code Climate and Coveralls) and add to ​ ReadMe . ​  
-    - Ensure the app gets hosted on Heroku. 
-
-## Api Endpoints
-### Questions API endpoints
-```
-/api/v1/questions
-/api/v1/questions/1
-/api/v1/questions/1/answer
-```
-### Users API endpoints
-
-```
-/api/v1/users
-/api/v1/users/1
-```
