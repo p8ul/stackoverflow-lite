@@ -128,11 +128,11 @@ This action allows you to retreive user details.
 ## Question: Create Question [/questions/]
 
 
-### Question: Create Question [POST]
+### Create Question [POST]
 You may create your own question using this action. It takes a JSON object containing a question title and body.
 
-+ title (string) - The question title
-+ body (string) - Question description body
++ title (required, string) - The question title
++ body (required, string) - Question description body
 
 + Request (application/json)
         
@@ -143,6 +143,24 @@ You may create your own question using this action. It takes a JSON object conta
         }
 
 + Response 201 (application/json)
+
+        {
+            "results": {
+                "body": "sdfsfffssd",
+                "created_at": "Thu, 23 Aug 2018 11:01:20 GMT",
+                "question_id": 218,
+                "title": "sdfsdfsf",
+                "user_id": 14
+            },
+            "status": "success"
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Bad request. Please try again.",
+            "status": "fail"
+        }
 
 ## Question: Update question [/questions/1]
 
