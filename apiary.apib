@@ -125,7 +125,7 @@ This action allows you to retreive user details.
             "status": "fail"
         }
 
-## Question: Create Question [/questions/]
+## Questions POST Collection [/questions/]
 
 
 ### Create Question [POST]
@@ -162,22 +162,113 @@ You may create your own question using this action. It takes a JSON object conta
             "status": "fail"
         }
 
-## Question: Update question [/questions/1]
+
+## Question PUT collection [/questions/1]
 
 
-### Question: Update question [PUT]
+### Update question [PUT]
 User can update a question using this action. It takes a JSON object containing a question title and body.
 
-+ title (string) - The question title
-+ body (string) - Question description body
++ title (required, string) - The question title
++ body (required, string) - Question description body
 
 + Response 201 (application/json)
 
+        {
+            "results": {
+                "body": "this is the new body",
+                "question_id": "1",
+                "title": "New sdfsdftitle",
+                "user_id": "14"
+            },
+            "status": "success"
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Bad request. Please try again.",
+            "status": "fail"
+        }
+
+## Answers POST collections [/questions/{question_id}/answers]
 
 
-## Answers: Retrieve an answer [/questions/answers/{answer_id}]
+### Post an answer [POST]
+This action will allow you to post an answer to the specified question
 
-### Answers: Retrieve an answer [GET]
+A Question object has the following attributes:
+
++ answer_body - Answer descriptive body
+
++ Parameters
+    + question_id: 1 (required, number) - ID of the Question in form of an integer
+
+
++ Request (application/json)
+
+            {
+                    "answer_body": "A good answer"
+            }
+
+
++ Response 201 (application/json)
+
+            {
+                "message": {
+                    "accepted": false,
+                    "answer_body": "A good answer",
+                    "answer_id": 120,
+                    "created_at": "Thu, 23 Aug 2018 11:20:50 GMT",
+                    "question_id": 218,
+                    "user_id": 14
+                },
+                "status": "success"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "message": "Unknown question id. Try a different id.",
+                "status": "fail"
+            }
+
+
+## Answer: List all answers [/questions/answers]
+Answer object has the following attributes:
+
++ accepted - (bool)
++ created_at - An ISO8601 date when the answer was published.
++ downvotes: (int) Number of down votes
++ upvotes: (int) Number of up votes
++ user_id - (int).
++ question_id - (int) Id of the question answered
+
+### Answer: List all answers [GET]
+You may list all answers using this action.
+
+
++ Response 201 (application/json)
+
+            {
+                "results": [
+                    {
+                        "accepted": false,
+                        "answer_body": "cool answer",
+                        "answer_id": 52,
+                        "created_at": "Wed, 22 Aug 2018 14:58:39 GMT",
+                        "downvotes": 0,
+                        "question_id": 94,
+                        "upvotes": 0,
+                        "user_id": 1
+                    }
+                ],
+                "status": "success"
+            }
+
+## Answers GET collections [/questions/answers/{answer_id}]
+
+### Retrieve an answer [GET]
 This action allows you to retreive a single answer details.
 + Parameters
     + answer_id: 1 (required, number) - ID of answer you to display
@@ -209,37 +300,6 @@ A Vote object has the following attributes:
 + Response 201 (application/json)
 
 
-## Answers: Post an answer [/questions/{question_id}/answers]
-
-
-### Answers: Post an answer [POST]
-This action will allow you to post an answer to the specified question
-
-A Question object has the following attributes:
-
-+ answer_body - Answer descriptive body
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-
-
-+ Request (application/json)
-
-            {
-                    "answer_body": "I lovehjhh JKJK"
-            }
-
-
-+ Response 201 (application/json)
-
-
-## Answer: List all answers [/questions/answers]
-
-
-### Answer: List all answers [GET]
-You may ist all answers using this action.
-
-+ Response 201 (application/json)
 
 
 ## Answer:  Update answer [/questions/{question_id}/answers/{answer_id}]
