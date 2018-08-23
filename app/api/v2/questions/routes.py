@@ -41,9 +41,9 @@ class CreateQuestionAPIView(MethodView):
 
         response_object = {
             'status': 'fail',
-            'message': 'Some error occurred. Please try again.'
+            'message': 'Bad request. Please try again.'
         }
-        return make_response(jsonify(response_object)), 401
+        return make_response(jsonify(response_object)), 400
 
     """ UPDATE QUESTION """
     @jwt_required
@@ -62,9 +62,9 @@ class CreateQuestionAPIView(MethodView):
 
         response_object = {
             'status': 'fail',
-            'message': 'Some error occurred. Please try again.'
+            'message': 'Bad request. Please try again.'
         }
-        return make_response(jsonify(response_object)), 401
+        return make_response(jsonify(response_object)), 400
 
     """ DELETE QUESTION """
     @jwt_required

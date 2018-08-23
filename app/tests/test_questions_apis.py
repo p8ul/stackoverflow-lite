@@ -59,7 +59,7 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/', json=data,
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_post_question_normal(self):
@@ -87,7 +87,7 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/1909090k', json=data,
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_update_question_normal(self):

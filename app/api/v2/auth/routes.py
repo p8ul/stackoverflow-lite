@@ -29,7 +29,7 @@ class RegisterAPI(MethodView):
             response_object = {
                 'status': 'success',
                 'message': 'Successfully registered.',
-                'id': user.get('id'), 'auth_token': auth_token
+                'id': user.get('user_id'), 'auth_token': auth_token
             }
             return make_response(jsonify(response_object)), 201
         except Exception as e:

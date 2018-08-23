@@ -66,12 +66,13 @@ class Answer:
         try:
             con = psycopg2.connect(**self.config)
             cur = con.cursor(cursor_factory=RealDictCursor)
-            query = "SELECT * FROM answers WHERE answer_id=%s"
-            cur.execute(query, self.answer_id)
+            query = "SELECT * FROM answers WHERE answer_id={}"
+            cur.execute(query.format(self.answer_id))
             queryset_list = cur.fetchall()
             con.close()
             return queryset_list
-        except:
+        except Exception as e:
+            print(e)
             return []
 
     def question_author(self):
@@ -104,18 +105,17 @@ class Answer:
             answer_author = self.answer_author()[0].get('user_id')
             question_author = self.question_author()[0].get('user_id')
             # current user is the answer author
-            if answer_author == self.user_id:
+            if int(answer_author) == int(self.user_id):
                 # update answer
                 response = 200 if self.update_answer() else 304
                 return response
 
             # current user is question author
-            elif question_author == self.user_id:
+            elif int(question_author) == int(self.user_id):
                 # mark it as accepted
                 response = self.update_accept_field()
                 response = 200 if response else 304
                 return response
-
             # other users
             else:
                 return 203
