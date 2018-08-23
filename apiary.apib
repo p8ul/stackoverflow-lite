@@ -7,11 +7,11 @@ Stackoverflow lite is a simple API allowing users to view post questions, answer
 ## Sign up Collection [/auth/signup]
 
 
-### Users: Create user [POST]
+### User can sign up [POST]
 You may create your own account using this action. 
 It takes a JSON object containing a user email, password and username as profile and authorization details.
 
-+ useraname (required, string) - User name
++ username (required, string) - User name
 + email (required, string) - A valid user email
 + password (required, string) - Strong login password
 
@@ -45,7 +45,7 @@ It takes a JSON object containing a user email, password and username as profile
 ## Login [/auth/login]
 
 
-### User: Login [POST]
+### User can Login [POST]
 This action allows you to login and and get a JWT authorization token.
 + email: (required, string) - User email
 + password: (required, string) - User password
@@ -128,8 +128,9 @@ This action allows you to retreive user details.
 ## Questions POST Collection [/questions/]
 
 
-### Create Question [POST]
-You may create your own question using this action. It takes a JSON object containing a question title and body.
+### User can create a question [POST]
+You may create your own question using this action. 
+It takes a JSON object containing a question title and body.
 
 + title (required, string) - The question title
 + body (required, string) - Question description body
@@ -166,8 +167,9 @@ You may create your own question using this action. It takes a JSON object conta
 ## Question PUT collection [/questions/1]
 
 
-### Update question [PUT]
-User can update a question using this action. It takes a JSON object containing a question title and body.
+### User can update question [PUT]
+User can update a question using this action.
+It takes a JSON object containing a question title and body.
 
 + title (required, string) - The question title
 + body (required, string) - Question description body
@@ -194,7 +196,7 @@ User can update a question using this action. It takes a JSON object containing 
 ## Answers POST collections [/questions/{question_id}/answers]
 
 
-### Post an answer [POST]
+### User can post an answer [POST]
 This action will allow you to post an answer to the specified question
 
 A Question object has the following attributes:
@@ -244,7 +246,7 @@ Answer object has the following attributes:
 + user_id - (int).
 + question_id - (int) Id of the question answered
 
-### Answer: List all answers [GET]
+### User can list all answers [GET]
 You may list all answers using this action.
 
 
@@ -298,7 +300,7 @@ This action allows you to retreive a single answer details.
 
 ## Votes: POST collections [/questions/answers/vote/{answer_id}]
 
-### Upvote/Downvote [POST]
+### User can Upvote/Downvote [POST]
 A Vote object has the following attributes:
 
 + user_id: - Voters user id
@@ -327,7 +329,7 @@ A Vote object has the following attributes:
 ## Answer PUT collections [/questions/{question_id}/answers/{answer_id}]
 
 
-### Update answer [PUT]
+### User can update answer [PUT]
 This action will Update an answer.
 
 + answer_body: (required, string)
@@ -360,7 +362,7 @@ This action will Update an answer.
 ## Comments collection [/questions/answers/comment/{answer_id}]
 
 
-### Comments:  Create a comment [POST]
+### User can comment on an answer [POST]
 
 A Comment object has the following attributes:
 
