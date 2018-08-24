@@ -78,7 +78,7 @@ This action allows you to login and and get a JWT authorization token.
 
 ## Users Collection [/auth/users]
 
-### List users [GET]
+### A user can get a list users [GET]
 This resource will list all users.
 
 + Response 201 (application/json)
@@ -95,7 +95,7 @@ This resource will list all users.
           "status": "success"
         }
 
-## User get collection [/auth/users/{user_id}]
+## Single user collection [/auth/users/{user_id}]
 
 
 ### Retrieve single user [GET]
@@ -125,7 +125,7 @@ This action allows you to retreive user details.
             "status": "fail"
         }
 
-## Questions POST Collection [/questions/]
+## Questions Post Collection [/questions/]
 
 
 ### User can create a question [POST]
@@ -164,7 +164,7 @@ It takes a JSON object containing a question title and body.
         }
 
 
-## Question PUT collection [/questions/1]
+## Update question collection [/questions/1]
 
 
 ### User can update question [PUT]
@@ -298,7 +298,7 @@ This action allows you to retreive a single answer details.
                 "status": "fail"
             }
 
-## Votes: POST collections [/questions/answers/vote/{answer_id}]
+## Votes collections [/questions/answers/vote/{answer_id}]
 
 ### User can Upvote/Downvote [POST]
 A Vote object has the following attributes:
