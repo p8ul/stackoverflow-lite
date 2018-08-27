@@ -70,7 +70,6 @@ POST | `/api/v1/auth/signup` | Add a user
 GET | `/api/v1/auth/users` | Lists all users
 GET | `/api/v1/auth/users/{user_id}` | Retrieve a user
 POST | `/api/v1/auth/login` | Login a user
-:smile:|:pray:|:heart:
 
 #### Questions Endpoints
 
@@ -82,7 +81,6 @@ GET | `/api/v1/questions/?q={search_string}` | Search a questions
 GET | `/api/v1/questions/question_id` | Retrieve a question
 PUT | `/api/v1/questions/question_id` | Edit a question of a logged in user
 DELETE | `/api/v1/questions/question_id` | Delete a request of a logged in user
-:smile:|:pray:|:heart:
 
 #### Answers Endpoints
 
@@ -95,10 +93,10 @@ PUT | `/api/v1/questions/question_id/answer/answerID` | Edit an answer
 DELETE | `/api/v1/questions/question_id/answer/answerID` | Delete an answer
 POST | `/api/v1/questions/answers/vote/1` | Upvote/DownVote an answer
 POST | `/api/v1/questions/answers/comment/1` | Comment on an answer
-:smile:|:pray:|:heart:
+
 
 ## Credits
-This challenge was part of the Bootcamp 31 NBO Andela cp. Learning Team.
+This challenge was part of the Bootcamp 31 NBO Andela.
 
 ## Author
 Paul Kinuthia.
