@@ -7,7 +7,6 @@ from flask import request, make_response, jsonify, session
 import jwt
 from config import BaseConfig
 from dotenv import load_dotenv
-from validate_email import validate_email
 
 
 def jwt_required(f):
