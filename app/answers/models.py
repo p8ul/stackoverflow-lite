@@ -164,7 +164,22 @@ class Answer:
         return True
 
     def delete(self):
-        pass
+        """
+        Delete an answer column
+        :return: bool:
+        """
+        con = psycopg2.connect(**self.config)
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        try:
+            query = "DELETE FROM answers WHERE answer_id=%s"
+            cur.execute(query, self.answer_id)
+            con.commit()
+        except Exception as e:
+            print(e)
+            con.close()
+            return False
+        con.close()
+        return True
 
 
 

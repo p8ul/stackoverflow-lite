@@ -44,11 +44,12 @@ class Question:
                     " ORDER BY questions.created_at DESC"
                 )
             else:
-                query = "SELECT *, ( SELECT count(*) FROM answers WHERE "
-                query += " answers.question_id=questions.question_id ) as answers_count "
-                query += " FROM questions WHERE  body LIKE %s OR title LIKE %s  "
+                query = " SELECT *,( SELECT count(*) FROM "
+                query += "answers WHERE answers.question_id=questions.question_id ) as "
+                query += "answers_count FROM questions "
+                query += " WHERE  body LIKE %s OR title LIKE %s  "
                 query += " ORDER BY questions.created_at"
-                cur.execute(query, (self.q, self.q))
+                cur.execute(query, ('%'+self.q+'%', '%'+self.q+'%'))
             queryset_list = cur.fetchall()
         except Exception as e:
             print(e)
