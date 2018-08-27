@@ -104,6 +104,12 @@ answers_blueprint.add_url_rule(
 )
 
 answers_blueprint.add_url_rule(
+    '/api/v1/questions/answers/<string:answer_id>',
+    view_func=create_view,
+    methods=['PUT', 'DELETE']
+)
+
+answers_blueprint.add_url_rule(
     '/api/v1/questions/answers',
     view_func=list_view,
     methods=['GET']
