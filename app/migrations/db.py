@@ -35,7 +35,7 @@ class Database:
         con = psycopg2.connect(**self.config)
         con.autocommit = True
         cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        print('\n* Creating test db\n')
+        print('\n * Creating test db\n')
         try:
             cur.execute('CREATE DATABASE {} OWNER {};'.format(BaseConfig.TEST_DB, self.config.get('user')))
         except:
@@ -55,6 +55,7 @@ class Database:
 
     def drop_test_database(self):
         print('\n * Dropping test database \n')
+        os.environ['APP_SETTINGS'] = 'PRODUCTION'
         self.config = db_config()
         con = psycopg2.connect(**self.config)
         con.autocommit = True

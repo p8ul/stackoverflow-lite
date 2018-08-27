@@ -8,6 +8,7 @@ import jwt
 from config import BaseConfig
 from dotenv import load_dotenv
 
+
 def jwt_required(f):
     """ Ensure jwt token is provided and valid
         :param f: function to decorated
@@ -85,7 +86,6 @@ def db_config(database_uri=None):
 
     if os.environ.get('APP_SETTINGS') == 'TESTING':
         config['database'] = BaseConfig.TEST_DB
-    print(database_uri)
     return config
 
 

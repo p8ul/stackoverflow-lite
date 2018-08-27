@@ -1,5 +1,6 @@
 import unittest
 from .. import create_app
+from ..utils import decode_auth_token
 from config import BaseConfig
 
 
@@ -20,7 +21,7 @@ class BaseTestCase(unittest.TestCase):
         self.client.post('/api/v1/auth/signup', json=self.data)
         response = self.client.post('/api/v1/auth/login', json=self.data)
         self.token = response.get_json().get('auth_token')
-        self.user_id = str(response.get_json()['id'])
+        self.user_id = str(decode_auth_token(self.token))
 
     def tearDown(self):
         # method to invoke after each test.

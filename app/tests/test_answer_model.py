@@ -62,7 +62,7 @@ class AnswersModelTestCase(BaseTestCase):
         answer.answer_body = 'Update body'
         answer.answer_id = self.data.get('answer_id')
         query = answer.update()
-        self.assertEqual(query, 404)
+        self.assertEqual(query.get('errors'), 'Please provide correct answer and question id')
 
     def test_model_delete(self):
         query = answer.delete()
