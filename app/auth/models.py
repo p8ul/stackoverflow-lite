@@ -29,7 +29,7 @@ class User:
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
-            cur.execute("select username, email, user_id, created_at from {} WHERE user_id='{}'".format(self.table, self.user_id))
+            cur.execute("select username, email, created_at from {} WHERE user_id='{}'".format(self.table, self.user_id))
             queryset_list = cur.fetchall()
         except Exception as e:
             print(e)

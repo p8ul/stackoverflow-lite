@@ -27,6 +27,10 @@ def create_app(config_filename):
     def forbidden(error):
         return jsonify("You do not permission to access this resource"), 403
 
+    @app.errorhandler(400)
+    def forbidden(error):
+        return jsonify("Please make a request using a correct json body"), 400
+
     return app
 
 

@@ -7,6 +7,7 @@ from flask import request, make_response, jsonify, session
 import jwt
 from config import BaseConfig
 from dotenv import load_dotenv
+from validate_email import validate_email
 
 
 def jwt_required(f):
@@ -91,4 +92,6 @@ def db_config(database_uri=None):
 
 def valid_email(email):
     """  Validate email """
+    if email.split('@'[-1])[-1].count('.') > 1:
+        return False
     return re.match(r'^.+@([?)[a-zA-Z0-9-.])+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$', email)
