@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from .migrations.db import db
 
 
@@ -14,6 +14,18 @@ def create_app(config_filename):
 
     # register extensions
     configure_extensions()
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return jsonify("The resource does not exist"), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return jsonify("Encountering an internal error with our server!"), 500
+
+    @app.errorhandler(403)
+    def forbidden(error):
+        return jsonify("You do not permission to access this resource"), 403
 
     return app
 

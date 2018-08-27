@@ -101,25 +101,32 @@ class Answer:
 
     def update(self):
         try:
+            response = {}
             answer_author = self.answer_author()[0].get('user_id')
             question_author = self.question_author()[0].get('user_id')
             # current user is the answer author
             if int(answer_author) == int(self.user_id):
                 # update answer
-                response = 200 if self.update_answer() else 304
-                return response
+                response['result'] = True if self.update_answer() else False
+                if not response['result']:
+                    response['errors'] = 'Please provide correct answer and question id'
 
             # current user is question author
             elif int(question_author) == int(self.user_id):
                 # mark it as accepted
                 response = self.update_accept_field()
-                response = 200 if response else 304
-                return response
+                response['result'] = True if response else False
+                if not response['result']:
+                    response['errors'] = 'Please provide correct answer and question id'
             # other users
             else:
-                return 203
-        except:
-            return 404
+                response['errors'] = 'Unauthorized'
+            return response
+
+        except Exception as e:
+            print(e)
+            response['errors'] = 'Please provide correct answer and question id'
+            return response
 
     def update_accept_field(self):
         """

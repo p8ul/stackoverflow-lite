@@ -29,7 +29,7 @@ class RegisterAPI(MethodView):
             response_object = {
                 'status': 'success',
                 'message': 'Successfully registered.',
-                'id': user.get('user_id'), 'auth_token': auth_token
+                'auth_token': auth_token
             }
             return make_response(jsonify(response_object)), 201
         except Exception as e:
@@ -56,7 +56,7 @@ class LoginAPI(MethodView):
         data['user_id'] = session.get('user_id')
         try:
             user = User(data).filter_by_email()
-            if len(user) >= 1 and data.get('password'):
+            if len(user) >= 1:
                 if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
                     auth_token = encode_auth_token(user[0].get('user_id'))
                 else:
@@ -65,7 +65,7 @@ class LoginAPI(MethodView):
                 try:
                     if auth_token:
                         response_object = {
-                            'status': 'success', 'id': user[0].get('user_id'),
+                            'status': 'success',
                             'message': 'Successfully logged in.',
                             'auth_token': auth_token.decode()
                         }
