@@ -125,8 +125,12 @@ This action allows you to retreive user details.
             "status": "fail"
         }
 
-## Questions Post Collection [/questions/]
+## Questions Collection [/questions/]
 
+### User can list all questions [GET]
+This action list all the questions in the database.
+
++ Response 200 (application/json)
 
 ### User can create a question [POST]
 You may create your own question using this action. 
@@ -167,12 +171,16 @@ It takes a JSON object containing a question title and body.
 ## Update question collection [/questions/1]
 
 
-### User can update question [PUT]
+### User can update a question [PUT]
 User can update a question using this action.
 It takes a JSON object containing a question title and body.
 
 + title (required, string) - The question title
 + body (required, string) - Question description body
+
++ Request (application/json)
+
+        {"title": "new title", "body": "new body" }
 
 + Response 201 (application/json)
 
@@ -270,7 +278,7 @@ You may list all answers using this action.
 
 ## Answers GET collections [/questions/answers/{answer_id}]
 
-### Retrieve an answer [GET]
+### User can retrieve an answer [GET]
 This action allows you to retreive a single answer details.
 + Parameters
     + answer_id: 1 (required, number) - ID of answer you to display
@@ -297,6 +305,25 @@ This action allows you to retreive a single answer details.
                 "results": "Answer not found",
                 "status": "fail"
             }
+
+### User can delete a question [DELETE]
+
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+
+
++ Response 200 (application/json)
+
+        {
+            "message": "Answer deleted successful",
+            "status": "success"
+        }
++ Response 400 (application/json)
+
+        {
+            "message": "Answer id does not exist",
+            "status": "fail"
+        }
 
 ## Votes collections [/questions/answers/vote/{answer_id}]
 
@@ -336,7 +363,7 @@ This action will Update an answer.
 + accepted  (bool)
 + Parameters
     + answer_id: 1 (required, number) - ID of the answer in form of an integer
-
+    + question_id: 1 (required, number) 
 + Request (applicatino/json)
 
         {
