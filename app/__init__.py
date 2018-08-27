@@ -29,7 +29,7 @@ def create_app(config_filename):
 
     @app.errorhandler(400)
     def forbidden(error):
-        return jsonify("Please make a request using a correct json body"), 400
+        return jsonify({"error": "That is a bad request"}), 400
 
     return app
 

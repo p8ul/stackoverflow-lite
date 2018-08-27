@@ -84,23 +84,17 @@ class LoginAPI(MethodView):
 class UserListAPI(MethodView):
     """ User List Api Resource """
     @jwt_required
-    def get(self, user_id=None):
-        if user_id:
-            user = User({"user_id": user_id}).filter_by()
-            response_object = {'results': 'User not found', 'status': 'fail'}
-            try:
-                if len(user) < 1:
-                    return make_response(jsonify(response_object)), 404
-            except:
+    def get(self):
+        user_id = session.get('user_id')
+        user = User({"user_id": user_id}).filter_by()
+        response_object = {'results': 'User not found', 'status': 'fail'}
+        try:
+            if len(user) < 1:
                 return make_response(jsonify(response_object)), 404
-            response_object = {
-                'results': user,
-                'status': 'success'
-            }
-            return (jsonify(response_object)), 200
-
+        except:
+            return make_response(jsonify(response_object)), 404
         response_object = {
-            'results': User().query(),
+            'results': user,
             'status': 'success'
         }
         return (jsonify(response_object)), 200
@@ -144,7 +138,7 @@ auth_blueprint.add_url_rule(
     methods=['GET']
 )
 auth_blueprint.add_url_rule(
-    '/api/v1/auth/users/<string:user_id>',
+    '/api/v1/auth/user',
     view_func=user_view,
     methods=['GET']
 )
