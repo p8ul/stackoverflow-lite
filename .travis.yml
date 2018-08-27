@@ -13,6 +13,6 @@ before_script:
   - psql -c "CREATE USER stack WITH PASSWORD 'stack';" -U postgres
 # command to run tests
 script: 
-  - python manage.py test
+  - py.test --cov=app -v
 after_success:
   - coveralls
