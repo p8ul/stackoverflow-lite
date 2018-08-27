@@ -78,21 +78,21 @@ Method | Endpoint | Functionality
 POST | `/api/v1/questions` | Add a question
 GET | `/api/v1/questions` | Lists all questions
 GET | `/api/v1/questions/?q={search_string}` | Search a questions
-GET | `/api/v1/questions/question_id` | Retrieve a question
-PUT | `/api/v1/questions/question_id` | Edit a question of a logged in user
-DELETE | `/api/v1/questions/question_id` | Delete a request of a logged in user
+GET | `/api/v1/questions/{question_id}` | Retrieve a question
+PUT | `/api/v1/questions/{question_id}` | Edit a question of a logged in user
+DELETE | `/api/v1/questions/{question_id}` | Delete a request of a logged in user
 
 #### Answers Endpoints
 
 Method | Endpoint | Functionality
 --- | --- | ---
-POST | `/api/v1/questions/question_id/answers` | Add an answer
+POST | `/api/v1/questions/{question_id}/answers` | Add an answer
 GET | `/api/v1/questions/answers` | Lists all answers
-GET | `/api/v1/questions/answers/answerID` | Retrieve an answer
-PUT | `/api/v1/questions/question_id/answer/answerID` | Edit an answer
-DELETE | `/api/v1/questions/question_id/answer/answerID` | Delete an answer
-POST | `/api/v1/questions/answers/vote/1` | Upvote/DownVote an answer
-POST | `/api/v1/questions/answers/comment/1` | Comment on an answer
+GET | `/api/v1/questions/answers/{answerID}` | Retrieve an answer
+PUT | `/api/v1/questions/{question_id}/answer/{answerID}` | Edit an answer
+DELETE | `/api/v1/questions/{question_id}/answer/{answerID}` | Delete an answer
+POST | `/api/v1/questions/answers/vote/{answer_id}` | Upvote/DownVote an answer
+POST | `/api/v1/questions/answers/comment/{answer_id}` | Comment on an answer
 
 
 ## Credits
