@@ -21,7 +21,7 @@ class BaseTestCase(unittest.TestCase):
         self.client.post('/api/v1/auth/signup', json=self.data)
         response = self.client.post('/api/v1/auth/login', json=self.data)
         self.token = response.get_json().get('auth_token')
-        self.user_id = 1  # str(decode_auth_token(self.token))
+        self.user_id = '1'  # str(decode_auth_token(self.token))
 
     def tearDown(self):
         # method to invoke after each test.
