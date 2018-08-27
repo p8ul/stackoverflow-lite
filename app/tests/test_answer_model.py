@@ -66,7 +66,7 @@ class AnswersModelTestCase(BaseTestCase):
 
     def test_model_delete(self):
         query = answer.delete()
-        self.assertEqual(query, None)
+        self.assertEqual(query, False)
 
     def test_model_question_author(self):
         query = answer.question_author()

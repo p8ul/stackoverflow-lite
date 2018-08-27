@@ -27,6 +27,25 @@ class AnswersAPIView(MethodView):
         }
         return make_response(jsonify(response_object)), 200
 
+    def delete(self, question_id=None, answer_id=None):
+        data = dict()
+        data['question_id'] = question_id
+        data['answer_id'] = answer_id
+        data['user_id'] = session.get('user_id')
+
+        response = Answer(data).delete()
+        if not response:
+            response_object = {
+                'status': 'fail',
+                'message': 'Answer id does not exist'
+            }
+            return make_response(jsonify(response_object)), 400
+        response_object = {
+            'status': 'success',
+            'message': 'Answer deleted successful'
+        }
+        return make_response(jsonify(response_object)), 200
+
     @jwt_required
     def post(self, question_id=None):
         data = request.get_json(force=True)
@@ -81,7 +100,7 @@ answers_blueprint.add_url_rule(
 answers_blueprint.add_url_rule(
     '/api/v1/questions/<string:question_id>/answers/<string:answer_id>',
     view_func=create_view,
-    methods=['PUT']
+    methods=['PUT', 'DELETE']
 )
 
 answers_blueprint.add_url_rule(
