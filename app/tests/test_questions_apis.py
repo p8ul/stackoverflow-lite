@@ -9,8 +9,8 @@ class QuestionApiTestCase(BaseTestCase):
         response = self.client.get(
             '/api/v1/questions/'
         )
-        assert response.status_code == 401
-        assert response.get_json().get('message') == 'Unauthorized. Please login'
+        assert response.status_code == 200
+        assert response.get_json().get('status') == 'success'
 
     def test_list_questions_normal(self):
         """ Example: with JWT authorization header """

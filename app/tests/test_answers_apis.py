@@ -9,7 +9,7 @@ class AnswersApiTestCase(BaseTestCase):
         response = self.client.get(
             '/api/v1/questions/answers'
         )
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 200)
 
     def test_list_answers_normal(self):
         """ With JWT authorization"""
