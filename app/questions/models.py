@@ -22,7 +22,8 @@ class Question:
         con = psycopg2.connect(**self.config)
         cur, response = con.cursor(cursor_factory=RealDictCursor), None
         try:
-            query = "INSERT INTO questions (title, body, user_id) VALUES (%s, %s, %s) RETURNING *"
+            query = "INSERT INTO questions (title, body, user_id) " \
+                    "VALUES (%s, %s, %s) RETURNING question_id, title, body, created_at"
             cur.execute(query, (self.title, self.body, self.user_id))
             con.commit()
             response = cur.fetchone()
@@ -38,13 +39,13 @@ class Question:
         try:
             if not self.q:
                 cur.execute(
-                    " SELECT *,( SELECT count(*) FROM "
+                    " SELECT question_id, title, body, created_at,( SELECT count(*) FROM "
                     "answers WHERE answers.question_id=questions.question_id ) as "
                     "answers_count FROM questions "
                     " ORDER BY questions.created_at DESC"
                 )
             else:
-                query = " SELECT *,( SELECT count(*) FROM "
+                query = " SELECT question_id, title, body, created_at, ( SELECT count(*) FROM "
                 query += "answers WHERE answers.question_id=questions.question_id ) as "
                 query += "answers_count FROM questions "
                 query += " WHERE  body LIKE %s OR title LIKE %s  "
@@ -66,7 +67,9 @@ class Question:
         cur2 = con.cursor(cursor_factory=RealDictCursor)
 
         try:
-            query = """ SELECT * FROM questions WHERE questions.question_id=%s ORDER BY questions.created_at"""
+            query = """ 
+            SELECT question_id, title, body, created_at 
+            FROM questions WHERE questions.question_id=%s ORDER BY questions.created_at"""
             cur.execute(query % self.question_id)
             questions_queryset_list = cur.fetchall()
             cur2.execute("SELECT * FROM answers WHERE answers.question_id=%s" % self.question_id)
@@ -89,7 +92,7 @@ class Question:
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
             cur.execute(
-                """ SELECT * FROM questions 
+                """ SELECT question_id, title, body, created_at FROM questions 
                     WHERE questions.user_id=""" + self.user_id + """ ORDER BY questions.created_at """
             )
             questions_queryset_list = cur.fetchall()
@@ -98,6 +101,19 @@ class Question:
             print(e)
         con.close()
         return queryset_list
+
+    def question_author(self):
+        con = psycopg2.connect(**self.config)
+        try:
+            cur = con.cursor(cursor_factory=RealDictCursor)
+            query = "SELECT user_id, question_id FROM questions WHERE question_id=%s AND user_id=%s"
+            cur.execute(query, (self.question_id, self.user_id))
+            return cur.fetchall()
+
+        except Exception as e:
+            print(e)
+        con.close()
+        return False
 
     def update(self):
         """

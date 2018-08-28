@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify, session
 from flask.views import MethodView
 from app.answers.models import Answer
+from app.questions.models import Question
 from ....utils import jwt_required
 
 answers_blueprint = Blueprint('answers', __name__)
@@ -32,6 +33,15 @@ class AnswersAPIView(MethodView):
         data['question_id'] = question_id
         data['answer_id'] = answer_id
         data['user_id'] = session.get('user_id')
+
+        question = Question(data)
+        # check permission
+        if not question.question_author():
+            response_object = {
+                'status': 'fail',
+                'message': 'Unauthorized'
+            }
+            return make_response(jsonify(response_object)), 401
 
         response = Answer(data).delete()
         if not response:

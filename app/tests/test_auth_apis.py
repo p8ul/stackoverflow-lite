@@ -51,11 +51,11 @@ class AuthApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.get_json()['status'], 'fail')
+        self.assertEqual(response.get_json(), 'The resource does not exist')
 
     def test_auth_retrieve_user_valid_user_id_parameter(self):
         response = self.client.get(
-            '/api/v1/auth/users/'+self.user_id,
+            '/api/v1/auth/users',
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 200)

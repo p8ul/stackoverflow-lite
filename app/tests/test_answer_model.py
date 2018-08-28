@@ -70,7 +70,7 @@ class AnswersModelTestCase(BaseTestCase):
 
     def test_model_question_author(self):
         query = answer.question_author()
-        self.assertEqual(query, False)
+        self.assertEqual(query, [])
 
     def test_model_answer_author(self):
         query = answer.answer_author()

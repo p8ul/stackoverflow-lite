@@ -32,6 +32,7 @@ class CreateQuestionAPIView(MethodView):
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
         row = Question(data).save()
+        del data['user_id']
         if row:
             response_object = {
                 'status': 'success',
@@ -52,7 +53,16 @@ class CreateQuestionAPIView(MethodView):
         data = request.get_json(force=True)
         data['question_id'] = question_id
         data['user_id'] = session.get('user_id')
-        result = Question(data).update()
+        question = Question(data)
+        # check permission
+        if not question.question_author():
+            response_object = {
+                'status': 'fail',
+                'message': 'Unauthorized'
+            }
+            return make_response(jsonify(response_object)), 401
+        result = question.update()
+        del data['user_id']
         if result:
             response_object = {
                 'status': 'success',
@@ -71,7 +81,15 @@ class CreateQuestionAPIView(MethodView):
     def delete(self, question_id=None):
         data = dict()
         data['user_id'], data['question_id'] = session.get('user_id'), question_id
-        response = Question(data).delete()
+        question = Question(data)
+        # check permission
+        if not question.question_author():
+            response_object = {
+                'status': 'fail',
+                'message': 'Unauthorized'
+            }
+            return make_response(jsonify(response_object)), 401
+        response = question.delete()
         if response == 401:
             response_object = {
                 'status': 'fail',

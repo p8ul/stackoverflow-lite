@@ -30,7 +30,9 @@ class Answer:
         con, response = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
-            query = "INSERT INTO answers (user_id, answer_body, question_id) VALUES (%s, %s, %s) RETURNING *; "
+            query = "INSERT INTO answers " \
+                    "(user_id, answer_body, question_id) VALUES (%s, %s, %s)" \
+                    " RETURNING question_id, answer_id, answer_body, created_at; "
             cur.execute(query, (self.user_id, self.answer_body, self.question_id))
             con.commit()
             response = cur.fetchone()
@@ -47,8 +49,10 @@ class Answer:
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur.execute(
-            """ SELECT *, ( SELECT  count(*) from votes 
-                WHERE votes.answer_id=answers.answer_id AND vote=true ) as upVotes,
+            """ SELECT question_id, answer_id, answer_body, created_at, 
+                ( SELECT  count(*) from votes 
+                WHERE votes.answer_id=answers.answer_id AND vote=true ) 
+                as upVotes,
                 ( SELECT count(*) from votes WHERE votes.answer_id=answers.answer_id
                 AND vote=false ) as downVotes FROM  answers
             """
@@ -65,7 +69,7 @@ class Answer:
         try:
             con = psycopg2.connect(**self.config)
             cur = con.cursor(cursor_factory=RealDictCursor)
-            query = "SELECT * FROM answers WHERE answer_id={}"
+            query = "SELECT question_id, answer_id, answer_body, created_at FROM answers WHERE answer_id={}"
             cur.execute(query.format(self.answer_id))
             queryset_list = cur.fetchall()
             con.close()
@@ -78,8 +82,8 @@ class Answer:
         con = psycopg2.connect(**self.config)
         try:
             cur = con.cursor(cursor_factory=RealDictCursor)
-            query = "SELECT user_id FROM questions WHERE question_id=%s"
-            cur.execute(query, self.question_id)
+            query = "SELECT user_id FROM questions WHERE question_id=%s AND user_id=%s"
+            cur.execute(query, (self.question_id, self.user_id))
             return cur.fetchall()
 
         except Exception as e:
@@ -114,7 +118,7 @@ class Answer:
             # current user is question author
             elif int(question_author) == int(self.user_id):
                 # mark it as accepted
-                response = self.update_accept_field()
+                self.update_accept_field()
                 response['result'] = True if response else False
                 if not response['result']:
                     response['errors'] = 'Please provide correct answer and question id'
