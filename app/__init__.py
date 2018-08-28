@@ -31,6 +31,10 @@ def create_app(config_filename):
     def forbidden(error):
         return jsonify({"error": "That is a bad request"}), 400
 
+    @app.errorhandler(405)
+    def forbidden(error):
+        return jsonify({"error": "This url method is not allowed"}), 405
+
     return app
 
 

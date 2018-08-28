@@ -10,7 +10,6 @@ class CreateQuestionAPIView(MethodView):
     """
     Create API Resource
     """
-    @jwt_required
     def get(self, question_id):
         response = Question({'question_id': question_id}).filter_by()
         if not response:
@@ -114,7 +113,6 @@ class CreateQuestionAPIView(MethodView):
 
 class QuestionsListAPIView(MethodView):
     """ List API Resource """
-    @jwt_required
     def get(self):
         data = dict()
         data['user_id'] = session.get('user_id')

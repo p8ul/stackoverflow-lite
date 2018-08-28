@@ -28,6 +28,7 @@ class AnswersAPIView(MethodView):
         }
         return make_response(jsonify(response_object)), 200
 
+    @jwt_required
     def delete(self, question_id=None, answer_id=None):
         data = dict()
         data['question_id'] = question_id
@@ -76,7 +77,6 @@ class AnswersListAPIView(MethodView):
     """
     List API Resource
     """
-    @jwt_required
     def get(self, answer_id=None):
         data = dict()
         data['answer_id'] = answer_id
