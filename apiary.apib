@@ -186,6 +186,27 @@ It takes a JSON object containing a question title and body.
             "message": "Bad request. Please try again.",
             "status": "fail"
         }
+        
+## User questions collection [/users/questions]
+
+### Logged in User can list his/her question [GET]
+This action will list all the questions that belongs to the user who is currently logged in.
+
++ Response 200 (application/json)
+
+        {
+            "results": {
+                "question": [
+                    {
+                        "body": "sdfsfffssd",
+                        "created_at": "Tue, 28 Aug 2018 08:37:35 GMT",
+                        "question_id": 1,
+                        "title": "sdfsdfsf"
+                    }
+                ]
+            },
+            "status": "success"
+        }
 
 ## Answers POST collections [/questions/{question_id}/answers]
 
@@ -292,25 +313,6 @@ This action allows you to retreive a single answer details.
                 "status": "fail"
             }
 
-### User can delete a question [DELETE]
-
-+ Parameters
-    + answer_id: 1 (required, number) - ID of the answer in form of an integer
-
-
-+ Response 200 (application/json)
-
-        {
-            "message": "Answer deleted successful",
-            "status": "success"
-        }
-+ Response 400 (application/json)
-
-        {
-            "message": "Answer id does not exist",
-            "status": "fail"
-        }
-
 ## Votes collections [/questions/answers/vote/{answer_id}]
 
 ### User can Upvote/Downvote [POST]
@@ -339,7 +341,7 @@ A Vote object has the following attributes:
         }
 
 
-## Answer PUT collections [/questions/{question_id}/answers/{answer_id}]
+## Answer PUT/DELETE collections [/questions/{question_id}/answers/{answer_id}]
 
 
 ### User can update answer [PUT]
@@ -372,6 +374,25 @@ This action will Update an answer.
         }
 
 
+### User can delete an answer [DELETE]
+
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+    + question_id: 1 (required, number) - ID of the answer in form of an integer
+
+
++ Response 200 (application/json)
+
+        {
+            "message": "Answer deleted successful",
+            "status": "success"
+        }
++ Response 400 (application/json)
+
+        {
+            "message": "Answer id does not exist",
+            "status": "fail"
+        }
 ## Comments collection [/questions/answers/comment/{answer_id}]
 
 
