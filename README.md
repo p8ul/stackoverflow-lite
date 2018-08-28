@@ -98,6 +98,8 @@ POST | `/api/v1/questions/answers/comment/{answer_id}` | Comment on an answer
 ## Credits
 This challenge was part of the Bootcamp 31 NBO Andela.
 
+Credits to [Avinash Tripathi](https://dribbble.com/nashatwork) for an awesome [Stackoverflow redesign concept](https://dribbble.com/shots/2876030-Stackoverflow-redesign?_=1535432246078&utm_source=Clipboard_Shot&utm_campaign=nashatwork&utm_content=Stackoverflow%20redesign&utm_medium=Social_Share). Helped in comming up with some dashboard UI components.
+
 ## Author
 Paul Kinuthia.
 
