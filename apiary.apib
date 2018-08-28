@@ -76,33 +76,11 @@ This action allows you to login and and get a JWT authorization token.
             "status": "fail"
         }
 
-## Users Collection [/auth/users]
-
-### A user can get a list users [GET]
-This resource will list all users.
-
-+ Response 201 (application/json)
-
-        {
-          "results": [
-            {
-              "created_at": "Mon, 20 Aug 2018 06:39:39 GMT",
-              "email": "sky@Jhames.com",
-              "user_id": 14,
-              "username": "sky"
-            }
-          ],
-          "status": "success"
-        }
-
-## Single user collection [/auth/users/{user_id}]
+## Single user collection [/auth/user]
 
 
 ### Retrieve single user [GET]
 This action allows you to retreive user details.
-+ Parameters
-    + user_id: 1 (required, number) - ID of user you want details displayed
-    
 
 + Response 201 (application/json)
 
@@ -111,7 +89,6 @@ This action allows you to retreive user details.
                 {
                     "created_at": "Sun, 19 Aug 2018 18:20:08 GMT",
                     "email": "joshua@j.com",
-                    "user_id": 12,
                     "username": "p8ul"
                 }
             ],
@@ -122,6 +99,15 @@ This action allows you to retreive user details.
 
         {
             "results": "User not found",
+            "status": "fail"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "errors": {
+                "email": "Invalid email. Please enter a valid email"
+            },
             "status": "fail"
         }
 
