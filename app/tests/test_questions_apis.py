@@ -87,7 +87,7 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/1909090k', json=data,
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_update_question_normal(self):
@@ -111,17 +111,17 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/None',
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_delete_question_normal(self):
-        """ Example: Send Expected paylaod """
+        """ Example: Send Expected payload """
         self.test_post_question_normal()
         response = self.client.delete(
             '/api/v1/questions/'+str(self.data.get('question_id')),
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.get_json()['status'], 'fail')
 
 
