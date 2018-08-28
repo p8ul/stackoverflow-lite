@@ -90,21 +90,6 @@ class QuestionApiTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.get_json()['status'], 'fail')
 
-    def test_update_question_normal(self):
-        """ Example: Send Expected paylaod """
-        data = {
-            'title': 'Test title',
-            'body': 'Test body',
-            'user': self.user_id
-        }
-
-        response = self.client.put(
-            '/api/v1/questions/1', json=data,
-            headers={'Authorization': 'JWT ' + self.token}
-        )
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.get_json()['status'], 'success')
-
     def test_delete_question_unexpected(self):
         """ Example: undefined question_id """
         response = self.client.delete(
