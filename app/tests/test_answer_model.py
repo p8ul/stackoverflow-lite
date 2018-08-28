@@ -20,12 +20,6 @@ class AnswersModelTestCase(BaseTestCase):
         query = answer.filter_by()
         self.assertEqual(query, [])
 
-    def test_answer_model_filter_normal(self):
-        """ Example: answer_id '1' """
-        answer.answer_id = 1
-        query = answer.filter_by()
-        self.assertEqual(query, [])
-
     def test_answer_model_filter_edgecase(self):
         """ Example: answer_id '[]' """
         answer.answer_id = None
