@@ -50,7 +50,7 @@ StackOverflow-lite is a platform where people can ask questions and provide answ
 or open .env file and copy your postgres database url
 ```
     #.env file
-    DATABASE_URL=postgresql://stack:stack@127.0.0.1:5432/stack
+    DATABASE_URL=postgres://username:password@hostname/databasename
     
     $ python manage.py runserver
 ```

@@ -4,14 +4,6 @@ from .base import BaseTestCase
 
 class QuestionApiTestCase(BaseTestCase):
 
-    def test_list_questions_unexpected(self):
-        """ Example: Without JWT  token header """
-        response = self.client.get(
-            '/api/v1/questions/'
-        )
-        assert response.status_code == 200
-        assert response.get_json().get('status') == 'success'
-
     def test_list_questions_normal(self):
         """ Example: with JWT authorization header """
         response = self.client.get(

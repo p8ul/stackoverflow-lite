@@ -102,6 +102,13 @@ create_tables_commands = (
            ON UPDATE CASCADE ON DELETE CASCADE            
     )
     """,
+    """
+    CREATE TABLE IF NOT EXISTS token_blacklist (
+       id SERIAL PRIMARY KEY,
+       token  text NOT NULL,       
+       created_at timestamp with time zone DEFAULT now()           
+    )
+    """,
 )
 
 migrations = create_tables_commands
