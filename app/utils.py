@@ -5,8 +5,46 @@ import re
 from functools import wraps
 from flask import request, make_response, jsonify, session
 import jwt
-from config import BaseConfig
 from dotenv import load_dotenv
+import psycopg2
+from psycopg2.extras import RealDictCursor
+from config import BaseConfig
+
+
+def db_config(database_uri=None):
+    """ This function extracts postgres url
+    and return database login information
+    :param database_uri: database Configuration uri
+    :return: database login information
+    """
+    load_dotenv()
+    if os.environ.get('DATABASE_URL'):
+        database_uri = os.environ.get('DATABASE_URL')
+
+    result = urlparse(database_uri)
+    config = {
+        'database': result.path[1:],
+        'user': result.username,
+        'password': result.password,
+        'host': result.hostname
+    }
+
+    if os.environ.get('APP_SETTINGS') == 'TESTING':
+        config['database'] = BaseConfig.TEST_DB
+    return config
+
+
+def is_blacklisted(token):
+    """ Checks whether a token is blacklisted """
+    con, queryset_list = psycopg2.connect(**db_config()), None
+    cur = con.cursor(cursor_factory=RealDictCursor)
+    try:
+        cur.execute("select * from token_blacklist WHERE token='{}'".format(token))
+        queryset_list = cur.fetchall()
+    except Exception as e:
+        print(e)
+    con.close()
+    return queryset_list
 
 
 def jwt_required(f):
@@ -57,6 +95,8 @@ def decode_auth_token(auth_token):
     :return: integer|string
     """
     try:
+        if is_blacklisted(auth_token):
+            return 'Token has been blacklisted. Please log in again'
         payload = jwt.decode(auth_token, 'SECRET_KEY', algorithm='HS256')
         session['user_id'] = str(payload.get('sub'))
         return payload['sub']
@@ -64,29 +104,6 @@ def decode_auth_token(auth_token):
         return 'Token Signature expired. Please log in again.'
     except jwt.InvalidTokenError:
         return 'Invalid token. Please log in again.'
-
-
-def db_config(database_uri=None):
-    """ This function extracts postgres url
-    and return database login information
-    :param database_uri: database Configuration uri
-    :return: database login information
-    """
-    load_dotenv()
-    if os.environ.get('DATABASE_URL'):
-        database_uri = os.environ.get('DATABASE_URL')
-
-    result = urlparse(database_uri)
-    config = {
-        'database': result.path[1:],
-        'user': result.username,
-        'password': result.password,
-        'host': result.hostname
-    }
-
-    if os.environ.get('APP_SETTINGS') == 'TESTING':
-        config['database'] = BaseConfig.TEST_DB
-    return config
 
 
 def valid_email(email):

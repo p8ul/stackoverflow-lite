@@ -15,7 +15,8 @@ class BaseTestCase(unittest.TestCase):
             'username': 'Paul',
             'email': 'pkinuthia10@gmail.com',
             'password': 'password',
-            'database': BaseConfig.TEST_DB
+            'database': BaseConfig.TEST_DB,
+            'test_logout_token': None
         }
         """ Login to get a JWT token """
         self.client.post('/api/v1/auth/signup', json=self.data)

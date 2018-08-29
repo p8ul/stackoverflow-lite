@@ -32,9 +32,20 @@ class AuthApiTestCase(BaseTestCase):
         """  Send correct payload """
         self.data['email'] = 'pk' + str(randint(0, 9)) + '@gmail.com'
         response = self.client.post('/api/v1/auth/signup', json=self.data)
-
+        self.data['test_logout_token'] = response.get_json().get('auth_token')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.get_json()['status'], 'success')
+
+    def test_auth_user_logout(self):
+        """ Test logout endpoint"""
+        response = self.client.post('/api/v1/auth/login', json=self.data)
+        token = response.get_json().get('auth_token')
+        response = self.client.post(
+            '/api/v1/auth/logout',
+            headers={'Authorization': 'JWT ' + token}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json().get('status'), 'success')
 
     def test_auth_signup_invalid_email(self):
         """  Example incorrect payload """
@@ -51,7 +62,7 @@ class AuthApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.get_json(), 'The resource does not exist')
+        self.assertEqual(response.get_json().get('error'), 'The resource does not exist')
 
     def test_auth_retrieve_user_valid_user_id_parameter(self):
         response = self.client.get(

@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from app.auth.models import User
 from ....utils import jwt_required, encode_auth_token
 from app.auth.validatons import validate_user_details
+from app.auth.blacklist import Blacklist
 
 b_crypt = Bcrypt()
 auth_blueprint = Blueprint('auth', __name__)
@@ -104,8 +105,25 @@ class LogoutAPI(MethodView):
     """ Logout Resource """
     def post(self):
         # get auth token
-        auth_header = request.headers.get('Authorization')
-        return auth_header
+        try:
+            token = request.headers.get('Authorization').split(' ')[-1]
+            blacklisted = Blacklist({'token': token}).blacklist_token()
+            if blacklisted:
+                response_object = {
+                    'status': 'success', 'message': 'Logged out successfully.',
+                }
+                return make_response(jsonify(response_object)), 200
+            response_object = {
+                'status': 'fail', 'message': 'Invalid token.',
+            }
+            return make_response(jsonify(response_object)), 401
+
+        except Exception as e:
+            print(e)
+            response_object = {
+                'status': 'fail', 'message': 'Invalid token.',
+            }
+            return make_response(jsonify(response_object)), 401
 
 
 # Define the API resources

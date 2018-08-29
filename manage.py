@@ -7,14 +7,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = create_app("config.BaseConfig")
-
 manager = Manager(app)
 
 
 @manager.command
 def test():
     db.migrate_test_db()
-    pytest.main(['-v', '--cov=app'])
+    pytest.main(['-v', '--cov-report', 'term-missing', '--cov=app'])
     db.drop_test_database()
 
 
