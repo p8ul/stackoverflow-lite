@@ -14,13 +14,11 @@ class CreateQuestionAPIView(MethodView):
         response = Question({'question_id': question_id}).filter_by()
         if not response:
             response_object = {
-                'status': 'fail',
                 'results': 'Question Not found'
             }
             return make_response(jsonify(response_object)), 404
 
         response_object = {
-            'status': 'success',
             'results': response
         }
         return make_response(jsonify(response_object)), 200
@@ -34,13 +32,11 @@ class CreateQuestionAPIView(MethodView):
         del data['user_id']
         if row:
             response_object = {
-                'status': 'success',
                 'results': row
             }
             return make_response(jsonify(response_object)), 201
 
         response_object = {
-            'status': 'fail',
             'message': 'Bad request. Please try again.'
         }
         return make_response(jsonify(response_object)), 400
@@ -56,7 +52,6 @@ class CreateQuestionAPIView(MethodView):
         # check permission
         if not question.question_author():
             response_object = {
-                'status': 'fail',
                 'message': 'Unauthorized'
             }
             return make_response(jsonify(response_object)), 401
@@ -64,13 +59,11 @@ class CreateQuestionAPIView(MethodView):
         del data['user_id']
         if result:
             response_object = {
-                'status': 'success',
                 'results': data
             }
             return make_response(jsonify(response_object)), 201
 
         response_object = {
-            'status': 'fail',
             'message': 'Bad request. Please try again.'
         }
         return make_response(jsonify(response_object)), 400
@@ -81,31 +74,33 @@ class CreateQuestionAPIView(MethodView):
         data = dict()
         data['user_id'], data['question_id'] = session.get('user_id'), question_id
         question = Question(data)
+        if not question.question_exist():
+            response_object = {
+                'message': 'Question not found'
+            }
+            return make_response(jsonify(response_object)), 404
+
         # check permission
         if not question.question_author():
             response_object = {
-                'status': 'fail',
                 'message': 'Unauthorized'
             }
             return make_response(jsonify(response_object)), 401
         response = question.delete()
         if response == 401:
             response_object = {
-                'status': 'fail',
                 'message': 'Unauthorized, You cannot delete this question!.'
             }
             return make_response(jsonify(response_object)), 401
         if response == 404:
-            response_object = {'status': 'fail', 'message': 'Some error occurred. Question Not Found!.'}
+            response_object = {'message': 'Some error occurred. Question Not Found!.'}
             return make_response(jsonify(response_object)), 404
         if not response:
             response_object = {
-                'status': 'fail',
                 'message': 'Some error occurred. Please try again.'
             }
             return make_response(jsonify(response_object)), 400
         response_object = {
-            'status': 'success',
             'message': 'Question deleted successfully'
         }
         return make_response(jsonify(response_object)), 200
@@ -117,7 +112,7 @@ class QuestionsListAPIView(MethodView):
         data = dict()
         data['user_id'] = session.get('user_id')
         response_object = {
-            'results': Question({'q': request.args.get('q')}).query(), 'status': 'success'
+            'results': Question({'q': request.args.get('q')}).query()
         }
         return (jsonify(response_object)), 200
 

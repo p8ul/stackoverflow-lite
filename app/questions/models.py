@@ -163,6 +163,22 @@ class Question:
         con.close()
         return result
 
+    def question_exist(self):
+        """checks whether a question exists
+        :return: bool: False if record is not found else True
+        """
+        con, exists = psycopg2.connect(**self.config), False
+        cur, queryset_list = con.cursor(cursor_factory=RealDictCursor), None
+        try:
+            query = "SELECT question_id, user_id FROM questions WHERE question_id='{}'"
+            cur.execute(query.format(self.question_id))
+            queryset_list = cur.fetchall()
+            con.close()
+            exists = True if len(queryset_list) >= 1 else False
+        except Exception as e:
+            print(e)
+        return exists
+
     def record_exists(self):
         """
         checks whether a question was asked by the user

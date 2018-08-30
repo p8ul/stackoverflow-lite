@@ -12,8 +12,7 @@ class UsersListAPIView(MethodView):
     def get(self):
         data = {'user_id': session.get('user_id')}
         response_object = {
-            'results': Question(data).filter_by_user(),
-            'status': 'success'
+            'results': Question(data).filter_by_user()
         }
         return (jsonify(response_object)), 200
 

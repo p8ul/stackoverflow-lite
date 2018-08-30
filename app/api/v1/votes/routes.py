@@ -17,13 +17,11 @@ class VoteAPIView(MethodView):
         response = Vote(data).vote()
         if response:
             response_object = {
-                'status': 'success',
                 'message': 'Your vote was successful'
             }
             return make_response(jsonify(response_object)), 201
 
         response_object = {
-            'status': 'fail',
             'message': 'Some error occurred. Please try again.'
         }
         return make_response(jsonify(response_object)), 400

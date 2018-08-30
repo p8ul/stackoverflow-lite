@@ -18,12 +18,10 @@ class AnswersAPIView(MethodView):
         response = Answer(data).update()
         if response.get('errors'):
             response_object = {
-                'status': 'fail',
                 'message': response.get('errors')
             }
             return make_response(jsonify(response_object)), 400
         response_object = {
-            'status': 'success',
             'message': 'Update successful'
         }
         return make_response(jsonify(response_object)), 200
@@ -39,7 +37,6 @@ class AnswersAPIView(MethodView):
         # check permission
         if not question.question_author():
             response_object = {
-                'status': 'fail',
                 'message': 'Unauthorized'
             }
             return make_response(jsonify(response_object)), 401
@@ -47,12 +44,10 @@ class AnswersAPIView(MethodView):
         response = Answer(data).delete()
         if not response:
             response_object = {
-                'status': 'fail',
                 'message': 'Answer id does not exist'
             }
             return make_response(jsonify(response_object)), 400
         response_object = {
-            'status': 'success',
             'message': 'Answer deleted successful'
         }
         return make_response(jsonify(response_object)), 200
@@ -64,10 +59,9 @@ class AnswersAPIView(MethodView):
         answer = Answer(data)
         response = answer.save()
         if response:
-            response_object = {'status': 'success', 'message': response}
+            response_object = {'message': response}
             return make_response(jsonify(response_object)), 201
         response_object = {
-            'status': 'fail',
             'message': 'Unknown question id. Try a different id.'
         }
         return make_response(jsonify(response_object)), 400
@@ -85,14 +79,14 @@ class AnswersListAPIView(MethodView):
             results = Answer(data).filter_by()
             if len(results) < 1:
                 response_object = {
-                    'results': 'Answer not found', 'status': 'fail'
+                    'results': 'Answer not found'
                 }
                 return make_response(jsonify(response_object)), 404
             response_object = {
-                'results': results, 'status': 'success'
+                'results': results
             }
             return (jsonify(response_object)), 200
-        response_object = {'results': Answer(data).query(), 'status': 'success'}
+        response_object = {'results': Answer(data).query()}
         return (jsonify(response_object)), 200
 
 

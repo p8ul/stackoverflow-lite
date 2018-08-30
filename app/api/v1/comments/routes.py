@@ -16,13 +16,11 @@ class CommentsListAPIView(MethodView):
         response = Comment(data).save()
         if response:
             response_object = {
-                'status': 'success',
                 'message': 'Your comment was successful'
             }
             return make_response(jsonify(response_object)), 201
 
         response_object = {
-            'status': 'fail',
             'message': 'Some error occurred. Please try again.'
         }
         return make_response(jsonify(response_object)), 400

@@ -3,7 +3,7 @@ from flask.views import MethodView
 from flask_bcrypt import Bcrypt
 from app.auth.models import User
 from ....utils import jwt_required, encode_auth_token
-from app.auth.validatons import validate_user_details
+from app.auth.validatons import validate_user_details, validate_login_details
 from app.auth.blacklist import Blacklist
 
 b_crypt = Bcrypt()
@@ -21,14 +21,13 @@ class RegisterAPI(MethodView):
         errors = validate_user_details(data)
         if len(errors) > 0:
             response_object = {
-                'status': 'fail', 'errors': errors
+                'errors': errors
             }
-            return make_response(jsonify(response_object)), 401
+            return make_response(jsonify(response_object)), 404
         try:
             user = User(data).save()
             auth_token = encode_auth_token(user.get('id')).decode()
             response_object = {
-                'status': 'success',
                 'message': 'Successfully registered.',
                 'auth_token': auth_token
             }
@@ -36,7 +35,7 @@ class RegisterAPI(MethodView):
         except Exception as e:
             print(e)
             response_object = {
-                'status': 'fail', 'message': 'Some error occurred. Please try again.'
+                'message': 'Some error occurred. Please try again.'
             }
             return make_response(jsonify(response_object)), 401
 
@@ -45,7 +44,7 @@ class RegisterAPI(MethodView):
         data['user_id'] = user_id
         User(data).delete()
         response_object = {
-            'status': 'success', 'message': 'User deleted successfully.',
+            'message': 'User deleted successfully.',
         }
         return make_response(jsonify(response_object)), 200
 
@@ -55,18 +54,23 @@ class LoginAPI(MethodView):
     def post(self):
         data = request.get_json(force=True)
         data['user_id'] = session.get('user_id')
+        errors = validate_login_details(data)
+        if len(errors) > 0:
+            response_object = {
+                'errors': errors
+            }
+            return make_response(jsonify(response_object)), 404
         try:
             user = User(data).filter_by_email()
             if len(user) >= 1:
                 if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
                     auth_token = encode_auth_token(user[0].get('user_id'))
                 else:
-                    response_object = {'status': 'fail', 'message': 'Password or email do not match.'}
+                    response_object = {'message': 'Password or email do not match.'}
                     return make_response(jsonify(response_object)), 401
                 try:
                     if auth_token:
                         response_object = {
-                            'status': 'success',
                             'message': 'Successfully logged in.',
                             'auth_token': auth_token.decode()
                         }
@@ -74,11 +78,11 @@ class LoginAPI(MethodView):
                 except Exception as e:
                     return {"message": 'Error decoding token'}, 401
             else:
-                response_object = {'status': 'fail', 'message': 'User does not exist.'}
+                response_object = {'message': 'User does not exist.'}
                 return make_response(jsonify(response_object)), 404
         except Exception as e:
             print(e)
-            response_object = {'status': 'fail', 'message': 'Try again'}
+            response_object = {'message': 'Try again'}
             return make_response(jsonify(response_object)), 500
 
 
@@ -88,15 +92,14 @@ class UserListAPI(MethodView):
     def get(self):
         user_id = session.get('user_id')
         user = User({"user_id": user_id}).filter_by()
-        response_object = {'results': 'User not found', 'status': 'fail'}
+        response_object = {'results': 'User not found'}
         try:
             if len(user) < 1:
                 return make_response(jsonify(response_object)), 404
         except:
             return make_response(jsonify(response_object)), 404
         response_object = {
-            'results': user,
-            'status': 'success'
+            'results': user
         }
         return (jsonify(response_object)), 200
 
@@ -110,18 +113,18 @@ class LogoutAPI(MethodView):
             blacklisted = Blacklist({'token': token}).blacklist_token()
             if blacklisted:
                 response_object = {
-                    'status': 'success', 'message': 'Logged out successfully.',
+                    'message': 'Logged out successfully.',
                 }
                 return make_response(jsonify(response_object)), 200
             response_object = {
-                'status': 'fail', 'message': 'Invalid token.',
+                'message': 'Invalid token.',
             }
             return make_response(jsonify(response_object)), 401
 
         except Exception as e:
             print(e)
             response_object = {
-                'status': 'fail', 'message': 'Invalid token.',
+                'message': 'Invalid token.',
             }
             return make_response(jsonify(response_object)), 401
 

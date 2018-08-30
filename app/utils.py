@@ -58,14 +58,16 @@ def jwt_required(f):
             auth_header = request.headers.get('Authorization').split(' ')[-1]
         except Exception as e:
             print(e)
-            return make_response(jsonify({"status": 'fail', "message": 'Unauthorized. Please login'})), 401
+            return make_response(jsonify({"message": 'Unauthorized. Please login'})), 401
         result = decode_auth_token(auth_header)
         try:
             if int(result):
                 pass
         except Exception as e:
             print(e)
-            return make_response(jsonify({"status": 'fail', "message": result})), 401
+            if not result:
+                result = 'Unauthorized. Please login'
+            return make_response(jsonify({"message": result})), 401
         return f(*args, **kwargs)
     return decorated_function
 
@@ -108,6 +110,13 @@ def decode_auth_token(auth_token):
 
 def valid_email(email):
     """  Validate email """
-    if email.split('@'[-1])[-1].count('.') > 1:
+    try:
+        if email.count('@') > 1:
+            return False
+        last_part = email.split('@'[-1])[-1]
+        if last_part.count('.com') > 1:
+            return False
+        return re.match(r'^.+@([?)[a-zA-Z0-9-.])+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$', email)
+    except Exception as e:
+        print(e)
         return False
-    return re.match(r'^.+@([?)[a-zA-Z0-9-.])+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$', email)
