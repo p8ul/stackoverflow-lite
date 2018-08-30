@@ -95,12 +95,15 @@ class Question:
             answer_ids = []
             for answer in answers_queryset_list:
                 answer_ids.append(answer.get('answer_id'))
-
-            query = """
-                SELECT * FROM comments WHERE answer_id IN {}
-            """
-            cur3.execute(query.format(tuple(answer_ids)))
-            comments_queryset_list = cur3.fetchall()
+            comments_queryset_list = []
+            try:
+                query = """
+                    SELECT * FROM comments WHERE answer_id IN {}
+                """
+                cur3.execute(query.format(tuple(answer_ids)))
+                comments_queryset_list = cur3.fetchall()
+            except:
+                pass
             queryset_list = {
                 'question': questions_queryset_list,
                 'answers': answers_queryset_list,
