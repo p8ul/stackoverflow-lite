@@ -39,7 +39,9 @@ class Question:
         try:
             if not self.q:
                 cur.execute(
-                    " SELECT question_id, title, body, created_at,( SELECT count(*) FROM "
+                    " SELECT question_id, title, body, created_at, (SELECT username FROM users "
+                    " WHERE users.user_id=questions.question_id )  as username ,"
+                    "( SELECT count(*) FROM "
                     "answers WHERE answers.question_id=questions.question_id ) as "
                     "answers_count FROM questions "
                     " ORDER BY questions.created_at DESC"
