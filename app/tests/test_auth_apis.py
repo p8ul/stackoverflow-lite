@@ -19,14 +19,12 @@ class AuthApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT '+self.token}
         )
         self.assertEqual(response.status_code, 200)
-        assert response.get_json()['status'] == 'success'
 
     def test_auth_signup_already_signed_up_user(self):
         """ Example: email 'registered email from base test' """
         response = self.client.post('/api/v1/auth/signup', json=self.data)
 
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.get_json()['status'], 'fail')
+        self.assertEqual(response.status_code, 404)
 
     def test_auth_signup_unregistered_user(self):
         """  Send correct payload """
@@ -34,7 +32,6 @@ class AuthApiTestCase(BaseTestCase):
         response = self.client.post('/api/v1/auth/signup', json=self.data)
         self.data['test_logout_token'] = response.get_json().get('auth_token')
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.get_json()['status'], 'success')
 
     def test_auth_user_logout(self):
         """ Test logout endpoint"""
@@ -45,15 +42,13 @@ class AuthApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + token}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json().get('status'), 'success')
 
     def test_auth_signup_invalid_email(self):
         """  Example incorrect payload """
         self.data['email'] = 'email name'
         response = self.client.post('/api/v1/auth/signup', json=self.data)
 
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.get_json()['status'], 'fail')
+        self.assertEqual(response.status_code, 404)
 
     def test_auth_retrieve_user_invalid_user_id_parameter(self):
         """ Example: user_id 'string' """
@@ -70,7 +65,6 @@ class AuthApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()['status'], 'success')
 
     def test_login_invaid_email(self):
         """ Example: Wrong credentials """

@@ -18,7 +18,6 @@ class AnswersApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()['status'], 'success')
 
     def test_post_update(self):
         data = {
@@ -48,9 +47,6 @@ class AnswersApiTestCase(BaseTestCase):
 
         """ Test status """
         self.assertEqual(response.status_code, 201)
-
-        """ Test if a question is created """
-        self.assertEqual(response.get_json()['status'], 'success')
 
 
 if __name__ == '__main__':

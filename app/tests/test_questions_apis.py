@@ -11,7 +11,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         assert response.status_code == 200
-        assert response.get_json()['status'] == 'success'
 
     def test_retrieve_question_unexpected_boundary(self):
         """ Example: question id 'non-numeric' """
@@ -20,7 +19,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_retrieve_question_normal(self):
         """ Example: question_id '1' """
@@ -29,7 +27,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()['status'], 'success')
 
     def test_retrieve_question_unexpected_edgecase(self):
         """ Example: question_id [] """
@@ -38,7 +35,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_post_question_unexpected(self):
         """ Example: Send unexpected paylaod """
@@ -52,7 +48,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_post_question_normal(self):
         """ Example: Send Expected paylaod """
@@ -67,7 +62,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.get_json()['status'], 'success')
 
     def test_update_question_unexpected_boundary(self):
         """ Example: Send unexpected paylaod """
@@ -80,7 +74,6 @@ class QuestionApiTestCase(BaseTestCase):
             headers={'Authorization': 'JWT ' + self.token}
         )
         self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.get_json()['status'], 'fail')
 
     def test_delete_question_unexpected(self):
         """ Example: undefined question_id """
@@ -88,8 +81,7 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/None',
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.get_json()['status'], 'fail')
+        self.assertEqual(response.status_code, 404)
 
     def test_delete_question_normal(self):
         """ Example: Send Expected payload """
@@ -98,8 +90,7 @@ class QuestionApiTestCase(BaseTestCase):
             '/api/v1/questions/'+str(self.data.get('question_id')),
             headers={'Authorization': 'JWT ' + self.token}
         )
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.get_json()['status'], 'fail')
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == '__main__':
