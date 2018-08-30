@@ -39,7 +39,9 @@ class Question:
         try:
             if not self.q:
                 cur.execute(
-                    " SELECT question_id, title, body, created_at,( SELECT count(*) FROM "
+                    " SELECT question_id, title, body, created_at, (SELECT username FROM users "
+                    " WHERE users.user_id=questions.user_id )  as username ,"
+                    "( SELECT count(*) FROM "
                     "answers WHERE answers.question_id=questions.question_id ) as "
                     "answers_count FROM questions "
                     " ORDER BY questions.created_at DESC"
@@ -65,18 +67,47 @@ class Question:
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur2 = con.cursor(cursor_factory=RealDictCursor)
+        cur3 = con.cursor(cursor_factory=RealDictCursor)
 
         try:
             query = """ 
-            SELECT question_id, title, body, created_at 
+            SELECT question_id, title, body, created_at, 
+            (SELECT username FROM users WHERE users.user_id=questions.user_id )  as username,
+             (SELECT COUNT(*) FROM answers WHERE answers.question_id=questions.question_id )  as answers 
             FROM questions WHERE questions.question_id=%s ORDER BY questions.created_at"""
             cur.execute(query % self.question_id)
             questions_queryset_list = cur.fetchall()
-            cur2.execute("SELECT * FROM answers WHERE answers.question_id=%s" % self.question_id)
+
+            query = """
+                SELECT answer_body, answer_id, question_id, created_at,
+                (select username from users WHERE users.user_id=answers.user_id) as username,
+                ( SELECT  count(*) from votes 
+                WHERE votes.answer_id=answers.answer_id AND vote=true ) 
+                as upVotes,
+                ( SELECT  count(*) from votes 
+                WHERE votes.answer_id=answers.answer_id AND vote=false ) 
+                as downVotes
+                FROM answers WHERE answers.question_id=%s 
+            """
+
+            cur2.execute(query % self.question_id)
             answers_queryset_list = cur2.fetchall()
+            answer_ids = []
+            for answer in answers_queryset_list:
+                answer_ids.append(answer.get('answer_id'))
+            comments_queryset_list = []
+            try:
+                query = """
+                    SELECT * FROM comments WHERE answer_id IN {}
+                """
+                cur3.execute(query.format(tuple(answer_ids)))
+                comments_queryset_list = cur3.fetchall()
+            except:
+                pass
             queryset_list = {
                 'question': questions_queryset_list,
-                'answers': answers_queryset_list
+                'answers': answers_queryset_list,
+                'comments': comments_queryset_list
             }
         except Exception as e:
             print(e)

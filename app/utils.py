@@ -58,14 +58,14 @@ def jwt_required(f):
             auth_header = request.headers.get('Authorization').split(' ')[-1]
         except Exception as e:
             print(e)
-            return make_response(jsonify({"message": 'Unauthorized. Please login'})), 401
+            return make_response(jsonify({"status": 'fail', "message": 'Unauthorized. Please login'})), 401
         result = decode_auth_token(auth_header)
         try:
             if int(result):
                 pass
         except Exception as e:
             print(e)
-            return make_response(jsonify({"message": result})), 401
+            return make_response(jsonify({"status": 'fail', "message": result})), 401
         return f(*args, **kwargs)
     return decorated_function
 
