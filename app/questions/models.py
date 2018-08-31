@@ -67,7 +67,6 @@ class Question:
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur2 = con.cursor(cursor_factory=RealDictCursor)
-        cur3 = con.cursor(cursor_factory=RealDictCursor)
 
         try:
             query = """ 
@@ -92,22 +91,10 @@ class Question:
 
             cur2.execute(query % self.question_id)
             answers_queryset_list = cur2.fetchall()
-            answer_ids = []
-            for answer in answers_queryset_list:
-                answer_ids.append(answer.get('answer_id'))
-            comments_queryset_list = []
-            try:
-                query = """
-                    SELECT * FROM comments WHERE answer_id IN {}
-                """
-                cur3.execute(query.format(tuple(answer_ids)))
-                comments_queryset_list = cur3.fetchall()
-            except:
-                pass
+
             queryset_list = {
                 'question': questions_queryset_list,
-                'answers': answers_queryset_list,
-                'comments': comments_queryset_list
+                'answers': answers_queryset_list
             }
         except Exception as e:
             print(e)
