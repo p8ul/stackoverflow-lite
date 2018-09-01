@@ -1,0 +1,402 @@
+FORMAT: 1A
+HOST: https://stackoverflow-paul.herokuapp.com/api/v1
+
+# Stackoverflow-lite
+
+Stackoverflow lite is a simple API allowing users to view post questions, answers and vote for them. You can view this documentation over at [Apiary](https://stackoverflowlite2.docs.apiary.io).
+## Sign up Collection [/auth/signup]
+
+
+### User can sign up [POST]
+You may create your own account using this action. 
+It takes a JSON object containing a user email, password and username as profile and authorization details.
+
++ username (required, string) - User name
++ email (required, string) - A valid user email
++ password (required, string) - Strong login password
+
++ Request (application/json)
+
+        {
+                "email": "sky@Jhames.com",
+                "password": "sdsdfsdf9s0d9fs09sf",
+                "username": "sky"
+        }
+
+
++ Response 201 (application/json)
+
+        {
+            "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzc3MDAwMTIsInN1YiI6bnVsbCwiaWF0IjoxNTM1MDIxNDgyfQ.Bu-tAvsHe1pzARSEwLm4RWIiaHW_LP1LBIvfiDoeowQ",
+            "id": 47,
+            "message": "Successfully registered."
+        }
+
++ Response 401 (application/json)
+
+        {
+            "errors": {
+                "user_exist": "User already exists. Please Log in."
+            }
+        }
+
+## Login [/auth/login]
+
+
+### User can Login [POST]
+This action allows you to login and and get a JWT authorization token.
++ email: (required, string) - User email
++ password: (required, string) - User password
+
+
++ Request (application/json)
+
+        {
+                "email": "sky@Jhames.com",
+                "password": "sdsdfsdf9s0d9fs09sf",
+                "username": "sky"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzc2OTgxMDYsInN1YiI6MTQsImlhdCI6MTUzNTAxOTU3Nn0.zIy4KGCaIlHvBMbDmP0BCIHmrn43bN3O-PyiI1ZviY8",
+            "id": 14,
+            "message": "Successfully logged in."
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "message": "User does not exist."
+        }
+
+## Single user collection [/auth/user]
+
+
+### Retrieve single user [GET]
+This action allows you to retreive user details.
+
++ Response 201 (application/json)
+
+        {
+            "results": [
+                {
+                    "created_at": "Sun, 19 Aug 2018 18:20:08 GMT",
+                    "email": "joshua@j.com",
+                    "username": "p8ul"
+                }
+            ]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "results": "User not found"
+        }
+
++ Response 401 (application/json)
+
+        {
+            "errors": {
+                "email": "Invalid email. Please enter a valid email"
+            }
+        }
+
+## Questions Collection [/questions/]
+
+### User can list all questions [GET]
+This action list all the questions in the database.
+
++ Response 200 (application/json)
+
+### User can create a question [POST]
+You may create your own question using this action. 
+It takes a JSON object containing a question title and body.
+
++ title (required, string) - The question title
++ body (required, string) - Question description body
+
++ Request (application/json)
+        
+        {
+                "title": "What was your question title",
+                "body": "What was your question body What was your question body"
+                
+        }
+
++ Response 201 (application/json)
+
+        {
+            "results": {
+                "body": "sdfsfffssd",
+                "created_at": "Thu, 23 Aug 2018 11:01:20 GMT",
+                "question_id": 218,
+                "title": "sdfsdfsf",
+                "user_id": 14
+            }
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Bad request. Please try again."
+        }
+
+
+## Update question collection [/questions/1]
+
+
+### User can update a question [PUT]
+User can update a question using this action.
+It takes a JSON object containing a question title and body.
+
++ title (required, string) - The question title
++ body (required, string) - Question description body
+
++ Request (application/json)
+
+        {"title": "new title", "body": "new body" }
+
++ Response 201 (application/json)
+
+        {
+            "results": {
+                "body": "this is the new body",
+                "question_id": "1",
+                "title": "New sdfsdftitle",
+                "user_id": "14"
+            }
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Bad request. Please try again."
+        }
+        
+## User questions collection [/users/questions]
+
+### Logged in User can list his/her question [GET]
+This action will list all the questions that belongs to the user who is currently logged in.
+
++ Response 200 (application/json)
+
+        {
+            "results": {
+                "question": [
+                    {
+                        "body": "sdfsfffssd",
+                        "created_at": "Tue, 28 Aug 2018 08:37:35 GMT",
+                        "question_id": 1,
+                        "title": "sdfsdfsf"
+                    }
+                ]
+            }
+        }
+
+## Answers POST collections [/questions/{question_id}/answers]
+
+
+### User can post an answer [POST]
+This action will allow you to post an answer to the specified question
+
+A Question object has the following attributes:
+
++ answer_body - Answer descriptive body
+
++ Parameters
+    + question_id: 1 (required, number) - ID of the Question in form of an integer
+
+
++ Request (application/json)
+
+            {
+                    "answer_body": "A good answer"
+            }
+
+
++ Response 201 (application/json)
+
+            {
+                "message": {
+                    "accepted": false,
+                    "answer_body": "A good answer",
+                    "answer_id": 120,
+                    "created_at": "Thu, 23 Aug 2018 11:20:50 GMT",
+                    "question_id": 218,
+                    "user_id": 14
+                }
+            }
+
++ Response 400 (application/json)
+
+            {
+                "message": "Unknown question id. Try a different id."
+            }
+
+
+## Answer: List all answers [/questions/answers]
+Answer object has the following attributes:
+
++ accepted - (bool)
++ created_at - An ISO8601 date when the answer was published.
++ downvotes: (int) Number of down votes
++ upvotes: (int) Number of up votes
++ user_id - (int).
++ question_id - (int) Id of the question answered
+
+### User can list all answers [GET]
+You may list all answers using this action.
+
+
++ Response 201 (application/json)
+
+            {
+                "results": [
+                    {
+                        "accepted": false,
+                        "answer_body": "cool answer",
+                        "answer_id": 52,
+                        "created_at": "Wed, 22 Aug 2018 14:58:39 GMT",
+                        "downvotes": 0,
+                        "question_id": 94,
+                        "upvotes": 0,
+                        "user_id": 1
+                    }
+                ]
+            }
+
+## Answers GET collections [/questions/answers/{answer_id}]
+
+### User can retrieve an answer [GET]
+This action allows you to retreive a single answer details.
++ Parameters
+    + answer_id: 1 (required, number) - ID of answer you to display
+
++ Response 201 (application/json)
+
+            {
+                "results": [
+                    {
+                        "accepted": false,
+                        "answer_body": "answer body",
+                        "answer_id": 57,
+                        "created_at": "Wed, 22 Aug 2018 19:59:41 GMT",
+                        "question_id": 103,
+                        "user_id": 2
+                    }
+                ]
+            }
+
++ Response 404 (application/json)
+
+            {
+                "results": "Answer not found"
+            }
+
+## Votes collections [/questions/answers/vote/{answer_id}]
+
+### User can Upvote/Downvote [POST]
+A Vote object has the following attributes:
+
++ user_id: - Voters user id
++ created_at - An ISO8601 date when the question was published.
++ vote - Boolean: True to upvote / False to down vote
+
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+
+
++ Request (application/json)
+
+        {
+                "vote": "true"
+        }
+
+
++ Response 201 (application/json)
+
+        {
+            "message": "Your vote was successful"
+        }
+
+
+## Answer PUT/DELETE collections [/questions/{question_id}/answers/{answer_id}]
+
+
+### User can update answer [PUT]
+This action will Update an answer.
+
++ answer_body: (required, string)
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+    + question_id: 1 (required, number) 
++ Request (applicatino/json)
+
+        {
+            "answer_body": "i asdasda programming"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "message": "Update successful"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "Please provide correct answer and question id"
+        }
+
+
+### User can delete an answer [DELETE]
+
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+    + question_id: 1 (required, number) - ID of the answer in form of an integer
+
+
++ Response 200 (application/json)
+
+        {
+            "message": "Answer deleted successful"
+        }
++ Response 400 (application/json)
+
+        {
+            "message": "Answer id does not exist"
+        }
+## Comments collection [/questions/answers/comment/{answer_id}]
+
+
+### User can comment on an answer [POST]
+
+A Comment object has the following attributes:
+
++ user_id: - Commenting user id
++ created_at - An ISO8601 date when the question was published.
++ comment_body - String: Comment description
++ Parameters
+    + answer_id: 1 (required, number) - ID of the answer in form of an integer
+
+
++ Request (application/json)
+
+        {
+            "comment_body": "comment goes here"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "message": "Your comment was successful"
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "message": "Some error occurred. Please try again."
+        }
