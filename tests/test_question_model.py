@@ -1,6 +1,6 @@
 import unittest
 from .base import BaseTestCase
-from ..questions.models import Question
+from app.questions.models import Question
 
 question = Question()
 
@@ -45,7 +45,7 @@ class QuestionModelTestCase(BaseTestCase):
         """
         question.question_id = 1
         result_payload = question.filter_by()
-        self.assertEqual(len(list(result_payload.keys())), 2)
+        self.assertEqual(len(list(result_payload.keys())), 3)
 
     def test_model_question_filter_by_unexpected_edgecase(self):
         """

@@ -1,8 +1,8 @@
 
 import unittest
 from .base import BaseTestCase
-from ..migrations.db import Database
-from ..migrations.initial1 import create_tables_commands
+from app.migrations.db import Database
+from app.migrations.initial1 import create_tables_commands
 
 
 class DatabaseTestCase(BaseTestCase):

@@ -1,7 +1,7 @@
 import unittest
 from .base import BaseTestCase
-from ..answers.models import Answer
-from ..questions.models import Question
+from app.answers.models import Answer
+from app.questions.models import Question
 
 answer = Answer()
 question = Question()

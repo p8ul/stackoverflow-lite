@@ -1,6 +1,5 @@
 import unittest
-from .. import create_app
-from ..utils import decode_auth_token
+from app import create_app
 from config import BaseConfig
 
 

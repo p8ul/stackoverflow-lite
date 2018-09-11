@@ -1,6 +1,6 @@
 
 import unittest
-from app.tests.base import BaseTestCase
+from .base import BaseTestCase
 from app.comments.models import Comment
 
 comment = Comment()

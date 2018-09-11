@@ -1,8 +1,8 @@
 import unittest
 from .base import BaseTestCase
-from ..votes.models import Vote
-from ..answers.models import Answer
-from ..questions.models import Question
+from app.votes.models import Vote
+from app.answers.models import Answer
+from app.questions.models import Question
 
 answer = Answer()
 question = Question()

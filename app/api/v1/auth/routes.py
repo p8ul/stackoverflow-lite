@@ -35,7 +35,7 @@ class RegisterAPI(MethodView):
         except Exception as e:
             print(e)
             response_object = {
-                'message': 'Some error occurred. Please try again.'
+                'error': 'Some error occurred. Please try again.'
             }
             return make_response(jsonify(response_object)), 401
 
@@ -66,7 +66,7 @@ class LoginAPI(MethodView):
                 if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
                     auth_token = encode_auth_token(user[0].get('user_id'))
                 else:
-                    response_object = {'message': 'Password or email do not match.'}
+                    response_object = {'errors': 'Password or email do not match.'}
                     return make_response(jsonify(response_object)), 401
                 try:
                     if auth_token:
@@ -76,9 +76,9 @@ class LoginAPI(MethodView):
                         }
                         return make_response(jsonify(response_object)), 200
                 except Exception as e:
-                    return {"message": 'Error decoding token'}, 401
+                    return {"errors": 'Error decoding token'}, 401
             else:
-                response_object = {'message': 'User does not exist.'}
+                response_object = {'errors': 'User does not exist.'}
                 return make_response(jsonify(response_object)), 404
         except Exception as e:
             print(e)

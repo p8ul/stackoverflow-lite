@@ -1,4 +1,4 @@
-from app.tests.base import BaseTestCase
+from .base import BaseTestCase
 from app.auth.models import User
 
 user = User()

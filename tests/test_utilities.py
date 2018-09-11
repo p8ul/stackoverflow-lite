@@ -1,8 +1,8 @@
 
 import unittest
-from app.tests.base import BaseTestCase
+from .base import BaseTestCase
 from app.auth.blacklist import Blacklist
-from ..utils import (
+from app.utils import (
     encode_auth_token,
     db_config,
     valid_email,

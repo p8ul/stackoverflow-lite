@@ -67,6 +67,7 @@ class Question:
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur2 = con.cursor(cursor_factory=RealDictCursor)
+        cur3 = con.cursor(cursor_factory=RealDictCursor)
 
         try:
             query = """ 
@@ -86,15 +87,25 @@ class Question:
                 ( SELECT  count(*) from votes 
                 WHERE votes.answer_id=answers.answer_id AND vote=false ) 
                 as downVotes
-                FROM answers WHERE answers.question_id=%s 
+                FROM answers WHERE answers.question_id=%s
             """
 
             cur2.execute(query % self.question_id)
             answers_queryset_list = cur2.fetchall()
 
+            query = """
+                SELECT comment_body, answer_id, created_at,
+                 (select username from users WHERE users.user_id=comments.user_id) as username
+                FROM comments WHERE answer_id IN 
+                (SELECT answer_id FROM answers WHERE question_id=%s)
+            """
+            cur3.execute(query % self.question_id)
+            comments_query_list = cur3.fetchall()
+
             queryset_list = {
                 'question': questions_queryset_list,
-                'answers': answers_queryset_list
+                'answers': answers_queryset_list,
+                'comments': comments_query_list
             }
         except Exception as e:
             print(e)

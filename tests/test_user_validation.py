@@ -1,5 +1,5 @@
 from .base import BaseTestCase
-from ..auth.validatons import validate_user_details
+from app.auth.validatons import validate_user_details
 
 
 class TestUserTestCase(BaseTestCase):
