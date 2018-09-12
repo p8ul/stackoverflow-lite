@@ -19,7 +19,7 @@ class Answer:
         self.answer_body = data.get('answer_body')
         self.question_id = data.get('question_id')
         self.answer_id = data.get('answer_id')
-        self.accepted = data.get('accepted')
+        self.accepted = data.get('accepted', None)
         self.user_id = data.get('user_id')
 
     def save(self):
@@ -32,7 +32,7 @@ class Answer:
         try:
             query = "INSERT INTO answers " \
                     "(user_id, answer_body, question_id) VALUES (%s, %s, %s)" \
-                    " RETURNING question_id, answer_id, answer_body, created_at; "
+                    " RETURNING question_id, answer_id, answer_body, accepted, created_at; "
             cur.execute(query, (self.user_id, self.answer_body, self.question_id))
             con.commit()
             response = cur.fetchone()
@@ -49,7 +49,7 @@ class Answer:
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
         cur.execute(
-            """ SELECT question_id, answer_id, answer_body, created_at, 
+            """ SELECT question_id, answer_id, answer_body, accepted, created_at, 
                 ( SELECT  count(*) from votes 
                 WHERE votes.answer_id=answers.answer_id AND vote=true ) 
                 as upVotes,
@@ -69,7 +69,7 @@ class Answer:
         try:
             con = psycopg2.connect(**self.config)
             cur = con.cursor(cursor_factory=RealDictCursor)
-            query = "SELECT question_id, answer_id, answer_body, created_at FROM answers WHERE answer_id={}"
+            query = "SELECT question_id, answer_id, answer_body, accepted, created_at FROM answers WHERE answer_id={}"
             cur.execute(query.format(self.answer_id))
             queryset_list = cur.fetchall()
             con.close()
@@ -104,26 +104,28 @@ class Answer:
             return False
 
     def update(self):
+        response = {'result': False}
         try:
-            response = {}
             answer_author = self.answer_author()[0].get('user_id')
             question_author = self.question_author()[0].get('user_id')
             # current user is the answer author
             if int(answer_author) == int(self.user_id):
                 # update answer
-                response['result'] = True if self.update_answer() else False
-                if not response['result']:
-                    response['errors'] = 'Please provide correct answer and question id'
+                if self.answer_body:
+                    response['result'] = True if self.update_answer() else False
+                    if not response['result']:
+                        response['errors'] = 'Please provide correct answer and question id'
 
             # current user is question author
-            elif int(question_author) == int(self.user_id):
+            if int(question_author) == int(self.user_id):
                 # mark it as accepted
-                self.update_accept_field()
-                response['result'] = True if response else False
-                if not response['result']:
-                    response['errors'] = 'Please provide correct answer and question id'
+                if self.accepted == False or self.accepted == True:
+                    self.update_accept_field()
+                    response['result'] = True if response else False
+                    if not response['result']:
+                        response['errors'] = 'Please provide correct answer and question id'
             # other users
-            else:
+            if not response['result']:
                 response['errors'] = 'Unauthorized'
             return response
 
