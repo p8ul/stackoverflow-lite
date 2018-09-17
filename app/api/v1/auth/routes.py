@@ -26,7 +26,7 @@ class RegisterAPI(MethodView):
             return make_response(jsonify(response_object)), 404
         try:
             user = User(data).save()
-            auth_token = encode_auth_token(user.get('id')).decode()
+            auth_token = encode_auth_token(user.get('user_id')).decode()
             response_object = {
                 'message': 'Successfully registered.',
                 'auth_token': auth_token

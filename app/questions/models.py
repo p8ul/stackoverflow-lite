@@ -39,17 +39,29 @@ class Question:
         try:
             if not self.q:
                 cur.execute(
-                    " SELECT question_id, title, body, created_at, (SELECT username FROM users "
+                    " SELECT question_id, title, body, created_at,"
+                    " to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,"
+                    " (SELECT username FROM users "
                     " WHERE users.user_id=questions.user_id )  as username ,"
                     "( SELECT count(*) FROM "
-                    "answers WHERE answers.question_id=questions.question_id ) as "
-                    "answers_count FROM questions "
+                    "answers WHERE answers.question_id=questions.question_id ) as answers_count, "
+                    " ( SELECT COUNT(*) FROM votes WHERE votes.answer_id IN "
+                    " ( SELECT answer_id FROM answers WHERE answers.question_id=questions.question_id) "
+                    " ) as votes_count "
+                    " FROM questions "
                     " ORDER BY questions.created_at DESC"
                 )
             else:
-                query = " SELECT question_id, title, body, created_at, ( SELECT count(*) FROM "
-                query += "answers WHERE answers.question_id=questions.question_id ) as "
-                query += "answers_count FROM questions "
+                query = " SELECT question_id, title, body, created_at, "
+                query += " to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,"
+                query += " (SELECT username FROM users "
+                query += " WHERE users.user_id=questions.user_id )  as username , "
+                query += " ( SELECT count(*) FROM answers " \
+                         "WHERE answers.question_id=questions.question_id ) as answers_count, "
+                query += " ( SELECT COUNT(*) FROM votes WHERE votes.answer_id IN "
+                query += " ( SELECT answer_id FROM answers WHERE answers.question_id=questions.question_id) "
+                query += ") as votes_count "
+                query += " FROM questions "
                 query += " WHERE  body LIKE %s OR title LIKE %s  "
                 query += " ORDER BY questions.created_at"
                 cur.execute(query, ('%'+self.q+'%', '%'+self.q+'%'))
@@ -112,6 +124,32 @@ class Question:
         con.close()
         return queryset_list
 
+    def user_statistics(self):
+        """
+        Get users questions, answers and votes counts
+        :return: dict:
+        """
+        con, queryset_list = psycopg2.connect(**self.config), None
+        cur = con.cursor(cursor_factory=RealDictCursor)
+        cur.execute(
+            """
+                SELECT COUNT(question_id) as questions,  
+                (
+                 SELECT COUNT(answer_id) FROM answers
+                  WHERE answers.user_id=""" + self.user_id + """
+                ) as answers,
+                (
+                 SELECT COUNT(vote_id) FROM votes
+                  WHERE votes.user_id=""" + self.user_id + """
+                ) as votes
+                FROM questions
+                WHERE questions.user_id=""" + self.user_id + """
+            """
+        )
+        questions_queryset_list = cur.fetchall()
+        queryset_list = [questions_queryset_list]
+        return queryset_list
+
     def filter_by_user(self):
         """
         Selects question for specific user:default filters by current logged in user
@@ -121,8 +159,19 @@ class Question:
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
             cur.execute(
-                """ SELECT question_id, title, body, created_at FROM questions 
-                    WHERE questions.user_id=""" + self.user_id + """ ORDER BY questions.created_at """
+                """ 
+                SELECT question_id, title, body, created_at, 
+                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
+                ( SELECT  count(*) from answers 
+                WHERE answers.question_id=questions.question_id ) 
+                as answers_count,
+                ( 
+                 SELECT COUNT(*) FROM votes WHERE votes.answer_id IN 
+                 ( SELECT answer_id FROM answers WHERE answers.question_id=questions.question_id)
+                )
+                as votes_count
+                FROM questions 
+                WHERE questions.user_id=""" + self.user_id + """ ORDER BY questions.created_at DESC """
             )
             questions_queryset_list = cur.fetchall()
             queryset_list = {'question': questions_queryset_list}
