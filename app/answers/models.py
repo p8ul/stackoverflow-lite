@@ -105,10 +105,12 @@ class Answer:
             return False
 
     def update(self):
-        response = {'result': False}
+        response, answer_author, question_author = {'result': False}, 0, 0
         try:
-            answer_author = self.answer_author()[0].get('user_id')
-            question_author = self.question_author()[0].get('user_id')
+            if len(self.answer_author()) > 0:
+                answer_author = self.answer_author()[0].get('user_id')
+            if len(self.question_author()) > 0:
+                question_author = self.question_author()[0].get('user_id')
             # current user is the answer author
             if int(answer_author) == int(self.user_id):
                 # update answer

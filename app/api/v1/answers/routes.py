@@ -33,15 +33,15 @@ class AnswersAPIView(MethodView):
         data['answer_id'] = answer_id
         data['user_id'] = session.get('user_id')
 
-        question = Question(data)
+        answer = Answer(data)
         # check permission
-        if not question.question_author():
+        if len(answer.answer_author()) < 1:
             response_object = {
                 'message': 'Unauthorized'
             }
             return make_response(jsonify(response_object)), 401
 
-        response = Answer(data).delete()
+        response = answer.delete()
         if not response:
             response_object = {
                 'message': 'Answer id does not exist'
