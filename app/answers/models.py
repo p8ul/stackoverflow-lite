@@ -178,8 +178,8 @@ class Answer:
         con = psycopg2.connect(**self.config)
         cur = con.cursor(cursor_factory=RealDictCursor)
         try:
-            query = "DELETE FROM answers WHERE answer_id=%s"
-            cur.execute(query, self.answer_id)
+            query = "DELETE FROM answers WHERE answer_id={}"
+            cur.execute(query.format(self.answer_id))
             con.commit()
         except Exception as e:
             print(e)
