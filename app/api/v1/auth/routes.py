@@ -26,7 +26,7 @@ class RegisterAPI(MethodView):
             return make_response(jsonify(response_object)), 404
         try:
             user = User(data).save()
-            auth_token = encode_auth_token(user.get('user_id')).decode()
+            auth_token = encode_auth_token(user.get('user_id'), user.get('username')).decode()
             response_object = {
                 'message': 'Successfully registered.',
                 'auth_token': auth_token
@@ -64,7 +64,7 @@ class LoginAPI(MethodView):
             user = User(data).filter_by_email()
             if len(user) >= 1:
                 if b_crypt.check_password_hash(user[0].get('password'), data.get('password')):
-                    auth_token = encode_auth_token(user[0].get('user_id'))
+                    auth_token = encode_auth_token(user[0].get('user_id'), user[0].get('username'))
                 else:
                     response_object = {'errors': 'Password or email do not match.'}
                     return make_response(jsonify(response_object)), 401

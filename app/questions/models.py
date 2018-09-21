@@ -84,6 +84,7 @@ class Question:
         try:
             query = """ 
             SELECT question_id, title, body, created_at, 
+            to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
             (SELECT username FROM users WHERE users.user_id=questions.user_id )  as username,
              (SELECT COUNT(*) FROM answers WHERE answers.question_id=questions.question_id )  as answers 
             FROM questions WHERE questions.question_id=%s ORDER BY questions.created_at"""
@@ -91,7 +92,8 @@ class Question:
             questions_queryset_list = cur.fetchall()
 
             query = """
-                SELECT answer_body, answer_id, question_id, created_at,
+                SELECT answer_body, answer_id, question_id, accepted, created_at,
+                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
                 (select username from users WHERE users.user_id=answers.user_id) as username,
                 ( SELECT  count(*) from votes 
                 WHERE votes.answer_id=answers.answer_id AND vote=true ) 
@@ -107,6 +109,7 @@ class Question:
 
             query = """
                 SELECT comment_body, answer_id, created_at,
+                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
                  (select username from users WHERE users.user_id=comments.user_id) as username
                 FROM comments WHERE answer_id IN 
                 (SELECT answer_id FROM answers WHERE question_id=%s)
@@ -157,6 +160,7 @@ class Question:
         """
         con, queryset_list = psycopg2.connect(**self.config), None
         cur = con.cursor(cursor_factory=RealDictCursor)
+        cur2 = con.cursor(cursor_factory=RealDictCursor)
         try:
             cur.execute(
                 """ 
@@ -173,8 +177,29 @@ class Question:
                 FROM questions 
                 WHERE questions.user_id=""" + self.user_id + """ ORDER BY questions.created_at DESC """
             )
+
+            cur2.execute(
+                """
+                SELECT question_id, title, body, created_at, 
+                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
+                ( SELECT  count(*) from answers 
+                WHERE answers.question_id=questions.question_id ) 
+                as answers_count
+                FROM questions
+                WHERE questions.question_id IN
+                ( 
+                 SELECT question_id FROM answers 
+                 WHERE answers.user_id=""" + self.user_id + """
+                ) 
+                ORDER BY answers_count DESC
+                """
+            )
             questions_queryset_list = cur.fetchall()
-            queryset_list = {'question': questions_queryset_list}
+            most_answered_queryset_list = cur2.fetchall()
+            queryset_list = {
+                'question': questions_queryset_list,
+                'most_answers': most_answered_queryset_list
+            }
         except Exception as e:
             print(e)
         con.close()

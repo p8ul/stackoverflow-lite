@@ -72,17 +72,19 @@ def jwt_required(f):
     return decorated_function
 
 
-def encode_auth_token(user_id):
+def encode_auth_token(user_id, username=None):
     """
     Encodes a payload to generate JWT Token
     :param user_id: Logged in user Id
+    :param username: string: Logged in username
     :return: JWT token
     :TODO add secret key to app configuration
     """
     payload = {
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=31, seconds=130),
         'iat': datetime.datetime.utcnow(),
-        'sub': user_id
+        'sub': user_id,
+        'username': username
     }
     return jwt.encode(
         payload,

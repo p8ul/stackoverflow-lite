@@ -95,12 +95,13 @@ class Answer:
         try:
             con = psycopg2.connect(**self.config)
             cur = con.cursor(cursor_factory=RealDictCursor)
-            query = "SELECT user_id FROM answers WHERE answer_id=%s"
-            cur.execute(query, self.answer_id)
+            query = "SELECT user_id FROM answers WHERE answer_id={}"
+            cur.execute(query.format(self.answer_id))
             queryset_list = cur.fetchall()
             con.close()
             return queryset_list
         except Exception as e:
+            print(e)
             return False
 
     def update(self):
