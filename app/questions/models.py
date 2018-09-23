@@ -165,15 +165,15 @@ class Question:
             cur.execute(
                 """ 
                 SELECT question_id, title, body, created_at, 
-                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
-                ( SELECT  count(*) from answers 
-                WHERE answers.question_id=questions.question_id ) 
-                as answers_count,
-                ( 
-                 SELECT COUNT(*) FROM votes WHERE votes.answer_id IN 
-                 ( SELECT answer_id FROM answers WHERE answers.question_id=questions.question_id)
-                )
-                as votes_count
+                    to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
+                    ( SELECT  count(*) from answers 
+                    WHERE answers.question_id=questions.question_id ) 
+                    as answers_count,
+                    ( 
+                     SELECT COUNT(*) FROM votes WHERE votes.answer_id IN 
+                     ( SELECT answer_id FROM answers WHERE answers.question_id=questions.question_id)
+                    )
+                    as votes_count
                 FROM questions 
                 WHERE questions.user_id=""" + self.user_id + """ ORDER BY questions.created_at DESC """
             )
@@ -181,16 +181,17 @@ class Question:
             cur2.execute(
                 """
                 SELECT question_id, title, body, created_at, 
-                to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
-                ( SELECT  count(*) from answers 
-                WHERE answers.question_id=questions.question_id ) 
-                as answers_count
+                    to_char(created_at, 'DD-MM-YY HH12:MI:SS') as date,
+                    ( SELECT  count(*) from answers 
+                    WHERE answers.question_id=questions.question_id ) 
+                    as answers_count
                 FROM questions
                 WHERE questions.question_id IN
-                ( 
-                 SELECT question_id FROM answers 
-                 WHERE answers.user_id=""" + self.user_id + """
-                ) 
+                    ( 
+                     SELECT question_id FROM answers 
+                     WHERE answers.user_id=""" + self.user_id + """
+                    ) 
+                AND questions.user_id=""" + self.user_id + """
                 ORDER BY answers_count DESC
                 """
             )
