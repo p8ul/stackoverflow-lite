@@ -147,6 +147,18 @@ It takes a JSON object containing a question title and body.
 
 ## Update question collection [/questions/1]
 
+### User can retreive a question [GET]
+User can retreive a single question using this action.
+
++ Response 200 (application/json)
+
+        {
+            "results": {
+                "answers": [],
+                "question": [],
+                "comments": []
+            }
+        }
 
 ### User can update a question [PUT]
 User can update a question using this action.
