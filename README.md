@@ -103,8 +103,6 @@ Credits to [Avinash Tripathi](https://dribbble.com/nashatwork) for an awesome [S
 ### License
 [MIT LICENSE](https://github.com/p8ul/stackoverflow-lite/blob/develop/LICENSE)
 
-### Buy me coffee
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6WGR3AQ6GTWTL)
 
 ## Author
 Paul Kinuthia.
